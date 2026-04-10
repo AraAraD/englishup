@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EnglishUp — B1-B2</title>
+<link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Syne:wght@400;600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0d0f14;--surface:#14171f;--surface2:#1c2030;--border:rgba(255,255,255,0.07);--accent:#4fffb0;--accent2:#ff6b6b;--accent3:#ffd166;--accent4:#74b9ff;--text:#f0f2f7;--muted:#7a8499;--radius:16px;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:0.4;}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:12px;padding:10px 20px;background:rgba(13,15,20,0.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
+.logo{font-family:'Clash Display',sans-serif;font-size:19px;font-weight:700;color:var(--accent);letter-spacing:-0.5px;flex-shrink:0;}
+.logo span{color:var(--text);}
+.nav-tabs{display:flex;gap:2px;background:var(--surface2);border-radius:10px;padding:3px;overflow-x:auto;flex:1;}
+.nav-tab{padding:6px 11px;border-radius:7px;border:none;background:transparent;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;cursor:pointer;transition:all 0.2s;white-space:nowrap;}
+.nav-tab:hover{color:var(--text);}
+.nav-tab.active{background:var(--surface);color:var(--text);box-shadow:0 1px 6px rgba(0,0,0,0.25);}
+.profile-btn{flex-shrink:0;background:var(--surface2);border:1px solid var(--border);border-radius:10px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;padding:7px 14px;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;gap:6px;white-space:nowrap;}
+.profile-btn:hover{border-color:rgba(79,255,176,0.4);color:var(--accent);}
+
+/* SECTIONS — centered */
+.section{display:none;padding:36px 20px;max-width:1000px;margin:0 auto;position:relative;z-index:1;}
+.section.active{display:block;animation:fadeUp 0.35s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+.section-header{text-align:center;margin-bottom:32px;}
+.section-title{font-family:'Clash Display',sans-serif;font-size:32px;font-weight:700;margin-bottom:8px;letter-spacing:-1px;}
+.section-sub{color:var(--muted);font-size:14px;}
+.level-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(79,255,176,0.08);border:1px solid rgba(79,255,176,0.2);color:var(--accent);padding:4px 12px;border-radius:8px;font-size:12px;margin-bottom:12px;}
+.btn{padding:10px 22px;border-radius:10px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;transition:all 0.2s;}
+.btn-primary{background:var(--accent);color:#0d0f14;}
+.btn-primary:hover{box-shadow:0 0 20px rgba(79,255,176,0.35);transform:translateY(-1px);}
+.btn-ghost{background:var(--surface2);color:var(--text);}
+.btn-ghost:hover{background:var(--surface);}
+
+/* WORD MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);backdrop-filter:blur(8px);z-index:200;align-items:center;justify-content:center;padding:20px;}
+.modal-overlay.open{display:flex;}
+.modal{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:30px;max-width:480px;width:100%;position:relative;animation:fadeUp 0.3s ease;max-height:90vh;overflow-y:auto;}
+.modal-close{position:absolute;top:12px;right:12px;background:var(--surface2);border:none;color:var(--muted);width:28px;height:28px;border-radius:7px;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;}
+.modal-close:hover{color:var(--text);}
+.modal-word{font-family:'Clash Display',sans-serif;font-size:30px;font-weight:700;margin-bottom:3px;}
+.modal-ipa{color:var(--muted);font-size:13px;margin-bottom:7px;}
+.modal-pos{display:inline-block;background:var(--surface2);color:var(--muted);font-size:10px;padding:2px 8px;border-radius:5px;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:12px;}
+.modal-ru{font-size:18px;color:var(--accent);font-weight:500;margin-bottom:7px;}
+.modal-def{color:#c5cad9;font-size:13px;line-height:1.7;margin-bottom:16px;}
+.modal-ex-title{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:8px;}
+.modal-example{background:var(--surface2);border-radius:9px;padding:10px 12px;margin-bottom:7px;}
+.modal-example .en{font-size:13px;margin-bottom:2px;line-height:1.6;}
+.modal-example .en strong{color:var(--accent3);}
+.modal-example .ru{font-size:11px;color:var(--muted);}
+.modal-speak{background:none;border:1px solid var(--border);color:var(--muted);padding:7px 14px;border-radius:8px;cursor:pointer;font-size:12px;font-family:'DM Sans',sans-serif;transition:all 0.2s;margin-top:6px;}
+.modal-speak:hover{border-color:var(--accent3);color:var(--accent3);}
+
+/* VOCAB */
+.vocab-controls{display:flex;flex-direction:column;align-items:center;gap:10px;margin-bottom:18px;}
+.search-bar{width:100%;max-width:400px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:9px 14px;color:var(--text);font-size:14px;font-family:'DM Sans',sans-serif;outline:none;transition:border-color 0.2s;text-align:center;}
+.search-bar:focus{border-color:rgba(79,255,176,0.4);}
+.filter-bar{display:flex;gap:7px;flex-wrap:wrap;justify-content:center;}
+.filter-btn{padding:6px 13px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--muted);font-size:12px;cursor:pointer;transition:all 0.2s;font-family:'DM Sans',sans-serif;}
+.filter-btn:hover,.filter-btn.active{border-color:var(--accent);color:var(--accent);background:rgba(79,255,176,0.05);}
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:11px;}
+.word-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px 14px;cursor:pointer;transition:all 0.22s;position:relative;min-height:120px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;}
+.word-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent4));opacity:0;transition:opacity 0.2s;border-radius:var(--radius) var(--radius) 0 0;}
+.word-card:hover{border-color:rgba(79,255,176,0.3);transform:translateY(-2px);box-shadow:0 4px 20px rgba(0,0,0,0.3);}
+.word-card:hover::before{opacity:1;}
+.word-card .english{font-family:'Clash Display',sans-serif;font-size:17px;font-weight:600;margin-bottom:3px;}
+.word-card .transcription{color:var(--muted);font-size:11px;margin-bottom:4px;}
+.word-card .pos-badge{position:absolute;top:8px;right:8px;background:var(--surface2);color:var(--muted);font-size:9px;padding:2px 6px;border-radius:4px;text-transform:uppercase;}
+.word-tooltip{position:absolute;bottom:calc(100% + 7px);left:50%;transform:translateX(-50%);background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:5px 11px;white-space:nowrap;font-size:12px;color:var(--accent);pointer-events:none;opacity:0;transition:opacity 0.22s;z-index:50;box-shadow:0 4px 20px rgba(0,0,0,0.4);}
+.word-tooltip::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:var(--surface2);}
+.word-card:hover .word-tooltip{opacity:1;}
+
+/* QUIZ */
+.quiz-topic-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px;margin-bottom:24px;}
+.quiz-topic-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:22px;cursor:pointer;transition:all 0.2s;position:relative;overflow:hidden;}
+.quiz-topic-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;opacity:0;transition:opacity 0.2s;}
+.quiz-topic-card:hover{transform:translateY(-2px);}
+.quiz-topic-card:hover::before{opacity:1;}
+.qtc0::before{background:linear-gradient(90deg,var(--accent),var(--accent4));} .qtc0:hover{border-color:rgba(79,255,176,0.3);}
+.qtc1::before{background:linear-gradient(90deg,var(--accent3),var(--accent2));} .qtc1:hover{border-color:rgba(255,209,102,0.3);}
+.qtc2::before{background:linear-gradient(90deg,var(--accent4),var(--accent));} .qtc2:hover{border-color:rgba(116,185,255,0.3);}
+.qtc3::before{background:linear-gradient(90deg,var(--accent2),var(--accent3));} .qtc3:hover{border-color:rgba(255,107,107,0.3);}
+.qtc-icon{font-size:24px;margin-bottom:9px;} .qtc-title{font-family:'Clash Display',sans-serif;font-size:16px;font-weight:600;margin-bottom:4px;}
+.qtc-desc{color:var(--muted);font-size:12px;margin-bottom:8px;} .qtc-count{font-size:10px;color:var(--muted);background:var(--surface2);display:inline-block;padding:2px 7px;border-radius:4px;}
+.quiz-container{max-width:640px;margin:0 auto;}
+.quiz-header{display:flex;align-items:center;gap:10px;margin-bottom:18px;}
+.quiz-back{background:var(--surface2);border:none;color:var(--muted);padding:6px 12px;border-radius:7px;cursor:pointer;font-size:12px;font-family:'DM Sans',sans-serif;transition:all 0.2s;}
+.quiz-back:hover{color:var(--text);}
+.quiz-topic-label{font-family:'Syne',sans-serif;font-size:14px;font-weight:600;}
+.quiz-progress{display:flex;gap:4px;margin-bottom:22px;}
+.quiz-dot{height:4px;flex:1;border-radius:2px;background:var(--surface2);transition:background 0.3s;}
+.quiz-dot.done{background:var(--accent);} .quiz-dot.current{background:var(--accent4);}
+.quiz-question{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:26px;margin-bottom:12px;}
+.quiz-q-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;}
+.quiz-q-text{font-family:'Syne',sans-serif;font-size:16px;font-weight:600;line-height:1.6;}
+.quiz-q-text em{font-style:normal;color:var(--accent3);border-bottom:2px dashed var(--accent3);}
+.quiz-options{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.quiz-opt{padding:12px 14px;border-radius:10px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-size:13px;font-weight:500;cursor:pointer;transition:all 0.18s;text-align:left;font-family:'DM Sans',sans-serif;}
+.quiz-opt:hover{border-color:var(--accent4);background:rgba(116,185,255,0.05);}
+.quiz-opt.correct{border-color:var(--accent);background:rgba(79,255,176,0.08);color:var(--accent);}
+.quiz-opt.wrong{border-color:var(--accent2);background:rgba(255,107,107,0.08);color:var(--accent2);}
+.quiz-score{display:none;text-align:center;padding:40px 20px;}
+.quiz-score.show{display:block;}
+.quiz-score-num{font-family:'Clash Display',sans-serif;font-size:64px;font-weight:700;color:var(--accent);}
+.quiz-score-label{font-size:15px;margin-bottom:14px;color:var(--muted);}
+
+/* GRAMMAR */
+.grammar-layout{display:grid;grid-template-columns:210px 1fr;gap:16px;}
+.grammar-menu{display:flex;flex-direction:column;gap:2px;}
+.grammar-menu-item{padding:9px 12px;border-radius:8px;background:transparent;border:none;color:var(--muted);font-size:12px;cursor:pointer;text-align:left;transition:all 0.2s;font-family:'DM Sans',sans-serif;display:flex;align-items:center;gap:8px;}
+.grammar-menu-item .dot{width:5px;height:5px;border-radius:50%;background:var(--surface2);flex-shrink:0;}
+.grammar-menu-item:hover{color:var(--text);background:var(--surface);}
+.grammar-menu-item.active{color:var(--accent);background:rgba(79,255,176,0.06);}
+.grammar-menu-item.active .dot{background:var(--accent);}
+.grammar-content{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:26px;display:none;}
+.grammar-content.active{display:block;animation:fadeUp 0.3s ease;}
+.grammar-content h2{font-family:'Clash Display',sans-serif;font-size:21px;font-weight:700;margin-bottom:6px;}
+.grammar-content p{color:#c5cad9;line-height:1.8;margin-bottom:10px;font-size:13px;}
+.grammar-rule{background:var(--surface2);border-left:3px solid var(--accent4);border-radius:0 8px 8px 0;padding:11px 14px;margin:11px 0;font-size:13px;}
+.grammar-rule .lbl{font-size:9px;color:var(--accent4);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px;}
+.grammar-when{background:rgba(79,255,176,0.05);border:1px solid rgba(79,255,176,0.15);border-radius:8px;padding:11px 14px;margin:10px 0;}
+.grammar-when .lbl{font-size:9px;color:var(--accent);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px;}
+.grammar-when p{color:#c5cad9;font-size:13px;margin:0;}
+.grammar-why{background:rgba(255,209,102,0.05);border:1px solid rgba(255,209,102,0.15);border-radius:8px;padding:11px 14px;margin:10px 0;}
+.grammar-why .lbl{font-size:9px;color:var(--accent3);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px;}
+.grammar-why p{color:#c5cad9;font-size:13px;margin:0;}
+.ex-list{list-style:none;display:flex;flex-direction:column;gap:6px;margin:10px 0;}
+.ex-item{background:var(--surface2);border-radius:8px;padding:9px 11px;font-size:12px;line-height:1.6;}
+.ex-item .en{color:var(--text);margin-bottom:2px;} .ex-item .en strong{color:var(--accent3);}
+.ex-item .ru{color:var(--muted);font-size:11px;}
+
+/* AUDIO */
+.audio-cards{display:flex;flex-direction:column;gap:12px;max-width:800px;margin:0 auto;}
+.audio-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px;transition:border-color 0.2s;}
+.audio-card.playing{border-color:rgba(79,255,176,0.35);}
+.audio-top{display:flex;align-items:center;gap:14px;}
+.audio-play-btn{width:44px;height:44px;border-radius:50%;flex-shrink:0;background:linear-gradient(135deg,var(--accent),var(--accent4));border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px;transition:transform 0.2s,box-shadow 0.2s;}
+.audio-play-btn:hover{transform:scale(1.07);box-shadow:0 0 16px rgba(79,255,176,0.3);}
+.audio-title{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin-bottom:2px;}
+.audio-meta{color:var(--muted);font-size:11px;margin-bottom:8px;}
+.audio-waveform{height:26px;background:var(--surface2);border-radius:6px;display:flex;align-items:center;gap:2px;padding:0 6px;overflow:hidden;}
+.audio-waveform .bar{width:3px;border-radius:2px;}
+.audio-card.playing .bar{animation:barPulse 0.7s ease-in-out infinite alternate;}
+@keyframes barPulse{from{opacity:0.3;}to{opacity:1;}}
+.accordion{margin-top:11px;border-top:1px solid var(--border);padding-top:10px;}
+.acc-toggle{background:none;border:none;color:var(--muted);font-size:11px;cursor:pointer;font-family:'DM Sans',sans-serif;display:flex;align-items:center;gap:5px;transition:color 0.2s;padding:0;}
+.acc-toggle:hover{color:var(--text);}
+.acc-arr{transition:transform 0.2s;display:inline-block;}
+.acc-toggle.open .acc-arr{transform:rotate(180deg);}
+.acc-body{display:none;padding-top:9px;}
+.acc-body.open{display:block;animation:fadeUp 0.2s ease;}
+.vocab-chips{display:flex;flex-wrap:wrap;gap:6px;}
+.vocab-chip{background:var(--surface2);border-radius:6px;padding:5px 10px;font-size:12px;cursor:pointer;transition:all 0.2s;border:1px solid transparent;}
+.vocab-chip:hover{border-color:var(--accent4);color:var(--accent4);}
+.vocab-chip span{color:var(--muted);font-size:10px;margin-left:4px;}
+.pronun-sec-toggle{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:13px 16px;width:100%;max-width:800px;margin:20px auto 0;display:flex;text-align:left;cursor:pointer;font-family:'Syne',sans-serif;font-size:13px;font-weight:600;color:var(--text);justify-content:space-between;align-items:center;transition:border-color 0.2s;}
+.pronun-sec-toggle:hover{border-color:rgba(79,255,176,0.3);}
+.pronun-arr{transition:transform 0.2s;color:var(--muted);font-size:10px;}
+.pronun-sec-toggle.open .pronun-arr{transform:rotate(180deg);}
+.pronun-body{display:none;padding-top:12px;max-width:800px;margin:0 auto;}
+.pronun-body.open{display:block;animation:fadeUp 0.3s ease;}
+.pronun-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(145px,1fr));gap:9px;}
+.pronun-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:13px;text-align:center;transition:border-color 0.2s;}
+.pronun-card:hover{border-color:var(--accent3);}
+.pronun-word{font-size:15px;font-weight:600;margin-bottom:3px;} .pronun-ipa{color:var(--muted);font-size:10px;margin-bottom:6px;}
+.pronun-speak{background:var(--surface2);border:none;color:var(--accent3);padding:4px 10px;border-radius:5px;font-size:11px;cursor:pointer;font-family:'DM Sans',sans-serif;}
+
+/* PHRASES */
+.phrase-cats{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-bottom:18px;}
+.phrase-cat{padding:6px 13px;border-radius:9px;border:1px solid var(--border);background:var(--surface);color:var(--muted);font-size:12px;cursor:pointer;transition:all 0.2s;font-family:'DM Sans',sans-serif;}
+.phrase-cat:hover,.phrase-cat.active{background:rgba(255,107,107,0.08);border-color:var(--accent2);color:var(--accent2);}
+.phrases-list{display:flex;flex-direction:column;gap:7px;max-width:780px;margin:0 auto;}
+.phrase-item{background:var(--surface);border:1px solid var(--border);border-radius:11px;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;transition:border-color 0.2s;}
+.phrase-item:hover{border-color:rgba(255,107,107,0.25);}
+.phrase-en{font-size:13px;font-weight:500;margin-bottom:3px;} .phrase-ru{font-size:12px;color:var(--muted);}
+.phrase-context{font-size:10px;color:var(--accent2);background:rgba(255,107,107,0.08);padding:2px 8px;border-radius:5px;white-space:nowrap;align-self:flex-start;flex-shrink:0;}
+.phrase-speak-btn{background:none;border:none;color:var(--muted);font-size:15px;cursor:pointer;padding:5px;transition:color 0.2s;margin-left:7px;flex-shrink:0;}
+.phrase-speak-btn:hover{color:var(--accent3);}
+
+/* SPRINT */
+.sprint-opt{padding:12px 14px;border-radius:10px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-size:13px;font-weight:500;cursor:pointer;transition:all 0.18s;text-align:left;font-family:'DM Sans',sans-serif;width:100%;}
+.sprint-opt:hover{border-color:var(--accent4);background:rgba(116,185,255,0.06);}
+.sprint-opt.correct{border-color:var(--accent);background:rgba(79,255,176,0.1);color:var(--accent);pointer-events:none;}
+.sprint-opt.wrong{border-color:var(--accent2);background:rgba(255,107,107,0.1);color:var(--accent2);pointer-events:none;}
+
+/* BUILDER */
+.builder-word{background:var(--surface2);border:1px solid var(--border);border-radius:7px;padding:6px 12px;font-size:12px;cursor:pointer;transition:all 0.18s;user-select:none;display:inline-block;}
+.builder-word:hover{border-color:var(--accent4);color:var(--accent4);}
+.builder-word.placed{opacity:0.3;pointer-events:none;}
+.builder-word.in-zone{background:rgba(79,255,176,0.07);border-color:rgba(79,255,176,0.3);color:var(--accent);}
+.drop-zone{min-height:46px;border:2px dashed var(--border);border-radius:10px;padding:8px 12px;display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;transition:border-color 0.2s;}
+
+/* PROGRESS / PROFILE */
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px;}
+.stat-num{font-family:'Clash Display',sans-serif;font-size:36px;font-weight:700;}
+.stat-lbl{color:var(--muted);font-size:11px;margin-top:3px;}
+.stat-bar-wrap{height:5px;background:var(--surface2);border-radius:3px;margin-top:8px;}
+.stat-bar{height:100%;border-radius:3px;transition:width 0.7s ease;}
+.profile-avatar{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent4));display:flex;align-items:center;justify-content:center;font-size:36px;margin:0 auto 16px;}
+
+@media(max-width:768px){
+  nav{padding:8px 10px;gap:7px;}
+  .nav-tabs{gap:1px;}
+  .nav-tab{padding:5px 7px;font-size:10px;}
+  .profile-btn{padding:6px 10px;font-size:11px;}
+  .section{padding:18px 12px;}
+  .section-title{font-size:24px;}
+  .grammar-layout{grid-template-columns:1fr;}
+  .quiz-options{grid-template-columns:1fr;}
+  .audio-top{flex-direction:column;align-items:flex-start;}
+}
+</style>
+</head>
+<body>
+
+<!-- WORD MODAL -->
+<div class="modal-overlay" id="word-modal" onclick="if(event.target.id==='word-modal')document.getElementById('word-modal').classList.remove('open')">
+  <div class="modal" id="modal-inner"></div>
+</div>
+
+<nav>
+  <div class="logo">English<span>Up</span></div>
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="showSection('vocab',this)">📚 Словарь</button>
+    <button class="nav-tab" onclick="showSection('quiz',this)">🎯 Тест</button>
+    <button class="nav-tab" onclick="showSection('grammar',this)">📖 Грамматика</button>
+    <button class="nav-tab" onclick="showSection('audio',this)">🎧 Аудио</button>
+    <button class="nav-tab" onclick="showSection('phrases',this)">💬 Фразы</button>
+    <button class="nav-tab" onclick="showSection('sprint',this)">⏱ Спринт</button>
+    <button class="nav-tab" onclick="showSection('builder',this)">🔤 Составь</button>
+  </div>
+  <button class="profile-btn" onclick="showSection('progress',this)">👤 Профиль</button>
+</nav>
+
+<!-- VOCAB -->
+<div class="section active" id="section-vocab">
+  <div class="section-header">
+    <div class="level-badge">● B1–B2 Intermediate</div>
+    <div class="section-title">Словарь</div>
+    <div class="section-sub">Наведи — увидишь перевод. Нажми — откроется подробно с примерами.</div>
+  </div>
+  <div class="vocab-controls">
+    <input class="search-bar" id="vocab-search" type="text" placeholder="🔍 Поиск слова..." oninput="searchVocab(this.value)">
+    <div class="filter-bar">
+      <button class="filter-btn active" onclick="filterCards('all',this)">Все</button>
+      <button class="filter-btn" onclick="filterCards('verb',this)">Глаголы</button>
+      <button class="filter-btn" onclick="filterCards('noun',this)">Существительные</button>
+      <button class="filter-btn" onclick="filterCards('adj',this)">Прилагательные</button>
+      <button class="filter-btn" onclick="filterCards('adv',this)">Наречия</button>
+      <button class="filter-btn" onclick="filterCards('phrase',this)">Фразовые</button>
+    </div>
+  </div>
+  <div class="cards-grid" id="cards-grid"></div>
+</div>
+
+<!-- QUIZ -->
+<div class="section" id="section-quiz">
+  <div class="section-header">
+    <div class="section-title">Тест</div>
+    <div class="section-sub">Выбери тему и проверь свои знания</div>
+  </div>
+  <div id="quiz-select"></div>
+  <div id="quiz-game" style="display:none;">
+    <div class="quiz-header">
+      <button class="quiz-back" onclick="backToTopics()">← Темы</button>
+      <div class="quiz-topic-label" id="quiz-label"></div>
+    </div>
+    <div class="quiz-container">
+      <div class="quiz-progress" id="quiz-progress"></div>
+      <div id="quiz-body"></div>
+      <div class="quiz-score" id="quiz-score">
+        <div class="quiz-score-num" id="score-num"></div>
+        <div class="quiz-score-label">Правильных ответов</div>
+        <p id="score-msg" style="color:var(--muted);margin-bottom:18px;font-size:13px;"></p>
+        <button class="btn btn-primary" style="margin-right:8px;" onclick="restartQuiz()">Ещё раз</button>
+        <button class="btn btn-ghost" onclick="backToTopics()">Выбрать тему</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- GRAMMAR -->
+<div class="section" id="section-grammar">
+  <div class="section-header">
+    <div class="section-title">Грамматика</div>
+    <div class="section-sub">Что это, когда и зачем — с примерами</div>
+  </div>
+  <div class="grammar-layout">
+    <div class="grammar-menu" id="grammar-menu"></div>
+    <div id="grammar-area"></div>
+  </div>
+</div>
+
+<!-- AUDIO -->
+<div class="section" id="section-audio">
+  <div class="section-header">
+    <div class="section-title">Аудирование</div>
+    <div class="section-sub">Нажми ▶ чтобы слушать, ещё раз — остановить</div>
+  </div>
+  <div class="audio-cards" id="audio-cards"></div>
+  <div style="text-align:center;">
+    <button class="pronun-sec-toggle" id="pronun-toggle" onclick="togglePronun()">
+      🗣 Произношение слов <span class="pronun-arr">▼</span>
+    </button>
+    <div class="pronun-body" id="pronun-body">
+      <div class="pronun-grid" id="pronun-grid"></div>
+    </div>
+  </div>
+</div>
+
+<!-- PHRASES -->
+<div class="section" id="section-phrases">
+  <div class="section-header">
+    <div class="section-title">Фразы и разговорник</div>
+    <div class="section-sub">Реальные выражения для жизни, учёбы и общения</div>
+  </div>
+  <div class="phrase-cats" id="phrase-cats"></div>
+  <div class="phrases-list" id="phrases-list"></div>
+</div>
+
+<!-- SPRINT -->
+<div class="section" id="section-sprint">
+  <div class="section-header">
+    <div class="section-title">⏱ Спринт</div>
+    <div class="section-sub">60 секунд — переводи как можно больше слов!</div>
+  </div>
+  <div style="display:flex;justify-content:center;">
+    <div id="sprint-lobby" style="max-width:440px;width:100%;">
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:36px;text-align:center;">
+        <div style="font-size:52px;margin-bottom:12px;">🚀</div>
+        <div style="font-family:'Clash Display',sans-serif;font-size:20px;font-weight:700;margin-bottom:8px;">Режим Спринт</div>
+        <div style="color:var(--muted);font-size:13px;margin-bottom:22px;line-height:1.7;">Тебе будет показано слово на английском.<br>Выбери правильный перевод как можно быстрее.<br>За каждый верный ответ +1 очко.</div>
+        <button class="btn btn-primary" onclick="startSprint()">Начать Спринт</button>
+      </div>
+    </div>
+    <div id="sprint-game" style="display:none;max-width:500px;width:100%;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+        <div style="font-family:'Clash Display',sans-serif;font-size:24px;font-weight:700;color:var(--accent);" id="sprint-score-live">0</div>
+        <div style="background:var(--surface2);border-radius:8px;padding:6px 16px;font-family:'Syne',sans-serif;font-size:18px;font-weight:700;" id="sprint-timer">60</div>
+      </div>
+      <div style="height:4px;background:var(--surface2);border-radius:2px;margin-bottom:20px;overflow:hidden;">
+        <div id="sprint-bar" style="height:100%;width:100%;background:var(--accent);border-radius:2px;transition:width 1s linear;"></div>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:28px;text-align:center;margin-bottom:14px;">
+        <div id="sprint-word" style="font-family:'Clash Display',sans-serif;font-size:30px;font-weight:700;margin-bottom:6px;"></div>
+        <div id="sprint-ipa" style="color:var(--muted);font-size:12px;"></div>
+      </div>
+      <div id="sprint-opts" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;"></div>
+    </div>
+    <div id="sprint-result" style="display:none;max-width:440px;width:100%;text-align:center;padding:40px 20px;">
+      <div style="font-size:52px;margin-bottom:9px;" id="sprint-emoji">🎉</div>
+      <div style="font-family:'Clash Display',sans-serif;font-size:64px;font-weight:700;color:var(--accent);" id="sprint-final"></div>
+      <div style="color:var(--muted);font-size:14px;margin-bottom:6px;">очков за 60 секунд</div>
+      <div style="color:var(--muted);font-size:12px;margin-bottom:22px;" id="sprint-best-msg"></div>
+      <button class="btn btn-primary" onclick="startSprint()">Сыграть ещё раз</button>
+    </div>
+  </div>
+</div>
+
+<!-- BUILDER -->
+<div class="section" id="section-builder">
+  <div class="section-header">
+    <div class="section-title">🔤 Составь предложение</div>
+    <div class="section-sub">Расставь слова в правильном порядке</div>
+  </div>
+  <div style="max-width:640px;margin:0 auto;">
+    <div id="builder-progress-row" style="display:flex;gap:4px;margin-bottom:20px;"></div>
+    <div id="builder-card" style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;">
+      <div id="builder-label" style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:9px;"></div>
+      <div id="builder-hint" style="font-size:13px;color:#c5cad9;line-height:1.7;margin-bottom:16px;"></div>
+      <div class="drop-zone" id="drop-zone"></div>
+      <div id="word-bank" style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;"></div>
+      <div style="display:flex;gap:7px;flex-wrap:wrap;">
+        <button class="btn btn-primary" onclick="checkBuilder()">Проверить</button>
+        <button class="btn btn-ghost" onclick="resetBuilder()">Сбросить</button>
+        <button class="btn btn-ghost" onclick="skipBuilder()">Пропустить →</button>
+      </div>
+      <div id="builder-fb" style="display:none;margin-top:12px;padding:10px 13px;border-radius:8px;font-size:13px;"></div>
+    </div>
+    <div id="builder-done" style="display:none;text-align:center;padding:40px 20px;">
+      <div style="font-size:48px;margin-bottom:12px;">🏆</div>
+      <div style="font-family:'Clash Display',sans-serif;font-size:24px;font-weight:700;margin-bottom:8px;">Все предложения пройдены!</div>
+      <div style="color:var(--muted);margin-bottom:20px;" id="builder-done-score"></div>
+      <button class="btn btn-primary" onclick="initBuilder()">Начать заново</button>
+    </div>
+  </div>
+</div>
+
+<!-- PROFILE / PROGRESS -->
+<div class="section" id="section-progress">
+  <div class="section-header">
+    <div class="profile-avatar">👤</div>
+    <div class="section-title">Мой профиль</div>
+    <div class="section-sub">Статистика и прогресс обучения</div>
+  </div>
+  <div id="stat-cards" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:12px;margin-bottom:24px;max-width:800px;margin-left:auto;margin-right:auto;"></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:800px;margin:0 auto;">
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;">
+      <div style="font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin-bottom:12px;">🎯 Результаты тестов</div>
+      <div id="stat-quiz-list"></div>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;">
+      <div style="font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin-bottom:12px;">⏱ Рекорд спринта</div>
+      <div id="stat-sprint"></div>
+      <div style="font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin:16px 0 12px;">🔤 Сборщик предложений</div>
+      <div id="stat-builder"></div>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top:20px;">
+    <button class="btn btn-ghost" onclick="resetProgress()" style="font-size:12px;color:var(--muted);">🗑 Сбросить статистику</button>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════
+// DATA — 100 WORDS
+// ═══════════════════════════════════════════
+const words = [
+  // VERBS (30)
+  {en:'accomplish',tr:'əˈkʌmplɪʃ',ru:'достигать, выполнять',pos:'verb',def:'To successfully achieve or complete something.',ex:[{en:'She <strong>accomplished</strong> all her goals this year.',ru:'Она достигла всех своих целей.'},{en:"It's hard to <strong>accomplish</strong> anything without focus.",ru:'Трудно чего-то добиться без концентрации.'}]},
+  {en:'contribute',tr:'kənˈtrɪbjuːt',ru:'вносить вклад',pos:'verb',def:'To give something to help achieve a goal.',ex:[{en:'Everyone should <strong>contribute</strong> to society.',ru:'Каждый должен вносить вклад в общество.'},{en:'She <strong>contributed</strong> greatly to the project.',ru:'Она внесла большой вклад в проект.'}]},
+  {en:'demonstrate',tr:'ˈdemənstreɪt',ru:'демонстрировать',pos:'verb',def:'To show clearly that something is true or how it works.',ex:[{en:'He <strong>demonstrated</strong> how the app works.',ru:'Он показал как работает приложение.'},{en:'The results <strong>demonstrate</strong> the effectiveness.',ru:'Результаты демонстрируют эффективность.'}]},
+  {en:'evaluate',tr:'ɪˈvæljueɪt',ru:'оценивать',pos:'verb',def:'To carefully consider something to judge its value.',ex:[{en:'Teachers <strong>evaluate</strong> students regularly.',ru:'Учителя регулярно оценивают студентов.'},{en:'We need to <strong>evaluate</strong> the risks first.',ru:'Сначала нужно оценить риски.'}]},
+  {en:'overcome',tr:'ˌoʊvərˈkʌm',ru:'преодолевать',pos:'verb',def:'To succeed in dealing with a problem.',ex:[{en:'She <strong>overcame</strong> her fear of public speaking.',ru:'Она преодолела страх выступлений.'},{en:'You must <strong>overcome</strong> obstacles to grow.',ru:'Нужно преодолевать препятствия.'}]},
+  {en:'acknowledge',tr:'əkˈnɒlɪdʒ',ru:'признавать',pos:'verb',def:'To accept that something is true.',ex:[{en:'She <strong>acknowledged</strong> her mistake.',ru:'Она признала свою ошибку.'},{en:'He <strong>acknowledged</strong> receiving the email.',ru:'Он подтвердил получение письма.'}]},
+  {en:'implement',tr:'ˈɪmplɪment',ru:'внедрять, реализовывать',pos:'verb',def:'To put a plan into action.',ex:[{en:'The school will <strong>implement</strong> a new policy.',ru:'Школа введёт новую политику.'},{en:'They <strong>implemented</strong> the changes quickly.',ru:'Они быстро внедрили изменения.'}]},
+  {en:'generate',tr:'ˈdʒenəreɪt',ru:'создавать, порождать',pos:'verb',def:'To produce or create something.',ex:[{en:'The project <strong>generated</strong> a lot of interest.',ru:'Проект вызвал большой интерес.'},{en:'Solar panels <strong>generate</strong> electricity.',ru:'Солнечные панели вырабатывают электричество.'}]},
+  {en:'emphasise',tr:'ˈemfəsaɪz',ru:'подчёркивать',pos:'verb',def:'To give special importance to something.',ex:[{en:'The teacher <strong>emphasised</strong> the importance of reading.',ru:'Учитель подчеркнул важность чтения.'},{en:'I want to <strong>emphasise</strong> this point.',ru:'Хочу подчеркнуть этот момент.'}]},
+  {en:'distinguish',tr:'dɪˈstɪŋɡwɪʃ',ru:'различать',pos:'verb',def:'To recognise the difference between things.',ex:[{en:'Can you <strong>distinguish</strong> these two colours?',ru:'Можешь различить эти два цвета?'},{en:"It's important to <strong>distinguish</strong> fact from opinion.",ru:'Важно отличать факт от мнения.'}]},
+  {en:'negotiate',tr:'nɪˈɡoʊʃieɪt',ru:'вести переговоры',pos:'verb',def:'To discuss something to reach an agreement.',ex:[{en:'We need to <strong>negotiate</strong> the terms.',ru:'Нам нужно обсудить условия.'},{en:'She is skilled at <strong>negotiating</strong>.',ru:'Она умеет вести переговоры.'}]},
+  {en:'anticipate',tr:'ænˈtɪsɪpeɪt',ru:'предвидеть, ожидать',pos:'verb',def:'To expect or predict something before it happens.',ex:[{en:'We did not <strong>anticipate</strong> the problem.',ru:'Мы не предвидели проблему.'},{en:'She <strong>anticipated</strong> his reaction.',ru:'Она предвидела его реакцию.'}]},
+  {en:'clarify',tr:'ˈklærɪfaɪ',ru:'уточнять, прояснять',pos:'verb',def:'To make something easier to understand.',ex:[{en:'Could you <strong>clarify</strong> what you mean?',ru:'Не могли бы вы уточнить свою мысль?'},{en:'Let me <strong>clarify</strong> the instructions.',ru:'Позвольте мне прояснить инструкции.'}]},
+  {en:'collaborate',tr:'kəˈlæbəreɪt',ru:'сотрудничать',pos:'verb',def:'To work together with someone.',ex:[{en:'We need to <strong>collaborate</strong> on this project.',ru:'Нам нужно сотрудничать по этому проекту.'},{en:'They <strong>collaborated</strong> with a foreign team.',ru:'Они сотрудничали с иностранной командой.'}]},
+  {en:'maintain',tr:'meɪnˈteɪn',ru:'поддерживать, сохранять',pos:'verb',def:'To keep something in good condition or at a certain level.',ex:[{en:'It is hard to <strong>maintain</strong> focus all day.',ru:'Трудно поддерживать концентрацию весь день.'},{en:'We must <strong>maintain</strong> high standards.',ru:'Мы должны поддерживать высокие стандарты.'}]},
+  {en:'pursue',tr:'pəˈsjuː',ru:'преследовать, стремиться',pos:'verb',def:'To follow or try to achieve something.',ex:[{en:'She decided to <strong>pursue</strong> a career in medicine.',ru:'Она решила заниматься медициной.'},{en:'He <strong>pursues</strong> his goals with determination.',ru:'Он преследует свои цели с решимостью.'}]},
+  {en:'reflect',tr:'rɪˈflekt',ru:'отражать, размышлять',pos:'verb',def:'To think carefully about something.',ex:[{en:'Take time to <strong>reflect</strong> on your choices.',ru:'Найди время поразмышлять о своих решениях.'},{en:'The poem <strong>reflects</strong> her emotions.',ru:'Стихотворение отражает её чувства.'}]},
+  {en:'rely',tr:'rɪˈlaɪ',ru:'полагаться, рассчитывать',pos:'verb',def:'To depend on someone or something.',ex:[{en:'You can <strong>rely</strong> on me.',ru:'Ты можешь на меня положиться.'},{en:'We <strong>rely</strong> on technology for many things.',ru:'Мы зависим от технологий во многих вещах.'}]},
+  {en:'resolve',tr:'rɪˈzɒlv',ru:'решать, урегулировать',pos:'verb',def:'To find a solution to a problem.',ex:[{en:'We need to <strong>resolve</strong> this issue quickly.',ru:'Нам нужно быстро решить эту проблему.'},{en:'The conflict was <strong>resolved</strong> peacefully.',ru:'Конфликт был урегулирован мирно.'}]},
+  {en:'restrict',tr:'rɪˈstrɪkt',ru:'ограничивать',pos:'verb',def:'To limit something.',ex:[{en:'The new law <strong>restricts</strong> phone use while driving.',ru:'Новый закон ограничивает использование телефона за рулём.'},{en:'Access was <strong>restricted</strong> to staff only.',ru:'Доступ был ограничен только для персонала.'}]},
+  {en:'suggest',tr:'səˈdʒest',ru:'предлагать, предположить',pos:'verb',def:'To put forward an idea for consideration.',ex:[{en:'I <strong>suggest</strong> we meet on Monday.',ru:'Я предлагаю встретиться в понедельник.'},{en:'The data <strong>suggests</strong> a positive trend.',ru:'Данные указывают на положительную тенденцию.'}]},
+  {en:'assume',tr:'əˈsjuːm',ru:'предполагать, допускать',pos:'verb',def:'To accept that something is true without proof.',ex:[{en:"Don't <strong>assume</strong> you know the answer.",ru:'Не думай, что знаешь ответ.'},{en:'I <strong>assumed</strong> the meeting was cancelled.',ru:'Я предположил, что встреча была отменена.'}]},
+  {en:'expose',tr:'ɪkˈspoʊz',ru:'раскрывать, подвергать',pos:'verb',def:'To show or reveal something hidden.',ex:[{en:'The article <strong>exposed</strong> corruption in the government.',ru:'Статья раскрыла коррупцию в правительстве.'},{en:'Children should be <strong>exposed</strong> to different cultures.',ru:'Дети должны знакомиться с разными культурами.'}]},
+  {en:'adapt',tr:'əˈdæpt',ru:'адаптироваться, приспосабливаться',pos:'verb',def:'To change to suit a new situation.',ex:[{en:'You need to <strong>adapt</strong> to new environments.',ru:'Тебе нужно адаптироваться к новым условиям.'},{en:'The book was <strong>adapted</strong> into a film.',ru:'Книга была адаптирована в фильм.'}]},
+  {en:'acquire',tr:'əˈkwaɪər',ru:'приобретать, получать',pos:'verb',def:'To obtain or learn something.',ex:[{en:'She <strong>acquired</strong> new skills at the workshop.',ru:'Она получила новые навыки на мастер-классе.'},{en:'The company <strong>acquired</strong> a smaller firm.',ru:'Компания приобрела более мелкую фирму.'}]},
+  {en:'challenge',tr:'ˈtʃælɪndʒ',ru:'оспаривать, бросать вызов',pos:'verb',def:'To question or test the limits of something.',ex:[{en:'She <strong>challenged</strong> the decision.',ru:'Она оспорила решение.'},{en:'He <strong>challenged</strong> himself to learn a new language.',ru:'Он поставил себе задачу выучить новый язык.'}]},
+  {en:'determine',tr:'dɪˈtɜːmɪn',ru:'определять, решать',pos:'verb',def:'To find out or decide something.',ex:[{en:'Scientists are trying to <strong>determine</strong> the cause.',ru:'Учёные пытаются определить причину.'},{en:'Your attitude <strong>determines</strong> your success.',ru:'Твоё отношение определяет твой успех.'}]},
+  {en:'engage',tr:'ɪnˈɡeɪdʒ',ru:'вовлекать, участвовать',pos:'verb',def:'To take part in an activity or attract someone\'s attention.',ex:[{en:'The teacher tried to <strong>engage</strong> all students.',ru:'Учитель пытался вовлечь всех студентов.'},{en:'He <strong>engaged</strong> in a lively debate.',ru:'Он участвовал в оживлённой дискуссии.'}]},
+  {en:'establish',tr:'ɪˈstæblɪʃ',ru:'устанавливать, основывать',pos:'verb',def:'To set up or create something.',ex:[{en:'They <strong>established</strong> a new company.',ru:'Они основали новую компанию.'},{en:'We need to <strong>establish</strong> clear rules.',ru:'Нам нужно установить чёткие правила.'}]},
+  {en:'investigate',tr:'ɪnˈvestɪɡeɪt',ru:'расследовать, изучать',pos:'verb',def:'To examine or study something in detail.',ex:[{en:'Police are <strong>investigating</strong> the case.',ru:'Полиция расследует дело.'},{en:'Scientists <strong>investigated</strong> the new drug.',ru:'Учёные изучили новый препарат.'}]},
+  // NOUNS (30)
+  {en:'assumption',tr:'əˈsʌmpʃən',ru:'предположение',pos:'noun',def:'Something you believe is true without proof.',ex:[{en:"Don't make <strong>assumptions</strong> about people.",ru:'Не делай предположений о людях.'},{en:'His <strong>assumption</strong> turned out to be wrong.',ru:'Его предположение оказалось ошибочным.'}]},
+  {en:'consequence',tr:'ˈkɒnsɪkwəns',ru:'последствие',pos:'noun',def:'A result or effect of an action.',ex:[{en:'Think about the <strong>consequences</strong>.',ru:'Думай о последствиях.'},{en:'As a <strong>consequence</strong>, he lost his job.',ru:'В результате он потерял работу.'}]},
+  {en:'perspective',tr:'pəˈspektɪv',ru:'точка зрения',pos:'noun',def:'A particular way of thinking about something.',ex:[{en:'Try to see it from a different <strong>perspective</strong>.',ru:'Попробуй взглянуть с другой стороны.'},{en:'Her <strong>perspective</strong> on life changed.',ru:'Её взгляд на жизнь изменился.'}]},
+  {en:'evidence',tr:'ˈevɪdəns',ru:'доказательство',pos:'noun',def:'Facts showing whether something is true.',ex:[{en:'There is strong <strong>evidence</strong> for this.',ru:'Есть веские доказательства этого.'},{en:'The police found no <strong>evidence</strong>.',ru:'Полиция не нашла улик.'}]},
+  {en:'obstacle',tr:'ˈɒbstəkəl',ru:'препятствие',pos:'noun',def:'Something that makes it difficult to achieve something.',ex:[{en:'Lack of money was the biggest <strong>obstacle</strong>.',ru:'Нехватка денег была главным препятствием.'},{en:'She saw every problem as an <strong>obstacle</strong>.',ru:'Она видела в каждой проблеме препятствие.'}]},
+  {en:'hypothesis',tr:'haɪˈpɒθɪsɪs',ru:'гипотеза',pos:'noun',def:'An idea that can be tested.',ex:[{en:'Scientists tested the <strong>hypothesis</strong>.',ru:'Учёные проверили гипотезу.'},{en:'Her <strong>hypothesis</strong> was supported by data.',ru:'Её гипотеза была подкреплена данными.'}]},
+  {en:'circumstance',tr:'ˈsɜːkəmstæns',ru:'обстоятельство',pos:'noun',def:'The conditions connected with an event.',ex:[{en:'Under the <strong>circumstances</strong>, she decided well.',ru:'В данных обстоятельствах она приняла верное решение.'},{en:'The <strong>circumstances</strong> are unusual.',ru:'Обстоятельства необычны.'}]},
+  {en:'controversy',tr:'ˈkɒntrəvɜːsɪ',ru:'разногласие, спор',pos:'noun',def:'A lot of public disagreement about something.',ex:[{en:'The decision caused <strong>controversy</strong>.',ru:'Решение вызвало споры.'},{en:'There is still <strong>controversy</strong> over the new law.',ru:'Новый закон всё ещё вызывает споры.'}]},
+  {en:'tendency',tr:'ˈtendənsɪ',ru:'склонность, тенденция',pos:'noun',def:'A likelihood that something will happen or that someone will behave in a certain way.',ex:[{en:'She has a <strong>tendency</strong> to talk too fast.',ru:'У неё есть склонность говорить слишком быстро.'},{en:'There is a <strong>tendency</strong> towards remote work.',ru:'Наблюдается тенденция к удалённой работе.'}]},
+  {en:'outcome',tr:'ˈaʊtkʌm',ru:'результат, исход',pos:'noun',def:'The final result of a process or action.',ex:[{en:'The <strong>outcome</strong> of the meeting was positive.',ru:'Результат встречи был положительным.'},{en:'We cannot predict the <strong>outcome</strong>.',ru:'Мы не можем предсказать исход.'}]},
+  {en:'priority',tr:'praɪˈɒrɪtɪ',ru:'приоритет',pos:'noun',def:'Something considered most important.',ex:[{en:'Health should be your top <strong>priority</strong>.',ru:'Здоровье должно быть твоим главным приоритетом.'},{en:'The project is a high <strong>priority</strong>.',ru:'Проект является приоритетным.'}]},
+  {en:'impact',tr:'ˈɪmpækt',ru:'влияние, воздействие',pos:'noun',def:'A strong effect or influence on something.',ex:[{en:'Technology has a huge <strong>impact</strong> on our lives.',ru:'Технологии оказывают огромное влияние на нашу жизнь.'},{en:'The <strong>impact</strong> of the decision was significant.',ru:'Влияние решения было значительным.'}]},
+  {en:'initiative',tr:'ɪˈnɪʃɪətɪv',ru:'инициатива',pos:'noun',def:'A new plan or action to solve a problem.',ex:[{en:'She took the <strong>initiative</strong> to organise the event.',ru:'Она взяла инициативу в организации мероприятия.'},{en:'The government launched a new <strong>initiative</strong>.',ru:'Правительство запустило новую инициативу.'}]},
+  {en:'recognition',tr:'ˌrekəɡˈnɪʃən',ru:'признание',pos:'noun',def:'The act of accepting something or someone officially.',ex:[{en:'His work finally received <strong>recognition</strong>.',ru:'Его работа наконец получила признание.'},{en:'Face <strong>recognition</strong> technology is widespread.',ru:'Технология распознавания лиц широко распространена.'}]},
+  {en:'commitment',tr:'kəˈmɪtmənt',ru:'обязательство, преданность',pos:'noun',def:'A promise or dedication to something.',ex:[{en:'She showed a strong <strong>commitment</strong> to her work.',ru:'Она проявила сильную преданность своей работе.'},{en:'Meeting deadlines shows <strong>commitment</strong>.',ru:'Соблюдение сроков показывает ответственность.'}]},
+  {en:'approach',tr:'əˈproʊtʃ',ru:'подход, метод',pos:'noun',def:'A way of dealing with something.',ex:[{en:'We need a different <strong>approach</strong> to this problem.',ru:'Нам нужен другой подход к этой проблеме.'},{en:'Her <strong>approach</strong> to teaching is creative.',ru:'Её подход к преподаванию творческий.'}]},
+  {en:'awareness',tr:'əˈweənɪs',ru:'осведомлённость',pos:'noun',def:'Knowledge or understanding of a situation.',ex:[{en:'There is growing <strong>awareness</strong> of climate change.',ru:'Растёт осведомлённость об изменении климата.'},{en:'Public <strong>awareness</strong> campaigns are effective.',ru:'Общественные информационные кампании эффективны.'}]},
+  {en:'demand',tr:'dɪˈmɑːnd',ru:'спрос, требование',pos:'noun',def:'A strong need or request for something.',ex:[{en:'There is high <strong>demand</strong> for skilled workers.',ru:'Есть большой спрос на квалифицированных работников.'},{en:'She made a <strong>demand</strong> for a pay rise.',ru:'Она потребовала повышения зарплаты.'}]},
+  {en:'diversity',tr:'daɪˈvɜːsɪtɪ',ru:'разнообразие',pos:'noun',def:'A range of many different things or people.',ex:[{en:'We celebrate cultural <strong>diversity</strong>.',ru:'Мы ценим культурное разнообразие.'},{en:'Biodiversity is crucial for our planet.',ru:'Биоразнообразие важно для нашей планеты.'}]},
+  {en:'efficiency',tr:'ɪˈfɪʃənsɪ',ru:'эффективность',pos:'noun',def:'The quality of doing something well without waste.',ex:[{en:'We need to improve our <strong>efficiency</strong>.',ru:'Нам нужно повысить нашу эффективность.'},{en:'The machine operates at high <strong>efficiency</strong>.',ru:'Машина работает с высокой эффективностью.'}]},
+  {en:'foundation',tr:'faʊnˈdeɪʃən',ru:'основа, фундамент',pos:'noun',def:'The base on which something is built.',ex:[{en:'Education is the <strong>foundation</strong> of success.',ru:'Образование — это основа успеха.'},{en:'The <strong>foundation</strong> of the building is solid.',ru:'Фундамент здания прочный.'}]},
+  {en:'limitation',tr:'ˌlɪmɪˈteɪʃən',ru:'ограничение',pos:'noun',def:'Something that restricts ability or freedom.',ex:[{en:'Every technology has its <strong>limitations</strong>.',ru:'У каждой технологии есть свои ограничения.'},{en:'We should recognise our own <strong>limitations</strong>.',ru:'Мы должны признавать свои ограничения.'}]},
+  {en:'opportunity',tr:'ˌɒpəˈtjuːnɪtɪ',ru:'возможность, шанс',pos:'noun',def:'A chance to do something.',ex:[{en:'This is a great <strong>opportunity</strong> for you.',ru:'Это отличная возможность для тебя.'},{en:'Don\'t miss this <strong>opportunity</strong>.',ru:'Не упусти этот шанс.'}]},
+  {en:'principle',tr:'ˈprɪnsɪpəl',ru:'принцип',pos:'noun',def:'A basic rule or belief that guides behaviour.',ex:[{en:'Honesty is one of his core <strong>principles</strong>.',ru:'Честность — один из его основных принципов.'},{en:'The <strong>principle</strong> of equality is important.',ru:'Принцип равенства важен.'}]},
+  {en:'resource',tr:'rɪˈzɔːs',ru:'ресурс',pos:'noun',def:'Something available and useful.',ex:[{en:'Water is a vital natural <strong>resource</strong>.',ru:'Вода — жизненно важный природный ресурс.'},{en:'We need more <strong>resources</strong> for the project.',ru:'Нам нужно больше ресурсов для проекта.'}]},
+  {en:'strategy',tr:'ˈstrætɪdʒɪ',ru:'стратегия',pos:'noun',def:'A plan for achieving a goal.',ex:[{en:'We need a better <strong>strategy</strong>.',ru:'Нам нужна лучшая стратегия.'},{en:'Marketing <strong>strategy</strong> is crucial for business.',ru:'Маркетинговая стратегия важна для бизнеса.'}]},
+  {en:'transition',tr:'trænˈzɪʃən',ru:'переход, переходный период',pos:'noun',def:'The process of changing from one state to another.',ex:[{en:'The <strong>transition</strong> to remote work was challenging.',ru:'Переход на удалённую работу был непростым.'},{en:'She made a smooth <strong>transition</strong> to her new role.',ru:'Она плавно перешла на новую должность.'}]},
+  {en:'challenge',tr:'ˈtʃælɪndʒ',ru:'вызов, трудность',pos:'noun',def:'Something difficult that requires effort.',ex:[{en:'Learning a new language is a big <strong>challenge</strong>.',ru:'Изучение нового языка — это большой вызов.'},{en:'Every <strong>challenge</strong> is an opportunity to grow.',ru:'Каждая трудность — это возможность расти.'}]},
+  {en:'concept',tr:'ˈkɒnsept',ru:'концепция, понятие',pos:'noun',def:'An idea or principle.',ex:[{en:'The <strong>concept</strong> of democracy is complex.',ru:'Концепция демократии сложна.'},{en:'I understand the basic <strong>concept</strong>.',ru:'Я понимаю основную концепцию.'}]},
+  {en:'debate',tr:'dɪˈbeɪt',ru:'дебаты, обсуждение',pos:'noun',def:'A formal discussion about a topic.',ex:[{en:'There was a heated <strong>debate</strong> about the proposal.',ru:'По поводу предложения развернулась жаркая дискуссия.'},{en:'The <strong>debate</strong> lasted for two hours.',ru:'Дебаты продолжались два часа.'}]},
+  // ADJECTIVES (20)
+  {en:'adequate',tr:'ˈædɪkwɪt',ru:'достаточный',pos:'adj',def:'Enough in quantity or quality.',ex:[{en:'The salary was barely <strong>adequate</strong>.',ru:'Зарплаты едва хватало.'},{en:'Make sure you have <strong>adequate</strong> preparation.',ru:'Убедись, что ты достаточно подготовлен.'}]},
+  {en:'beneficial',tr:'ˌbenɪˈfɪʃəl',ru:'полезный, выгодный',pos:'adj',def:'Having a good effect on something.',ex:[{en:'Exercise is <strong>beneficial</strong> for health.',ru:'Упражнения полезны для здоровья.'},{en:'This is <strong>beneficial</strong> for both sides.',ru:'Это выгодно обеим сторонам.'}]},
+  {en:'considerable',tr:'kənˈsɪdərəbəl',ru:'значительный',pos:'adj',def:'Large or great in degree.',ex:[{en:'There has been <strong>considerable</strong> progress.',ru:'Был достигнут значительный прогресс.'},{en:'It takes <strong>considerable</strong> effort.',ru:'Это требует значительных усилий.'}]},
+  {en:'inevitable',tr:'ɪnˈevɪtəbəl',ru:'неизбежный',pos:'adj',def:'Certain to happen.',ex:[{en:'Change is <strong>inevitable</strong> in life.',ru:'Перемены в жизни неизбежны.'},{en:'Conflict was <strong>inevitable</strong>.',ru:'Конфликт был неизбежен.'}]},
+  {en:'ambiguous',tr:'æmˈbɪɡjuəs',ru:'неоднозначный',pos:'adj',def:'Having more than one possible meaning.',ex:[{en:'His answer was <strong>ambiguous</strong>.',ru:'Его ответ был неоднозначным.'},{en:'The instructions were too <strong>ambiguous</strong>.',ru:'Инструкции были слишком неоднозначными.'}]},
+  {en:'fundamental',tr:'ˌfʌndəˈmentəl',ru:'фундаментальный, основной',pos:'adj',def:'Forming the most essential part.',ex:[{en:'Respect is <strong>fundamental</strong> to any relationship.',ru:'Уважение — основа любых отношений.'},{en:'These are <strong>fundamental</strong> principles.',ru:'Это фундаментальные принципы.'}]},
+  {en:'significant',tr:'sɪɡˈnɪfɪkənt',ru:'значимый, существенный',pos:'adj',def:'Important or large enough to be noticed.',ex:[{en:'There was a <strong>significant</strong> improvement.',ru:'Произошло существенное улучшение.'},{en:'The difference is not <strong>significant</strong>.',ru:'Разница несущественна.'}]},
+  {en:'relevant',tr:'ˈreləvənt',ru:'актуальный, уместный',pos:'adj',def:'Closely connected to the topic.',ex:[{en:'Please provide <strong>relevant</strong> examples.',ru:'Пожалуйста, приведи актуальные примеры.'},{en:'Is this information <strong>relevant</strong>?',ru:'Эта информация уместна?'}]},
+  {en:'complex',tr:'ˈkɒmpleks',ru:'сложный',pos:'adj',def:'Having many connected parts; difficult to understand.',ex:[{en:'This is a <strong>complex</strong> issue.',ru:'Это сложный вопрос.'},{en:'The system is very <strong>complex</strong>.',ru:'Система очень сложная.'}]},
+  {en:'diverse',tr:'daɪˈvɜːs',ru:'разнообразный',pos:'adj',def:'Showing a great deal of variety.',ex:[{en:'Our team is culturally <strong>diverse</strong>.',ru:'Наша команда культурно разнообразна.'},{en:'The menu is quite <strong>diverse</strong>.',ru:'Меню довольно разнообразное.'}]},
+  {en:'efficient',tr:'ɪˈfɪʃənt',ru:'эффективный, продуктивный',pos:'adj',def:'Achieving maximum results with minimum waste.',ex:[{en:'We need a more <strong>efficient</strong> process.',ru:'Нам нужен более эффективный процесс.'},{en:'She is a very <strong>efficient</strong> worker.',ru:'Она очень продуктивный работник.'}]},
+  {en:'flexible',tr:'ˈfleksɪbəl',ru:'гибкий',pos:'adj',def:'Able to change or be changed easily.',ex:[{en:'You need to be <strong>flexible</strong> in negotiations.',ru:'Тебе нужно быть гибким на переговорах.'},{en:'Our schedule is <strong>flexible</strong>.',ru:'Наш расписание гибкое.'}]},
+  {en:'reliable',tr:'rɪˈlaɪəbəl',ru:'надёжный',pos:'adj',def:'Consistently good and trusted.',ex:[{en:'She is a <strong>reliable</strong> colleague.',ru:'Она надёжный коллега.'},{en:'We need a <strong>reliable</strong> internet connection.',ru:'Нам нужно надёжное интернет-соединение.'}]},
+  {en:'transparent',tr:'trænsˈpærənt',ru:'прозрачный, открытый',pos:'adj',def:'Open and honest, with nothing hidden.',ex:[{en:'The process should be <strong>transparent</strong>.',ru:'Процесс должен быть прозрачным.'},{en:'The company is very <strong>transparent</strong> about its policies.',ru:'Компания очень открыта в своей политике.'}]},
+  {en:'vulnerable',tr:'ˈvʌlnərəbəl',ru:'уязвимый',pos:'adj',def:'Exposed to the possibility of harm.',ex:[{en:'Children are <strong>vulnerable</strong> online.',ru:'Дети уязвимы в интернете.'},{en:'The economy was <strong>vulnerable</strong> to shocks.',ru:'Экономика была уязвима к потрясениям.'}]},
+  {en:'sustainable',tr:'səˈsteɪnəbəl',ru:'устойчивый, долгосрочный',pos:'adj',def:'Able to be maintained over time without harm.',ex:[{en:'We need <strong>sustainable</strong> energy sources.',ru:'Нам нужны устойчивые источники энергии.'},{en:' <strong>Sustainable</strong> development is key.',ru:'Устойчивое развитие является ключевым.'}]},
+  {en:'urgent',tr:'ˈɜːdʒənt',ru:'срочный',pos:'adj',def:'Requiring immediate action.',ex:[{en:'This is an <strong>urgent</strong> matter.',ru:'Это срочный вопрос.'},{en:'I received an <strong>urgent</strong> call.',ru:'Я получил срочный звонок.'}]},
+  {en:'controversial',tr:'ˌkɒntrəˈvɜːʃəl',ru:'спорный, дискуссионный',pos:'adj',def:'Causing strong disagreement.',ex:[{en:'The decision was <strong>controversial</strong>.',ru:'Решение было спорным.'},{en:'It is a <strong>controversial</strong> topic.',ru:'Это спорная тема.'}]},
+  {en:'objective',tr:'əbˈdʒektɪv',ru:'объективный',pos:'adj',def:'Not influenced by personal feelings.',ex:[{en:'Try to be <strong>objective</strong> in your analysis.',ru:'Старайся быть объективным в анализе.'},{en:'We need an <strong>objective</strong> opinion.',ru:'Нам нужно объективное мнение.'}]},
+  {en:'essential',tr:'ɪˈsenʃəl',ru:'необходимый, важнейший',pos:'adj',def:'Absolutely necessary.',ex:[{en:'Water is <strong>essential</strong> for life.',ru:'Вода необходима для жизни.'},{en:'It is <strong>essential</strong> to arrive on time.',ru:'Необходимо приходить вовремя.'}]},
+  // ADVERBS (10)
+  {en:'approximately',tr:'əˈprɒksɪmətlɪ',ru:'приблизительно',pos:'adv',def:'Close to, but not exactly.',ex:[{en:'It takes <strong>approximately</strong> two hours.',ru:'Это занимает примерно два часа.'},{en:'There were <strong>approximately</strong> 200 people.',ru:'Было около 200 человек.'}]},
+  {en:'eventually',tr:'ɪˈventʃuəlɪ',ru:'в конечном счёте',pos:'adv',def:'In the end, after a long time.',ex:[{en:'She <strong>eventually</strong> found a solution.',ru:'В конечном счёте она нашла решение.'},{en:'He <strong>eventually</strong> apologised.',ru:'В итоге он извинился.'}]},
+  {en:'consequently',tr:'ˈkɒnsɪkwəntlɪ',ru:'следовательно',pos:'adv',def:'As a result.',ex:[{en:'He missed the bus; <strong>consequently</strong>, he was late.',ru:'Он опоздал на автобус; следовательно, опоздал.'},{en:'The weather was bad. <strong>Consequently</strong>, the match was cancelled.',ru:'Погода была плохой. Поэтому матч отменили.'}]},
+  {en:'significantly',tr:'sɪɡˈnɪfɪkəntlɪ',ru:'значительно',pos:'adv',def:'To a notable extent.',ex:[{en:'Prices have risen <strong>significantly</strong>.',ru:'Цены значительно выросли.'},{en:'Performance improved <strong>significantly</strong>.',ru:'Результативность значительно улучшилась.'}]},
+  {en:'primarily',tr:'praɪˈmerɪlɪ',ru:'прежде всего, главным образом',pos:'adv',def:'For the most part; mainly.',ex:[{en:'This is <strong>primarily</strong> a communication issue.',ru:'Это прежде всего проблема общения.'},{en:'The course is <strong>primarily</strong> aimed at beginners.',ru:'Курс в основном рассчитан на начинающих.'}]},
+  {en:'effectively',tr:'ɪˈfektɪvlɪ',ru:'эффективно',pos:'adv',def:'In a way that produces good results.',ex:[{en:'She communicates very <strong>effectively</strong>.',ru:'Она очень эффективно общается.'},{en:'The team worked <strong>effectively</strong> together.',ru:'Команда работала эффективно вместе.'}]},
+  {en:'apparently',tr:'əˈpærəntlɪ',ru:'по-видимому, очевидно',pos:'adv',def:'As it seems or appears.',ex:[{en:'<strong>Apparently</strong>, he forgot about the meeting.',ru:'По-видимому, он забыл о встрече.'},{en:'She is, <strong>apparently</strong>, very talented.',ru:'Она, по всей видимости, очень талантлива.'}]},
+  {en:'gradually',tr:'ˈɡrædʒuəlɪ',ru:'постепенно',pos:'adv',def:'Slowly, over time.',ex:[{en:'She <strong>gradually</strong> improved her English.',ru:'Она постепенно улучшала свой английский.'},{en:'The situation <strong>gradually</strong> got better.',ru:'Ситуация постепенно улучшилась.'}]},
+  {en:'thoroughly',tr:'ˈθʌrəlɪ',ru:'тщательно',pos:'adv',def:'In a careful, complete way.',ex:[{en:'Please read the contract <strong>thoroughly</strong>.',ru:'Пожалуйста, тщательно прочитай договор.'},{en:'She <strong>thoroughly</strong> enjoyed the event.',ru:'Она в полной мере наслаждалась мероприятием.'}]},
+  {en:'typically',tr:'ˈtɪpɪklɪ',ru:'как правило, обычно',pos:'adv',def:'In most cases; usually.',ex:[{en:'She <strong>typically</strong> arrives early.',ru:'Как правило, она приходит рано.'},{en:'Winters are <strong>typically</strong> cold here.',ru:'Зимы здесь, как правило, холодные.'}]},
+  // PHRASES (10)
+  {en:'carry out',tr:'ˈkærɪ aʊt',ru:'выполнять, проводить',pos:'phrase',def:'To do or complete a task.',ex:[{en:'They <strong>carried out</strong> a series of experiments.',ru:'Они провели ряд экспериментов.'},{en:'Please <strong>carry out</strong> the instructions carefully.',ru:'Пожалуйста, выполняйте инструкции тщательно.'}]},
+  {en:'come across',tr:'kʌm əˈkrɒs',ru:'наткнуться / казаться',pos:'phrase',def:'To find by chance, or to seem a certain way.',ex:[{en:'I <strong>came across</strong> this book by chance.',ru:'Я случайно наткнулся на эту книгу.'},{en:'She <strong>comes across</strong> as very confident.',ru:'Она кажется очень уверенной.'}]},
+  {en:'give up',tr:'ɡɪv ʌp',ru:'сдаваться, бросать',pos:'phrase',def:'To stop trying.',ex:[{en:"Don't <strong>give up</strong> — you're almost there!",ru:'Не сдавайся — ты почти у цели!'},{en:'He <strong>gave up</strong> smoking.',ru:'Он бросил курить.'}]},
+  {en:'look forward to',tr:'lʊk ˈfɔːwəd tuː',ru:'с нетерпением ждать',pos:'phrase',def:'To feel excited about something coming.',ex:[{en:"I'm <strong>looking forward to</strong> the holidays.",ru:'Я с нетерпением жду каникул.'},{en:'She <strong>looks forward to</strong> new challenges.',ru:'Она с нетерпением ждёт новых вызовов.'}]},
+  {en:'take into account',tr:'teɪk ˈɪntə əˈkaʊnt',ru:'принимать во внимание',pos:'phrase',def:'To consider something when making a decision.',ex:[{en:'We must <strong>take into account</strong> all the risks.',ru:'Мы должны учесть все риски.'},{en:'Please <strong>take into account</strong> your budget.',ru:'Пожалуйста, учтите свой бюджет.'}]},
+  {en:'make up for',tr:'meɪk ʌp fɔː',ru:'компенсировать',pos:'phrase',def:'To compensate for something.',ex:[{en:'Extra work will <strong>make up for</strong> the lost time.',ru:'Дополнительная работа компенсирует потерянное время.'},{en:'Nothing can <strong>make up for</strong> the loss.',ru:'Ничто не может компенсировать потерю.'}]},
+  {en:'bring about',tr:'brɪŋ əˈbaʊt',ru:'вызывать, приводить к',pos:'phrase',def:'To cause something to happen.',ex:[{en:'Technology has <strong>brought about</strong> many changes.',ru:'Технологии вызвали много изменений.'},{en:'What <strong>brought about</strong> the conflict?',ru:'Что привело к конфликту?'}]},
+  {en:'set out',tr:'set aʊt',ru:'намечать, излагать',pos:'phrase',def:'To start with a plan or to explain clearly.',ex:[{en:'She <strong>set out</strong> her ideas clearly.',ru:'Она чётко изложила свои идеи.'},{en:'He <strong>set out</strong> to become an engineer.',ru:'Он задался целью стать инженером.'}]},
+  {en:'deal with',tr:'diːl wɪð',ru:'справляться, заниматься',pos:'phrase',def:'To handle or manage something.',ex:[{en:'How do you <strong>deal with</strong> stress?',ru:'Как ты справляешься со стрессом?'},{en:'We need to <strong>deal with</strong> this problem now.',ru:'Нам нужно заняться этой проблемой сейчас.'}]},
+  {en:'run out of',tr:'rʌn aʊt ɒv',ru:'заканчиваться',pos:'phrase',def:'To have no more of something.',ex:[{en:'We <strong>ran out of</strong> time.',ru:'У нас закончилось время.'},{en:"Don't let your phone <strong>run out of</strong> battery.",ru:'Не давай телефону разрядиться.'}]},
+];
+
+// ═══════════════════════════════════════════
+// DATA — QUIZ
+// ═══════════════════════════════════════════
+const quizTopics = [
+  {id:'grammar',icon:'📝',title:'Грамматика',desc:'Времена, условные, пассив',questions:[
+    {q:'She __ to achieve her dream of becoming a doctor.',opts:['managed','missed','failed','avoided'],right:0},
+    {q:'The results were __ what we had expected.',opts:['despite','beyond','unless','although'],right:1},
+    {q:'I __ to the library when it started raining.',opts:['walked','walk','was walking','had walk'],right:2},
+    {q:'If I __ more time, I would learn Japanese.',opts:['have','would have','had','will have'],right:2},
+    {q:'The report __ by the team last week.',opts:['wrote','was written','is written','has written'],right:1},
+    {q:'She asked me __ I had finished the project.',opts:['that','what','whether','which'],right:2},
+    {q:'Despite __ tired, she continued working.',opts:['be','been','being','to be'],right:2},
+    {q:'He __ in London for five years before moving.',opts:['lived','has lived','had lived','was living'],right:2},
+    {q:'The more you practice, __ you become.',opts:['better','the better','more better','most better'],right:1},
+    {q:"It's high time we __ a decision.",opts:['make','made','making','to make'],right:1},
+  ]},
+  {id:'vocabulary',icon:'📖',title:'Словарный запас',desc:'Значения и употребление слов',questions:[
+    {q:'The word "beneficial" means:',opts:['harmful','helpful','difficult','common'],right:1},
+    {q:'"She acknowledged her mistake" — what did she do?',opts:['Ignored it','Repeated it','Admitted it','Forgot it'],right:2},
+    {q:'"Inevitable" means something that:',opts:['can be avoided','is unexpected','cannot be avoided','is unlikely'],right:2},
+    {q:'The word "consequently" expresses:',opts:['contrast','cause and effect','time','opinion'],right:1},
+    {q:'To "overcome" a problem means to:',opts:['ignore it','create it','deal with it successfully','make it worse'],right:2},
+    {q:'"Ambiguous" means:',opts:['very clear','one meaning','unclear meaning','too simple'],right:2},
+    {q:'To "evaluate" something means to:',opts:['destroy it','assess its value','ignore it','create it'],right:1},
+    {q:'An "obstacle" is something that:',opts:['helps you succeed','blocks progress','gives energy','explains a theory'],right:1},
+    {q:'"Approximately 200 people" means:',opts:['exactly 200','nearly 200','more than 200','less than 100'],right:1},
+    {q:'"Sustainable" development means:',opts:['fast growth','harmful growth','long-term responsible growth','expensive growth'],right:2},
+  ]},
+  {id:'everyday',icon:'🗣',title:'Разговорный',desc:'Фразы и выражения из жизни',questions:[
+    {q:'"I\'ll get back to you" means:',opts:['I will return physically','I will respond later','I disagree','I am busy'],right:1},
+    {q:'Which phrase expresses polite disagreement?',opts:['Absolutely!','You\'re right!','I beg to differ.','Of course!'],right:2},
+    {q:'"Let me put it another way" means:',opts:['let me leave','let me repeat exactly','let me explain differently','let me disagree'],right:2},
+    {q:'"I couldn\'t agree more" means:',opts:['I disagree','I partly agree','I fully agree','I don\'t understand'],right:2},
+    {q:'Which phrase gives an opinion?',opts:['As far as I\'m concerned','Could you help me?','I\'ll be right back','Not at all'],right:0},
+    {q:'"That\'s not quite right" is:',opts:['a polite agreement','a polite correction','a question','a greeting'],right:1},
+    {q:'"By the way" is used to:',opts:['end a topic','introduce a new topic','express anger','ask for help'],right:1},
+    {q:'"Could you say that again?" — the speaker:',opts:['is bored','didn\'t understand','is angry','wants to leave'],right:1},
+  ]},
+  {id:'prepositions',icon:'🔗',title:'Предлоги',desc:'Предлоги и устойчивые сочетания',questions:[
+    {q:'She is very good __ playing the piano.',opts:['in','at','on','for'],right:1},
+    {q:'I am interested __ learning new languages.',opts:['on','at','in','for'],right:2},
+    {q:'She is responsible __ the project.',opts:['of','about','for','to'],right:2},
+    {q:'I apologise __ the inconvenience.',opts:['about','for','of','on'],right:1},
+    {q:'She depends __ her parents financially.',opts:['on','to','for','of'],right:0},
+    {q:'He is capable __ solving complex problems.',opts:['to','for','of','in'],right:2},
+    {q:'We are looking forward __ the holidays.',opts:['for','to','at','about'],right:1},
+    {q:'She is aware __ the risks involved.',opts:['about','for','of','on'],right:2},
+    {q:'They agreed __ the new proposal.',opts:['with','to','on','for'],right:1},
+    {q:'He arrived __ time for the meeting.',opts:['in','on','at','by'],right:1},
+  ]},
+];
+
+// ═══════════════════════════════════════════
+// DATA — GRAMMAR (expanded examples)
+// ═══════════════════════════════════════════
+const grammarTopics = [
+  {title:'Present Perfect',icon:'⏱',content:`<h2>Present Perfect</h2>
+    <div class="grammar-when"><div class="lbl">Что это такое?</div><p>Время, которое связывает прошлое с настоящим. Описывает действие в прошлом, результат которого важен прямо сейчас.</p></div>
+    <div class="grammar-why"><div class="lbl">Когда и зачем?</div><p>Когда важно <em>что</em> произошло, а не <em>когда</em>. Для жизненного опыта, недавних событий и незаконченных периодов ("this week", "today", "so far").</p></div>
+    <div class="grammar-rule"><div class="lbl">Формула</div>Subject + have / has + V3 (Past Participle)</div>
+    <ul class="ex-list">
+      <li class="ex-item"><div class="en">I <strong>have visited</strong> London twice.</div><div class="ru">Опыт за всю жизнь — точное время не важно.</div></li>
+      <li class="ex-item"><div class="en">She <strong>has just finished</strong> her homework.</div><div class="ru">Недавнее действие — результат виден сейчас.</div></li>
+      <li class="ex-item"><div class="en">They <strong>haven't seen</strong> that film yet.</div><div class="ru">Незавершённое к текущему моменту.</div></li>
+      <li class="ex-item"><div class="en"><strong>Have</strong> you ever <strong>tried</strong> sushi?</div><div class="ru">Вопрос о жизненном опыте.</div></li>
+      <li class="ex-item"><div class="en">He <strong>has lived</strong> here since 2020.</div><div class="ru">С маркером since — действие началось в прошлом и продолжается.</div></li>
+      <li class="ex-item"><div class="en">We <strong>have already</strong> submitted the report.</div><div class="ru">already — действие выполнено раньше ожидаемого.</div></li>
+    </ul>
+    <p><strong>Маркеры:</strong> already, yet, just, ever, never, recently, since, for, so far, lately</p>
+    <div class="grammar-why"><div class="lbl">Частая ошибка</div><p>❌ I have visited London yesterday. — нельзя: "yesterday" — конкретное прошедшее → Past Simple.<br>✅ I visited London yesterday.</p></div>`},
+  {title:'Conditionals',icon:'🔀',content:`<h2>Условные предложения</h2>
+    <div class="grammar-when"><div class="lbl">Что это такое?</div><p>Предложения с условием: что произойдёт / произошло бы при выполнении условия. Есть 4 основных типа.</p></div>
+    <div class="grammar-why"><div class="lbl">Когда и зачем?</div><p>Для гипотез, советов, сожалений и воображаемых ситуаций. Без этого невозможно говорить о "если бы".</p></div>
+    <div class="grammar-rule"><div class="lbl">Нулевой тип — всегда верный факт</div>If + Present Simple → Present Simple<br><em>If you heat water to 100°C, it boils.</em></div>
+    <div class="grammar-rule"><div class="lbl">1-й тип — реальное / возможное условие</div>If + Present Simple → will + V<br><em>If it rains, I will stay home.</em></div>
+    <div class="grammar-rule"><div class="lbl">2-й тип — маловероятное / нереальное сейчас</div>If + Past Simple → would + V<br><em>If I were rich, I would travel more.</em></div>
+    <div class="grammar-rule"><div class="lbl">3-й тип — нереальное прошлое (сожаление)</div>If + Past Perfect → would have + V3<br><em>If I had studied, I would have passed.</em></div>
+    <ul class="ex-list">
+      <li class="ex-item"><div class="en"><strong>If</strong> you mix red and blue, you <strong>get</strong> purple.</div><div class="ru">Нулевой тип — научный факт.</div></li>
+      <li class="ex-item"><div class="en"><strong>If</strong> I finish early, I <strong>will call</strong> you.</div><div class="ru">1-й тип — реальное будущее.</div></li>
+      <li class="ex-item"><div class="en"><strong>If</strong> I <strong>knew</strong> the answer, I <strong>would tell</strong> you.</div><div class="ru">2-й тип — сейчас не знаю.</div></li>
+      <li class="ex-item"><div class="en"><strong>If</strong> she <strong>had arrived</strong> earlier, she <strong>would have seen</strong> him.</div><div class="ru">3-й тип — сожаление о прошлом.</div></li>
+      <li class="ex-item"><div class="en"><strong>Unless</strong> you try, you <strong>will never know</strong>.</div><div class="ru">unless = if not (если не)</div></li>
+    </ul>`},
+  {title:'Passive Voice',icon:'🔄',content:`<h2>Пассивный залог</h2>
+    <div class="grammar-when"><div class="lbl">Что это такое?</div><p>Подлежащее получает действие, а не совершает его. Исполнитель уходит на второй план.</p></div>
+    <div class="grammar-why"><div class="lbl">Когда и зачем?</div><p>Когда исполнитель неизвестен, неважен или очевиден. Часто в новостях, науке и официальных текстах.</p></div>
+    <div class="grammar-rule"><div class="lbl">Формула</div>Subject + to be (нужная форма) + V3 (+ by + agent)</div>
+    <ul class="ex-list">
+      <li class="ex-item"><div class="en">The book <strong>was written</strong> by Tolstoy.</div><div class="ru">Past Simple Passive — важен объект.</div></li>
+      <li class="ex-item"><div class="en">English <strong>is spoken</strong> worldwide.</div><div class="ru">Present Simple Passive — исполнитель очевиден.</div></li>
+      <li class="ex-item"><div class="en">My phone <strong>has been stolen</strong>!</div><div class="ru">Present Perfect Passive — исполнитель неизвестен.</div></li>
+      <li class="ex-item"><div class="en">The bridge <strong>is being repaired</strong>.</div><div class="ru">Present Continuous Passive — прямо сейчас.</div></li>
+      <li class="ex-item"><div class="en">The report <strong>will be submitted</strong> tomorrow.</div><div class="ru">Future Simple Passive — запланировано.</div></li>
+      <li class="ex-item"><div class="en">The letter <strong>was being written</strong> when I arrived.</div><div class="ru">Past Continuous Passive — в процессе в тот момент.</div></li>
+    </ul>
+    <div class="grammar-why"><div class="lbl">Запомни</div><p>Если нужно указать кто совершил действие — добавляем "by":<br>The letter was signed <strong>by</strong> the president.</p></div>`},
+  {title:'Reported Speech',icon:'💬',content:`<h2>Косвенная речь</h2>
+    <div class="grammar-when"><div class="lbl">Что это такое?</div><p>Передача чужих слов без прямого цитирования. Времена сдвигаются на один шаг назад.</p></div>
+    <div class="grammar-why"><div class="lbl">Когда и зачем?</div><p>Каждый раз, когда пересказываешь что сказал другой человек.</p></div>
+    <div class="grammar-rule"><div class="lbl">Сдвиг времён</div>Present Simple → Past Simple<br>Present Continuous → Past Continuous<br>Present Perfect → Past Perfect<br>Will → Would &nbsp;·&nbsp; Can → Could &nbsp;·&nbsp; May → Might</div>
+    <ul class="ex-list">
+      <li class="ex-item"><div class="en">"I <strong>am</strong> tired." → She said she <strong>was</strong> tired.</div><div class="ru">Настоящее → прошедшее.</div></li>
+      <li class="ex-item"><div class="en">"I <strong>will</strong> call you." → He said he <strong>would</strong> call me.</div><div class="ru">Will → Would.</div></li>
+      <li class="ex-item"><div class="en">"Are you coming?" → She asked if I <strong>was</strong> coming.</div><div class="ru">Вопрос через if/whether.</div></li>
+      <li class="ex-item"><div class="en">"Don't be late!" → He told me <strong>not to be</strong> late.</div><div class="ru">Приказание — told + not to + V.</div></li>
+      <li class="ex-item"><div class="en">"I <strong>have finished</strong> the work." → She said she <strong>had finished</strong> the work.</div><div class="ru">Present Perfect → Past Perfect.</div></li>
+      <li class="ex-item"><div class="en">"We <strong>can</strong> help." → They said they <strong>could</strong> help.</div><div class="ru">Can → Could.</div></li>
+    </ul>`},
+  {title:'Modal Verbs',icon:'⚙️',content:`<h2>Модальные глаголы</h2>
+    <div class="grammar-when"><div class="lbl">Что это такое?</div><p>Вспомогательные глаголы, выражающие обязанность, возможность, разрешение, вероятность или совет.</p></div>
+    <div class="grammar-why"><div class="lbl">Когда и зачем?</div><p>Без них невозможно давать советы, спрашивать разрешение и выражать уверенность — они нужны постоянно.</p></div>
+    <div class="grammar-rule"><div class="lbl">Основные значения</div><strong>must</strong> — сильная обязанность<br><strong>should / ought to</strong> — совет<br><strong>can / could</strong> — способность / вежливая просьба<br><strong>may / might</strong> — вероятность<br><strong>have to</strong> — вынужденная необходимость<br><strong>needn't</strong> — нет необходимости</div>
+    <ul class="ex-list">
+      <li class="ex-item"><div class="en">You <strong>should</strong> revise before the exam.</div><div class="ru">Совет — это разумно сделать.</div></li>
+      <li class="ex-item"><div class="en">It <strong>might</strong> snow tomorrow.</div><div class="ru">Слабая вероятность.</div></li>
+      <li class="ex-item"><div class="en"><strong>Could</strong> you open the window, please?</div><div class="ru">Вежливая просьба.</div></li>
+      <li class="ex-item"><div class="en">You <strong>must</strong> wear a seatbelt.</div><div class="ru">Сильная обязанность / закон.</div></li>
+      <li class="ex-item"><div class="en">She <strong>can't</strong> be at home — I just saw her downtown.</div><div class="ru">can't = логическая невозможность (уверенное отрицание).</div></li>
+      <li class="ex-item"><div class="en">He <strong>must have forgotten</strong> about the meeting.</div><div class="ru">must have + V3 = уверенный вывод о прошлом.</div></li>
+    </ul>`},
+  {title:'Articles',icon:'📌',content:`<h2>Артикли</h2>
+    <div class="grammar-when"><div class="lbl">Что это такое?</div><p>Маленькие слова перед существительными: "the" (определённый) и "a/an" (неопределённый). В русском их нет.</p></div>
+    <div class="grammar-why"><div class="lbl">Когда и зачем?</div><p>Артикли показывают, известен ли предмет собеседнику. "A cat" — какая-то кошка. "The cat" — та самая кошка.</p></div>
+    <div class="grammar-rule"><div class="lbl">Правила</div><strong>a/an</strong> — первое упоминание, одно из многих<br><strong>the</strong> — уже известное, единственное в своём роде<br><strong>∅</strong> — имена, города, страны, абстракции</div>
+    <ul class="ex-list">
+      <li class="ex-item"><div class="en">I saw <strong>a</strong> dog. <strong>The</strong> dog was friendly.</div><div class="ru">Первый раз — a; второй (уже знаем) — the.</div></li>
+      <li class="ex-item"><div class="en"><strong>The</strong> sun rises in the east.</div><div class="ru">Единственный в своём роде — всегда the.</div></li>
+      <li class="ex-item"><div class="en">She lives in <strong>∅</strong> Paris.</div><div class="ru">Города — без артикля.</div></li>
+      <li class="ex-item"><div class="en">He plays <strong>∅</strong> football every weekend.</div><div class="ru">Виды спорта — без артикля.</div></li>
+      <li class="ex-item"><div class="en">Could you pass me <strong>the</strong> salt?</div><div class="ru">Предмет известен из контекста.</div></li>
+      <li class="ex-item"><div class="en">She wants to be <strong>a</strong> doctor.</div><div class="ru">Профессия — a/an (одна из многих).</div></li>
+    </ul>
+    <div class="grammar-why"><div class="lbl">Исключения</div><p>the + уникальные предметы: the moon, the sky, the internet, the radio<br>the + прилагательное в роли существительного: the rich, the poor, the elderly</p></div>`},
+  {title:'Gerund vs Infinitive',icon:'🔁',content:`<h2>Герундий vs Инфинитив</h2>
+    <div class="grammar-when"><div class="lbl">Что это такое?</div><p>Герундий — форма глагола на -ing (doing). Инфинитив — to + V (to do). После одних глаголов идёт герундий, после других — инфинитив.</p></div>
+    <div class="grammar-why"><div class="lbl">Когда и зачем?</div><p>Это частая ошибка даже у продвинутых студентов. Нужно запомнить, какие глаголы с чем употребляются.</p></div>
+    <div class="grammar-rule"><div class="lbl">Глаголы + Герундий (-ing)</div>enjoy, avoid, suggest, finish, consider, miss, deny, risk, keep</div>
+    <div class="grammar-rule"><div class="lbl">Глаголы + Инфинитив (to + V)</div>want, hope, decide, plan, agree, refuse, manage, seem, expect, promise</div>
+    <div class="grammar-rule"><div class="lbl">Глаголы + оба варианта (с разным смыслом)</div>remember, forget, stop, try</div>
+    <ul class="ex-list">
+      <li class="ex-item"><div class="en">I enjoy <strong>reading</strong> in the evenings.</div><div class="ru">enjoy + герундий ✅</div></li>
+      <li class="ex-item"><div class="en">She decided <strong>to study</strong> abroad.</div><div class="ru">decide + инфинитив ✅</div></li>
+      <li class="ex-item"><div class="en">He stopped <strong>smoking</strong>. / He stopped <strong>to smoke</strong>.</div><div class="ru">Бросил курить / Остановился, чтобы покурить.</div></li>
+      <li class="ex-item"><div class="en">I remember <strong>locking</strong> the door. / I remembered <strong>to lock</strong> it.</div><div class="ru">Помню, что запер / Не забыл запереть.</div></li>
+    </ul>`},
+  {title:'Tenses Overview',icon:'📅',content:`<h2>Обзор времён</h2>
+    <div class="grammar-when"><div class="lbl">Зачем?</div><p>Английский имеет 12 основных времён. Понимание их системы позволяет говорить точно и правильно.</p></div>
+    <div class="grammar-rule"><div class="lbl">Настоящее время (Present)</div>Simple: I <strong>work</strong> every day.<br>Continuous: I <strong>am working</strong> now.<br>Perfect: I <strong>have worked</strong> here for years.<br>Perfect Continuous: I <strong>have been working</strong> all morning.</div>
+    <div class="grammar-rule"><div class="lbl">Прошедшее время (Past)</div>Simple: I <strong>worked</strong> yesterday.<br>Continuous: I <strong>was working</strong> at 8pm.<br>Perfect: I <strong>had worked</strong> before she arrived.<br>Perfect Continuous: I <strong>had been working</strong> for hours.</div>
+    <div class="grammar-rule"><div class="lbl">Будущее время (Future)</div>Simple: I <strong>will work</strong> tomorrow.<br>Going to: I <strong>am going to work</strong> on it.<br>Continuous: I <strong>will be working</strong> at noon.<br>Perfect: I <strong>will have finished</strong> by Friday.</div>
+    <ul class="ex-list">
+      <li class="ex-item"><div class="en">She <strong>studies</strong> every evening. (habit)</div><div class="ru">Привычка — Present Simple.</div></li>
+      <li class="ex-item"><div class="en">He <strong>is studying</strong> for the exam right now. (now)</div><div class="ru">Прямо сейчас — Present Continuous.</div></li>
+      <li class="ex-item"><div class="en">By 2030, we <strong>will have explored</strong> Mars. (future completed)</div><div class="ru">К тому времени завершится — Future Perfect.</div></li>
+    </ul>`},
+];
+
+// ═══════════════════════════════════════════
+// DATA — AUDIO (expanded)
+// ═══════════════════════════════════════════
+const audioTracks = [
+  {title:'Morning Routine',meta:'A2–B1 · British accent · повседневная жизнь',color:'accent',
+   text:"Every morning I wake up at seven o'clock. First, I have a shower and get dressed. Then I make breakfast — usually toast and coffee. After that, I check my phone for messages. I leave the house at eight thirty and take the bus to work. The journey takes about twenty minutes.",
+   words:[{w:'routine',tr:'распорядок'},{w:'shower',tr:'душ'},{w:'journey',tr:'поездка'},{w:'usually',tr:'обычно'}]},
+  {title:'Daily Conversations',meta:'B1 · British accent · диалоги',color:'accent4',
+   text:"Hello! How are you doing today? I'm doing well, thank you for asking. By the way, did you finish the report? Yes, I sent it this morning. Great, let me know if you need any feedback. Actually, could you clarify one point? Of course, what would you like to know?",
+   words:[{w:'by the way',tr:'кстати'},{w:'feedback',tr:'обратная связь'},{w:'clarify',tr:'уточнить'},{w:'actually',tr:'на самом деле'}]},
+  {title:'Job Interview',meta:'B1–B2 · American accent · собеседование',color:'accent5',
+   text:"Good morning! Thank you for coming in today. Please tell me a little about yourself and your experience. I have three years of experience in software development, primarily working with web technologies. I enjoy problem-solving and collaborating with teams. What attracts you to this position? I am particularly interested in the company's focus on innovation and sustainable development.",
+   words:[{w:'experience',tr:'опыт'},{w:'primarily',tr:'главным образом'},{w:'collaborate',tr:'сотрудничать'},{w:'sustainable',tr:'устойчивый'}]},
+  {title:'News in Slow English',meta:'B2 · American accent · новости',color:'accent3',
+   text:"Scientists have discovered a new approach to renewable energy. The research team claims the method is significantly more efficient than existing solutions and could have a considerable impact on how we generate electricity in the future. Experts suggest this technology could reduce carbon emissions by up to forty percent.",
+   words:[{w:'renewable',tr:'возобновляемый'},{w:'efficient',tr:'эффективный'},{w:'considerable',tr:'значительный'},{w:'emissions',tr:'выбросы'}]},
+  {title:'Science & Technology',meta:'B2 · American accent · наука',color:'accent2',
+   text:"Artificial intelligence is transforming the way we live and work. AI systems are being implemented across many industries, from healthcare to education. Researchers emphasise that while the benefits are considerable, it is equally important to address the ethical consequences of these technologies and ensure they are used responsibly.",
+   words:[{w:'implement',tr:'внедрять'},{w:'emphasise',tr:'подчёркивать'},{w:'consequences',tr:'последствия'},{w:'responsibly',tr:'ответственно'}]},
+  {title:'Travel & Tourism',meta:'B1–B2 · British accent · путешествия',color:'accent',
+   text:"Travelling broadens the mind and exposes you to different cultures and perspectives. When visiting a new country, it is important to respect local customs and traditions. Try to learn a few phrases in the local language — people really appreciate the effort. Don't forget to try the local cuisine, as food is an essential part of any culture.",
+   words:[{w:'broaden',tr:'расширять'},{w:'expose',tr:'знакомить'},{w:'customs',tr:'обычаи'},{w:'cuisine',tr:'кухня'}]},
+];
+
+const pronunWords = [
+  {w:'schedule',ipa:'/ˈʃedjuːl/'},{w:'comfortable',ipa:'/ˈkʌmftəbəl/'},
+  {w:'February',ipa:'/ˈfebjuərɪ/'},{w:'vegetable',ipa:'/ˈvedʒtəbəl/'},
+  {w:'particularly',ipa:'/pəˈtɪkjələlɪ/'},{w:'colleague',ipa:'/ˈkɒliːɡ/'},
+  {w:'necessary',ipa:'/ˈnesɪsərɪ/'},{w:'environment',ipa:'/ɪnˈvaɪərənmənt/'},
+  {w:'throughout',ipa:'/θruːˈaʊt/'},{w:'especially',ipa:'/ɪˈspeʃəlɪ/'},
+  {w:'approximately',ipa:'/əˈprɒksɪmətlɪ/'},{w:'circumstances',ipa:'/ˈsɜːkəmstænsɪz/'},
+  {w:'opportunity',ipa:'/ˌɒpəˈtjuːnɪtɪ/'},{w:'responsibility',ipa:'/rɪˌspɒnsɪˈbɪlɪtɪ/'},
+  {w:'occasionally',ipa:'/əˈkeɪʒənəlɪ/'},{w:'particularly',ipa:'/pəˈtɪkjələlɪ/'},
+];
+
+// ═══════════════════════════════════════════
+// DATA — PHRASES (expanded)
+// ═══════════════════════════════════════════
+const phrases = {
+  'Мнение':[
+    {en:"In my opinion, this approach is more effective.",ru:"По-моему, этот подход более эффективен."},
+    {en:"As far as I'm concerned, we should reconsider.",ru:"Насколько я понимаю, нам стоит пересмотреть."},
+    {en:"Personally, I think this is a great idea.",ru:"Лично я думаю, что это отличная идея."},
+    {en:"From my perspective, the situation is different.",ru:"С моей точки зрения, ситуация иная."},
+    {en:"I tend to think that both sides have valid points.",ru:"Я склонен считать, что обе стороны правы."},
+    {en:"It seems to me that we're missing the point.",ru:"Мне кажется, мы упускаем суть."},
+    {en:"If you ask me, we should take a different approach.",ru:"По-моему, нам следует избрать другой подход."},
+    {en:"I strongly feel that this needs more attention.",ru:"Я твёрдо убеждён, что это требует больше внимания."},
+  ],
+  'Согласие':[
+    {en:"I couldn't agree more with what you said.",ru:"Я полностью согласен с тем, что вы сказали."},
+    {en:"That's exactly what I was thinking.",ru:"Именно это я и думал."},
+    {en:"You've got a point there.",ru:"Тут ты прав."},
+    {en:"Absolutely, that makes perfect sense.",ru:"Абсолютно, это вполне логично."},
+    {en:"I'm completely on board with that.",ru:"Я полностью поддерживаю это."},
+    {en:"That's a fair point — I hadn't considered that.",ru:"Справедливое замечание — я об этом не думал."},
+  ],
+  'Несогласие':[
+    {en:"I see your point, but I beg to differ.",ru:"Я понимаю тебя, но позволю себе не согласиться."},
+    {en:"I'm not entirely convinced by that argument.",ru:"Меня не вполне убеждает этот аргумент."},
+    {en:"That's not quite right — let me explain.",ru:"Это не совсем верно — позвольте объяснить."},
+    {en:"I'd have to disagree on that point.",ru:"С этим пунктом мне придётся не согласиться."},
+    {en:"That may be true, however there's another side.",ru:"Возможно, это так, однако есть и другая сторона."},
+    {en:"I think there's more to it than that.",ru:"Я думаю, что всё сложнее, чем кажется."},
+  ],
+  'Просьба':[
+    {en:"Could you do me a favour?",ru:"Не могли бы вы оказать мне услугу?"},
+    {en:"Would you mind helping me with this?",ru:"Вы не против помочь мне с этим?"},
+    {en:"Is there any chance you could...?",ru:"Есть ли возможность, что вы...?"},
+    {en:"Would it be possible to change the date?",ru:"Возможно ли перенести дату?"},
+    {en:"If it's not too much trouble, could you...?",ru:"Если это не слишком сложно, не могли бы вы...?"},
+    {en:"I was wondering if you could lend me a hand.",ru:"Интересно, не могли бы вы помочь мне."},
+    {en:"I hate to ask, but could you cover for me?",ru:"Неловко просить, но не могли бы вы меня заменить?"},
+  ],
+  'Разговор':[
+    {en:"Could you say that again, please?",ru:"Не могли бы вы повторить?"},
+    {en:"What do you mean exactly?",ru:"Что именно вы имеете в виду?"},
+    {en:"Let me put it another way.",ru:"Позвольте мне перефразировать."},
+    {en:"Sorry to interrupt, but I have a question.",ru:"Извините, что перебиваю, но у меня вопрос."},
+    {en:"Could you slow down a little, please?",ru:"Не могли бы говорить немного медленнее?"},
+    {en:"I'm not sure I follow — could you elaborate?",ru:"Не уверен, что понял — не могли бы пояснить?"},
+    {en:"By the way, have you heard about...?",ru:"Кстати, вы слышали о...?"},
+    {en:"That reminds me of something...",ru:"Это напоминает мне кое-что..."},
+    {en:"Speaking of which, did you know that...?",ru:"Кстати об этом, вы знали, что...?"},
+  ],
+  'Извинение':[
+    {en:"I'm terribly sorry for the inconvenience.",ru:"Мне ужасно жаль за причинённые неудобства."},
+    {en:"I owe you an apology.",ru:"Я должен перед вами извиниться."},
+    {en:"I didn't mean to upset you.",ru:"Я не хотел тебя расстраивать."},
+    {en:"Please accept my sincere apologies.",ru:"Пожалуйста, примите мои искренние извинения."},
+    {en:"That was entirely my fault.",ru:"Это полностью моя вина."},
+    {en:"I should have thought before I spoke.",ru:"Мне следовало подумать, прежде чем говорить."},
+    {en:"I take full responsibility for this.",ru:"Я полностью принимаю ответственность за это."},
+  ],
+  'Учёба':[
+    {en:"Could you clarify the deadline for this task?",ru:"Не могли бы уточнить дедлайн?"},
+    {en:"Could you go over that again?",ru:"Не могли бы повторить ещё раз?"},
+    {en:"I have a few questions about the assignment.",ru:"У меня есть вопросы по заданию."},
+    {en:"Is this going to be on the exam?",ru:"Это будет на экзамене?"},
+    {en:"I didn't quite understand — could you explain?",ru:"Я не совсем понял — не могли бы объяснить?"},
+    {en:"Could you recommend any additional resources?",ru:"Не могли бы вы порекомендовать дополнительные ресурсы?"},
+    {en:"I'd like to double-check my understanding.",ru:"Я хотел бы проверить своё понимание."},
+    {en:"What's the best way to approach this topic?",ru:"Каков лучший способ подойти к этой теме?"},
+  ],
+  'Повседневное':[
+    {en:"What have you been up to lately?",ru:"Чем ты занимался в последнее время?"},
+    {en:"It's been a while — how are things?",ru:"Давно не виделись — как дела?"},
+    {en:"I've got a lot on my plate right now.",ru:"У меня сейчас очень много дел."},
+    {en:"Let's catch up sometime.",ru:"Давай как-нибудь встретимся."},
+    {en:"Mind if I join you?",ru:"Вы не против, если я присоединюсь?"},
+    {en:"I'm running a bit late — I'll be there soon.",ru:"Я немного опаздываю — скоро буду."},
+    {en:"Would you like anything to drink?",ru:"Вы хотите что-нибудь выпить?"},
+    {en:"What are you up to this weekend?",ru:"Что ты делаешь в эти выходные?"},
+    {en:"Could you do me a quick favour?",ru:"Не мог бы ты оказать мне быструю услугу?"},
+    {en:"I couldn't help overhearing...",ru:"Я невольно услышал(а)..."},
+  ],
+  'Работа':[
+    {en:"I'd like to schedule a meeting to discuss this.",ru:"Я хотел бы назначить встречу для обсуждения."},
+    {en:"I'll get back to you on that shortly.",ru:"Я скоро вернусь к вам по этому вопросу."},
+    {en:"Let's take this step by step.",ru:"Давайте сделаем это шаг за шагом."},
+    {en:"Could you send me a summary of the meeting?",ru:"Не могли бы вы прислать резюме встречи?"},
+    {en:"I'll follow up with an email.",ru:"Я продублирую это в письме."},
+    {en:"We need to align on the next steps.",ru:"Нам нужно согласовать следующие шаги."},
+    {en:"Can we push the deadline by a few days?",ru:"Можем ли мы перенести дедлайн на несколько дней?"},
+    {en:"I'll loop you in on the email chain.",ru:"Я добавлю тебя в переписку."},
+  ],
+  'Эмоции':[
+    {en:"I'm absolutely thrilled about this!",ru:"Я в полном восторге от этого!"},
+    {en:"That's such a relief!",ru:"Это такое облегчение!"},
+    {en:"I'm a bit overwhelmed at the moment.",ru:"Я немного перегружен в данный момент."},
+    {en:"I'm really looking forward to it.",ru:"Я очень жду этого."},
+    {en:"Honestly, I'm not sure how I feel about it.",ru:"Честно говоря, я не уверен, как к этому отношусь."},
+    {en:"That really means a lot to me.",ru:"Это очень много значит для меня."},
+    {en:"I'm a little nervous, to be honest.",ru:"Честно говоря, я немного нервничаю."},
+  ],
+};
+
+const sentences = [
+  {words:['I','have','been','studying','English','for','two','years'],hint:'Я изучаю английский уже два года.',label:'Present Perfect Continuous'},
+  {words:['If','I','had','more','time','I','would','travel','more'],hint:'Если бы у меня было больше времени, я бы путешествовал больше.',label:'2nd Conditional'},
+  {words:['The','report','was','written','by','the','team'],hint:'Отчёт был написан командой.',label:'Passive Voice'},
+  {words:['She','told','me','that','she','was','tired'],hint:'Она сказала мне, что устала.',label:'Reported Speech'},
+  {words:['You','should','review','your','notes','before','the','exam'],hint:'Тебе стоит повторить записи перед экзаменом.',label:'Modal Verbs'},
+  {words:['Despite','being','tired','she','continued','working'],hint:'Несмотря на усталость, она продолжала работать.',label:'Despite + -ing'},
+  {words:['The','more','you','practice','the','better','you','become'],hint:'Чем больше практикуешься, тем лучше становишься.',label:'The more...the more...'},
+  {words:['It','is','time','we','made','a','decision'],hint:'Пора нам принять решение.',label:"It's time + Past Simple"},
+];
+
+// ═══════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════
+let currentAudioIdx = -1;
+let activeQuizTopic = null;
+let quizCurrent = 0, quizScore = 0, quizAnswered = false;
+let sprintTimer = null, sprintSeconds = 0, sprintScoreVal = 0;
+let sprintWordList = [], sprintPos = 0;
+let builderCurrent = 0, builderPlaced = [], builderCorrectCount = 0;
+
+const STATS_KEY = 'englishup_v3';
+function loadS(){try{return JSON.parse(localStorage.getItem(STATS_KEY))||{};}catch{return{};}}
+function saveS(s){try{localStorage.setItem(STATS_KEY,JSON.stringify(s));}catch{}}
+function getStat(k,d){return loadS()[k]??d;}
+function setStat(k,v){const s=loadS();s[k]=v;saveS(s);}
+
+function shuffleArr(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
+function speak(text){if(!('speechSynthesis' in window))return;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang='en-GB';u.rate=0.82;speechSynthesis.speak(u);}
+
+// ═══════════════════════════════════════════
+// NAVIGATION
+// ═══════════════════════════════════════════
+function showSection(id, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('section-' + id).classList.add('active');
+  if (btn && btn.classList.contains('nav-tab')) btn.classList.add('active');
+  stopAllAudio();
+  if (id === 'progress') buildProgress();
+  if (id === 'sprint') resetSprintLobby();
+}
+
+// ═══════════════════════════════════════════
+// VOCAB
+// ═══════════════════════════════════════════
+function buildVocab() {
+  document.getElementById('cards-grid').innerHTML = words.map((w, i) => `
+    <div class="word-card" data-pos="${w.pos}" onclick="openWordModal(${i})">
+      <span class="pos-badge">${w.pos}</span>
+      <div class="word-tooltip">${w.ru}</div>
+      <div class="english">${w.en}</div>
+      <div class="transcription">[${w.tr}]</div>
+    </div>`).join('');
+}
+
+function openWordModal(i) {
+  const w = words[i];
+  document.getElementById('modal-inner').innerHTML = `
+    <button class="modal-close" onclick="document.getElementById('word-modal').classList.remove('open')">✕</button>
+    <div class="modal-word">${w.en}</div>
+    <div class="modal-ipa">[${w.tr}]</div>
+    <span class="modal-pos">${w.pos}</span>
+    <div class="modal-ru">${w.ru}</div>
+    <div class="modal-def">${w.def}</div>
+    <div class="modal-ex-title">Примеры использования</div>
+    ${w.ex.map(e=>`<div class="modal-example"><div class="en">${e.en}</div><div class="ru">${e.ru}</div></div>`).join('')}
+    <button class="modal-speak" onclick="speak('${w.en}')">🔊 Послушать произношение</button>`;
+  document.getElementById('word-modal').classList.add('open');
+  setStat('vocabOpened', getStat('vocabOpened', 0) + 1);
+}
+
+function filterCards(pos, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const s = document.getElementById('vocab-search');
+  if (s) s.value = '';
+  document.querySelectorAll('.word-card').forEach(c => {
+    c.style.display = (pos === 'all' || c.dataset.pos === pos) ? '' : 'none';
+  });
+}
+
+function searchVocab(q) {
+  const val = q.toLowerCase().trim();
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.word-card').forEach(c => {
+    const en = c.querySelector('.english').textContent.toLowerCase();
+    const tip = c.querySelector('.word-tooltip').textContent.toLowerCase();
+    c.style.display = (!val || en.includes(val) || tip.includes(val)) ? '' : 'none';
+  });
+}
+
+// ═══════════════════════════════════════════
+// QUIZ
+// ═══════════════════════════════════════════
+function buildQuizSelect() {
+  document.getElementById('quiz-select').innerHTML = `
+    <div class="quiz-topic-grid">
+      ${quizTopics.map((t, i) => `
+        <div class="quiz-topic-card qtc${i}" onclick="startQuiz(${i})">
+          <div class="qtc-icon">${t.icon}</div>
+          <div class="qtc-title">${t.title}</div>
+          <div class="qtc-desc">${t.desc}</div>
+          <span class="qtc-count">${t.questions.length} вопросов</span>
+        </div>`).join('')}
+    </div>`;
+}
+
+function startQuiz(i) {
+  activeQuizTopic = i; quizCurrent = 0; quizScore = 0;
+  document.getElementById('quiz-select').style.display = 'none';
+  document.getElementById('quiz-game').style.display = 'block';
+  document.getElementById('quiz-label').textContent = quizTopics[i].icon + ' ' + quizTopics[i].title;
+  document.getElementById('quiz-score').classList.remove('show');
+  renderQuizProgress(); renderQuestion();
+}
+
+function backToTopics() { document.getElementById('quiz-select').style.display = 'block'; document.getElementById('quiz-game').style.display = 'none'; }
+function restartQuiz() { startQuiz(activeQuizTopic); }
+
+function renderQuizProgress() {
+  const qs = quizTopics[activeQuizTopic].questions;
+  document.getElementById('quiz-progress').innerHTML = qs.map((_, i) =>
+    `<div class="quiz-dot ${i < quizCurrent ? 'done' : i === quizCurrent ? 'current' : ''}"></div>`).join('');
+}
+
+function renderQuestion() {
+  const qs = quizTopics[activeQuizTopic].questions;
+  if (quizCurrent >= qs.length) { showScore(); return; }
+  quizAnswered = false;
+  const q = qs[quizCurrent];
+  const qText = q.q.includes('__') ? q.q.replace('__', '<em>___</em>') : q.q;
+  document.getElementById('quiz-body').innerHTML = `
+    <div class="quiz-question">
+      <div class="quiz-q-label">Вопрос ${quizCurrent + 1} из ${qs.length}</div>
+      <div class="quiz-q-text">${qText}</div>
+    </div>
+    <div class="quiz-options">
+      ${q.opts.map((o, i) => `<button class="quiz-opt" onclick="answerQuiz(${i},this)">${o}</button>`).join('')}
+    </div>`;
+}
+
+function answerQuiz(idx, btn) {
+  if (quizAnswered) return;
+  quizAnswered = true;
+  const q = quizTopics[activeQuizTopic].questions[quizCurrent];
+  document.querySelectorAll('.quiz-opt').forEach((b, i) => {
+    if (i === q.right) b.classList.add('correct');
+    else if (i === idx && idx !== q.right) b.classList.add('wrong');
+    b.style.pointerEvents = 'none';
+  });
+  if (idx === q.right) quizScore++;
+  setTimeout(() => { quizCurrent++; renderQuizProgress(); renderQuestion(); }, 950);
+}
+
+function showScore() {
+  document.getElementById('quiz-body').innerHTML = '';
+  document.getElementById('quiz-score').classList.add('show');
+  const total = quizTopics[activeQuizTopic].questions.length;
+  document.getElementById('score-num').textContent = `${quizScore}/${total}`;
+  const pct = quizScore / total;
+  document.getElementById('score-msg').textContent =
+    pct >= 0.9 ? '🔥 Блестяще! Ты явно знаешь этот материал!' :
+    pct >= 0.7 ? '👍 Хороший результат, продолжай!' :
+    pct >= 0.5 ? '📚 Неплохо, но есть что повторить.' :
+    '💪 Стоит ещё поработать над этой темой!';
+  const qr = getStat('quizResults', {});
+  const t = quizTopics[activeQuizTopic];
+  if (!qr[t.id] || quizScore >= (qr[t.id].best || 0)) qr[t.id] = {title: t.title, icon: t.icon, best: quizScore, total};
+  setStat('quizResults', qr);
+}
+
+// ═══════════════════════════════════════════
+// GRAMMAR
+// ═══════════════════════════════════════════
+function buildGrammar() {
+  document.getElementById('grammar-menu').innerHTML = grammarTopics.map((t, i) =>
+    `<button class="grammar-menu-item ${i === 0 ? 'active' : ''}" onclick="showGrammar(${i},this)"><span class="dot"></span>${t.icon} ${t.title}</button>`).join('');
+  document.getElementById('grammar-area').innerHTML = grammarTopics.map((t, i) =>
+    `<div class="grammar-content ${i === 0 ? 'active' : ''}" id="gtopic-${i}">${t.content}</div>`).join('');
+}
+
+function showGrammar(i, btn) {
+  document.querySelectorAll('.grammar-menu-item').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.grammar-content').forEach(c => c.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('gtopic-' + i).classList.add('active');
+}
+
+// ═══════════════════════════════════════════
+// AUDIO
+// ═══════════════════════════════════════════
+function buildAudio() {
+  document.getElementById('audio-cards').innerHTML = audioTracks.map((t, i) => {
+    const bars = Array.from({length: 32}, (_, j) =>
+      `<div class="bar" style="height:${5+Math.random()*18}px;background:var(--${t.color});opacity:0.6;animation-delay:${j*0.05}s;"></div>`).join('');
+    const chips = t.words.map(w => `<div class="vocab-chip" onclick="speak('${w.w}')">${w.w}<span>${w.tr}</span></div>`).join('');
+    return `<div class="audio-card" id="acard-${i}">
+      <div class="audio-top">
+        <button class="audio-play-btn" id="abtn-${i}" onclick="toggleAudio(${i})">▶</button>
+        <div style="flex:1;">
+          <div class="audio-title">${t.title}</div>
+          <div class="audio-meta">${t.meta}</div>
+          <div class="audio-waveform">${bars}</div>
+        </div>
+      </div>
+      <div class="accordion">
+        <button class="acc-toggle" id="atog-${i}" onclick="toggleAcc(${i})"><span class="acc-arr">▼</span> Слова из этой дорожки</button>
+        <div class="acc-body" id="abody-${i}"><div class="vocab-chips">${chips}</div></div>
+      </div>
+    </div>`;
+  }).join('');
+  document.getElementById('pronun-grid').innerHTML = pronunWords.map(p =>
+    `<div class="pronun-card"><div class="pronun-word">${p.w}</div><div class="pronun-ipa">${p.ipa}</div><button class="pronun-speak" onclick="speak('${p.w}')">🔊</button></div>`).join('');
+}
+
+function toggleAudio(i) {
+  if (currentAudioIdx === i) { stopAllAudio(); return; }
+  stopAllAudio(); currentAudioIdx = i;
+  document.getElementById('acard-'+i).classList.add('playing');
+  document.getElementById('abtn-'+i).textContent = '⏹';
+  speak(audioTracks[i].text);
+  speechSynthesis.onend = () => {
+    const c=document.getElementById('acard-'+i),b=document.getElementById('abtn-'+i);
+    if(c)c.classList.remove('playing');if(b)b.textContent='▶';currentAudioIdx=-1;
+  };
+}
+
+function stopAllAudio() {
+  if('speechSynthesis' in window) speechSynthesis.cancel();
+  if(currentAudioIdx>=0){const c=document.getElementById('acard-'+currentAudioIdx),b=document.getElementById('abtn-'+currentAudioIdx);if(c)c.classList.remove('playing');if(b)b.textContent='▶';}
+  currentAudioIdx=-1;
+}
+
+function toggleAcc(i){const b=document.getElementById('abody-'+i),t=document.getElementById('atog-'+i),o=b.classList.contains('open');b.classList.toggle('open',!o);t.classList.toggle('open',!o);}
+function togglePronun(){const b=document.getElementById('pronun-body'),t=document.getElementById('pronun-toggle'),o=b.classList.contains('open');b.classList.toggle('open',!o);t.classList.toggle('open',!o);}
+
+// ═══════════════════════════════════════════
+// PHRASES
+// ═══════════════════════════════════════════
+function buildPhrases() {
+  const cats = Object.keys(phrases);
+  document.getElementById('phrase-cats').innerHTML = cats.map((c,i) =>
+    `<button class="phrase-cat ${i===0?'active':''}" onclick="showPhrases('${c}',this)">${c}</button>`).join('');
+  showPhrasesFor(cats[0]);
+}
+
+function showPhrases(cat,btn){document.querySelectorAll('.phrase-cat').forEach(b=>b.classList.remove('active'));btn.classList.add('active');showPhrasesFor(cat);}
+function showPhrasesFor(cat){
+  document.getElementById('phrases-list').innerHTML = phrases[cat].map(p => `
+    <div class="phrase-item">
+      <div><div class="phrase-en">${p.en}</div><div class="phrase-ru">${p.ru}</div></div>
+      <div style="display:flex;align-items:center;gap:6px;flex-shrink:0;">
+        <span class="phrase-context">${cat}</span>
+        <button class="phrase-speak-btn" onclick="speak(\`${p.en}\`)">🔊</button>
+      </div>
+    </div>`).join('');
+}
+
+// ═══════════════════════════════════════════
+// SPRINT
+// ═══════════════════════════════════════════
+function resetSprintLobby(){clearInterval(sprintTimer);document.getElementById('sprint-lobby').style.display='block';document.getElementById('sprint-game').style.display='none';document.getElementById('sprint-result').style.display='none';}
+
+function startSprint(){
+  document.getElementById('sprint-lobby').style.display='none';document.getElementById('sprint-result').style.display='none';document.getElementById('sprint-game').style.display='block';
+  sprintScoreVal=0;sprintSeconds=60;
+  document.getElementById('sprint-score-live').textContent='0';
+  document.getElementById('sprint-timer').textContent='60';document.getElementById('sprint-timer').style.color='var(--text)';
+  document.getElementById('sprint-bar').style.width='100%';
+  sprintWordList=shuffleArr([...Array(words.length).keys()]);sprintPos=0;
+  clearInterval(sprintTimer);
+  sprintTimer=setInterval(()=>{sprintSeconds--;document.getElementById('sprint-timer').textContent=sprintSeconds;document.getElementById('sprint-bar').style.width=(sprintSeconds/60*100)+'%';if(sprintSeconds<=10)document.getElementById('sprint-timer').style.color='var(--accent2)';if(sprintSeconds<=0){clearInterval(sprintTimer);endSprint();}},1000);
+  nextSprintWord();
+}
+
+function nextSprintWord(){
+  if(sprintPos>=sprintWordList.length){sprintWordList=shuffleArr([...Array(words.length).keys()]);sprintPos=0;}
+  const w=words[sprintWordList[sprintPos++]];
+  document.getElementById('sprint-word').textContent=w.en;
+  document.getElementById('sprint-ipa').textContent='['+w.tr+']';
+  const others=shuffleArr(words.filter(x=>x.en!==w.en)).slice(0,3).map(x=>x.ru);
+  const opts=shuffleArr([w.ru,...others]);
+  document.getElementById('sprint-opts').innerHTML=opts.map(o=>{const s=o.replace(/\\/g,'\\\\').replace(/'/g,"\\'");const c=w.ru.replace(/\\/g,'\\\\').replace(/'/g,"\\'");return`<button class="sprint-opt" onclick="answerSprint('${s}','${c}',this)">${o}</button>`;}).join('');
+}
+
+function answerSprint(chosen,correct,btn){
+  document.querySelectorAll('.sprint-opt').forEach(b=>{b.style.pointerEvents='none';if(b.textContent===correct)b.classList.add('correct');});
+  if(chosen===correct){sprintScoreVal++;document.getElementById('sprint-score-live').textContent=sprintScoreVal;btn.classList.add('correct');}else btn.classList.add('wrong');
+  setTimeout(nextSprintWord,380);
+}
+
+function endSprint(){
+  document.getElementById('sprint-game').style.display='none';document.getElementById('sprint-result').style.display='block';
+  document.getElementById('sprint-final').textContent=sprintScoreVal;
+  const best=getStat('sprintBest',0),games=getStat('sprintGames',0);setStat('sprintGames',games+1);
+  if(sprintScoreVal>best){setStat('sprintBest',sprintScoreVal);document.getElementById('sprint-best-msg').textContent='🏆 Новый рекорд!';document.getElementById('sprint-emoji').textContent='🏆';}
+  else{document.getElementById('sprint-best-msg').textContent=`Рекорд: ${best} очков`;document.getElementById('sprint-emoji').textContent=sprintScoreVal>=10?'🎉':'💪';}
+}
+
+// ═══════════════════════════════════════════
+// BUILDER
+// ═══════════════════════════════════════════
+function initBuilder(){builderCurrent=0;builderCorrectCount=0;document.getElementById('builder-done').style.display='none';document.getElementById('builder-card').style.display='block';renderBuilderProgress();renderBuilderQuestion();}
+
+function renderBuilderProgress(){document.getElementById('builder-progress-row').innerHTML=sentences.map((_,i)=>`<div style="height:4px;flex:1;border-radius:2px;background:${i<builderCurrent?'var(--accent)':i===builderCurrent?'var(--accent4)':'var(--surface2)'};transition:background 0.3s;"></div>`).join('');}
+
+function renderBuilderQuestion(){
+  if(builderCurrent>=sentences.length){showBuilderDone();return;}
+  builderPlaced=[];
+  const s=sentences[builderCurrent];
+  document.getElementById('builder-label').textContent=`Предложение ${builderCurrent+1} из ${sentences.length} · ${s.label}`;
+  document.getElementById('builder-hint').textContent='💡 '+s.hint;
+  document.getElementById('drop-zone').innerHTML='<span style="color:var(--muted);font-size:12px;pointer-events:none;">Нажимай на слова снизу →</span>';
+  document.getElementById('builder-fb').style.display='none';
+  document.getElementById('word-bank').innerHTML=shuffleArr([...s.words]).map((w,i)=>`<span class="builder-word" id="bw-${i}" onclick="placeWord('${w}',${i})">${w}</span>`).join('');
+}
+
+function placeWord(w,idx){const el=document.getElementById('bw-'+idx);if(!el||el.classList.contains('placed'))return;el.classList.add('placed');builderPlaced.push({w,idx});renderDropZone();}
+
+function renderDropZone(){const z=document.getElementById('drop-zone');if(!builderPlaced.length){z.innerHTML='<span style="color:var(--muted);font-size:12px;pointer-events:none;">Нажимай на слова снизу →</span>';return;}z.innerHTML=builderPlaced.map((item,i)=>`<span class="builder-word in-zone" onclick="removeWord(${i})">${item.w}</span>`).join('');}
+
+function removeWord(i){const el=document.getElementById('bw-'+builderPlaced[i].idx);if(el)el.classList.remove('placed');builderPlaced.splice(i,1);renderDropZone();}
+
+function resetBuilder(){builderPlaced=[];document.querySelectorAll('.builder-word').forEach(b=>b.classList.remove('placed'));renderDropZone();document.getElementById('builder-fb').style.display='none';}
+
+function checkBuilder(){
+  const s=sentences[builderCurrent],answer=builderPlaced.map(x=>x.w).join(' '),correct=s.words.join(' ');
+  const fb=document.getElementById('builder-fb');fb.style.display='block';
+  setStat('builderTotal',getStat('builderTotal',0)+1);
+  if(answer===correct){fb.style.cssText='display:block;margin-top:12px;padding:10px 13px;border-radius:8px;background:rgba(79,255,176,0.08);border:1px solid rgba(79,255,176,0.2);color:var(--accent);font-size:13px;';fb.textContent='✅ Правильно! '+correct;builderCorrectCount++;setStat('builderCorrect',getStat('builderCorrect',0)+1);setTimeout(()=>{builderCurrent++;renderBuilderProgress();renderBuilderQuestion();},900);}
+  else{fb.style.cssText='display:block;margin-top:12px;padding:10px 13px;border-radius:8px;background:rgba(255,107,107,0.08);border:1px solid rgba(255,107,107,0.2);color:var(--accent2);font-size:13px;';fb.innerHTML=`❌ Не совсем. Правильно: <strong style="color:var(--text)">${correct}</strong>`;}
+}
+
+function skipBuilder(){builderCurrent++;renderBuilderProgress();renderBuilderQuestion();}
+function showBuilderDone(){document.getElementById('builder-card').style.display='none';document.getElementById('builder-done').style.display='block';document.getElementById('builder-done-score').textContent=`Правильно: ${builderCorrectCount} из ${sentences.length}`;}
+
+// ═══════════════════════════════════════════
+// PROGRESS
+// ═══════════════════════════════════════════
+function buildProgress(){
+  const vo=getStat('vocabOpened',0),qr=getStat('quizResults',{}),sb=getStat('sprintBest',0),sg=getStat('sprintGames',0),bc=getStat('builderCorrect',0),bt=getStat('builderTotal',0);
+  document.getElementById('stat-cards').innerHTML=[
+    {num:vo,lbl:'Слов открыто',color:'var(--accent)',pct:Math.min(100,vo/words.length*100)},
+    {num:Object.keys(qr).length+'/'+quizTopics.length,lbl:'Тем пройдено',color:'var(--accent4)',pct:Object.keys(qr).length/quizTopics.length*100},
+    {num:sb,lbl:'Рекорд спринта',color:'var(--accent3)',pct:Math.min(100,sb/25*100)},
+    {num:bc+'/'+bt,lbl:'Предложений собрано',color:'var(--accent2)',pct:bt?bc/bt*100:0},
+  ].map(c=>`<div class="stat-card"><div class="stat-num" style="color:${c.color}">${c.num}</div><div class="stat-lbl">${c.lbl}</div><div class="stat-bar-wrap"><div class="stat-bar" style="width:${c.pct.toFixed(0)}%;background:${c.color};"></div></div></div>`).join('');
+
+  document.getElementById('stat-quiz-list').innerHTML=quizTopics.map(t=>{const r=qr[t.id];if(!r)return`<div style="color:var(--muted);font-size:12px;padding:6px 0;border-bottom:1px solid var(--border);">${t.icon} ${t.title} — не пройден</div>`;const pct=Math.round(r.best/r.total*100);return`<div style="padding:6px 0;border-bottom:1px solid var(--border);"><div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="font-size:12px;">${t.icon} ${t.title}</span><span style="font-size:11px;color:${pct>=70?'var(--accent)':'var(--accent3)'};">${r.best}/${r.total}</span></div><div style="height:3px;background:var(--surface2);border-radius:2px;"><div style="height:100%;width:${pct}%;background:${pct>=70?'var(--accent)':'var(--accent3)'};border-radius:2px;"></div></div></div>`;}).join('');
+
+  document.getElementById('stat-sprint').innerHTML=`<div style="font-size:26px;font-family:'Clash Display',sans-serif;font-weight:700;color:var(--accent3);">${sb}</div><div style="color:var(--muted);font-size:11px;">лучший результат · ${sg} игр сыграно</div>`;
+  document.getElementById('stat-builder').innerHTML=`<div style="font-size:26px;font-family:'Clash Display',sans-serif;font-weight:700;color:var(--accent2);">${bc}<span style="font-size:14px;color:var(--muted);">/${bt}</span></div><div style="color:var(--muted);font-size:11px;">верных ответов</div>`;
+}
+
+function resetProgress(){if(confirm('Сбросить всю статистику?')){localStorage.removeItem(STATS_KEY);buildProgress();}}
+
+// ═══════════════════════════════════════════
+// BOOT
+// ═══════════════════════════════════════════
+buildVocab();
+buildQuizSelect();
+buildGrammar();
+buildAudio();
+buildPhrases();
+initBuilder();
+</script>
+</body>
+</html>
