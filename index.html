@@ -134,29 +134,40 @@ nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:12px;p
 .ex-item .ru{color:var(--muted);font-size:11px;}
 
 /* AUDIO */
-.audio-cards{display:flex;flex-direction:column;gap:12px;max-width:800px;margin:0 auto;}
-.audio-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px;transition:border-color 0.2s;}
+.audio-cards{display:flex;flex-direction:column;gap:14px;max-width:800px;margin:0 auto;}
+.audio-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;transition:border-color 0.2s;}
 .audio-card.playing{border-color:rgba(79,255,176,0.35);}
 .audio-top{display:flex;align-items:center;gap:14px;}
 .audio-play-btn{width:44px;height:44px;border-radius:50%;flex-shrink:0;background:linear-gradient(135deg,var(--accent),var(--accent4));border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px;transition:transform 0.2s,box-shadow 0.2s;}
 .audio-play-btn:hover{transform:scale(1.07);box-shadow:0 0 16px rgba(79,255,176,0.3);}
 .audio-title{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin-bottom:2px;}
-.audio-meta{color:var(--muted);font-size:11px;margin-bottom:8px;}
-.audio-waveform{height:26px;background:var(--surface2);border-radius:6px;display:flex;align-items:center;gap:2px;padding:0 6px;overflow:hidden;}
-.audio-waveform .bar{width:3px;border-radius:2px;}
-.audio-card.playing .bar{animation:barPulse 0.7s ease-in-out infinite alternate;}
-@keyframes barPulse{from{opacity:0.3;}to{opacity:1;}}
-.accordion{margin-top:11px;border-top:1px solid var(--border);padding-top:10px;}
+.audio-meta{color:var(--muted);font-size:11px;margin-bottom:10px;}
+/* real player controls */
+.audio-player{display:flex;align-items:center;gap:10px;}
+.audio-progress-wrap{flex:1;height:5px;background:var(--surface2);border-radius:3px;cursor:pointer;position:relative;}
+.audio-progress-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--accent),var(--accent4));width:0%;transition:width 0.1s;}
+.audio-time{font-size:11px;color:var(--muted);white-space:nowrap;min-width:70px;text-align:right;}
+.audio-loading{font-size:11px;color:var(--muted);display:none;}
+.audio-card.loading .audio-loading{display:block;}
+.audio-card.loading .audio-player{opacity:0.5;pointer-events:none;}
+.accordion{margin-top:14px;border-top:1px solid var(--border);padding-top:11px;}
 .acc-toggle{background:none;border:none;color:var(--muted);font-size:11px;cursor:pointer;font-family:'DM Sans',sans-serif;display:flex;align-items:center;gap:5px;transition:color 0.2s;padding:0;}
 .acc-toggle:hover{color:var(--text);}
 .acc-arr{transition:transform 0.2s;display:inline-block;}
 .acc-toggle.open .acc-arr{transform:rotate(180deg);}
-.acc-body{display:none;padding-top:9px;}
+.acc-body{display:none;padding-top:10px;}
 .acc-body.open{display:block;animation:fadeUp 0.2s ease;}
-.vocab-chips{display:flex;flex-wrap:wrap;gap:6px;}
-.vocab-chip{background:var(--surface2);border-radius:6px;padding:5px 10px;font-size:12px;cursor:pointer;transition:all 0.2s;border:1px solid transparent;}
+/* word chips with definition popup */
+.vocab-chips{display:flex;flex-wrap:wrap;gap:7px;}
+.vocab-chip{background:var(--surface2);border-radius:7px;padding:6px 12px;font-size:12px;cursor:pointer;transition:all 0.2s;border:1px solid transparent;position:relative;}
 .vocab-chip:hover{border-color:var(--accent4);color:var(--accent4);}
-.vocab-chip span{color:var(--muted);font-size:10px;margin-left:4px;}
+.vocab-chip .chip-tr{color:var(--muted);font-size:10px;margin-left:4px;}
+.chip-def-popup{display:none;position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 14px;width:220px;font-size:12px;line-height:1.6;z-index:100;box-shadow:0 4px 20px rgba(0,0,0,0.4);pointer-events:none;}
+.chip-def-popup::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:var(--surface);}
+.vocab-chip:hover .chip-def-popup{display:block;}
+.chip-def-popup .def-word{font-family:'Clash Display',sans-serif;font-size:14px;font-weight:700;color:var(--accent);margin-bottom:3px;}
+.chip-def-popup .def-tr{color:var(--accent3);font-size:12px;margin-bottom:5px;}
+.chip-def-popup .def-text{color:var(--muted);font-size:11px;}
 .pronun-sec-toggle{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:13px 16px;width:100%;max-width:800px;margin:20px auto 0;display:flex;text-align:left;cursor:pointer;font-family:'Syne',sans-serif;font-size:13px;font-weight:600;color:var(--text);justify-content:space-between;align-items:center;transition:border-color 0.2s;}
 .pronun-sec-toggle:hover{border-color:rgba(79,255,176,0.3);}
 .pronun-arr{transition:transform 0.2s;color:var(--muted);font-size:10px;}
@@ -689,24 +700,90 @@ const grammarTopics = [
 // DATA — AUDIO (expanded)
 // ═══════════════════════════════════════════
 const audioTracks = [
-  {title:'Morning Routine',meta:'A2–B1 · British accent · повседневная жизнь',color:'accent',
-   text:"Every morning I wake up at seven o'clock. First, I have a shower and get dressed. Then I make breakfast — usually toast and coffee. After that, I check my phone for messages. I leave the house at eight thirty and take the bus to work. The journey takes about twenty minutes.",
-   words:[{w:'routine',tr:'распорядок'},{w:'shower',tr:'душ'},{w:'journey',tr:'поездка'},{w:'usually',tr:'обычно'}]},
-  {title:'Daily Conversations',meta:'B1 · British accent · диалоги',color:'accent4',
-   text:"Hello! How are you doing today? I'm doing well, thank you for asking. By the way, did you finish the report? Yes, I sent it this morning. Great, let me know if you need any feedback. Actually, could you clarify one point? Of course, what would you like to know?",
-   words:[{w:'by the way',tr:'кстати'},{w:'feedback',tr:'обратная связь'},{w:'clarify',tr:'уточнить'},{w:'actually',tr:'на самом деле'}]},
-  {title:'Job Interview',meta:'B1–B2 · American accent · собеседование',color:'accent5',
-   text:"Good morning! Thank you for coming in today. Please tell me a little about yourself and your experience. I have three years of experience in software development, primarily working with web technologies. I enjoy problem-solving and collaborating with teams. What attracts you to this position? I am particularly interested in the company's focus on innovation and sustainable development.",
-   words:[{w:'experience',tr:'опыт'},{w:'primarily',tr:'главным образом'},{w:'collaborate',tr:'сотрудничать'},{w:'sustainable',tr:'устойчивый'}]},
-  {title:'News in Slow English',meta:'B2 · American accent · новости',color:'accent3',
-   text:"Scientists have discovered a new approach to renewable energy. The research team claims the method is significantly more efficient than existing solutions and could have a considerable impact on how we generate electricity in the future. Experts suggest this technology could reduce carbon emissions by up to forty percent.",
-   words:[{w:'renewable',tr:'возобновляемый'},{w:'efficient',tr:'эффективный'},{w:'considerable',tr:'значительный'},{w:'emissions',tr:'выбросы'}]},
-  {title:'Science & Technology',meta:'B2 · American accent · наука',color:'accent2',
-   text:"Artificial intelligence is transforming the way we live and work. AI systems are being implemented across many industries, from healthcare to education. Researchers emphasise that while the benefits are considerable, it is equally important to address the ethical consequences of these technologies and ensure they are used responsibly.",
-   words:[{w:'implement',tr:'внедрять'},{w:'emphasise',tr:'подчёркивать'},{w:'consequences',tr:'последствия'},{w:'responsibly',tr:'ответственно'}]},
-  {title:'Travel & Tourism',meta:'B1–B2 · British accent · путешествия',color:'accent',
-   text:"Travelling broadens the mind and exposes you to different cultures and perspectives. When visiting a new country, it is important to respect local customs and traditions. Try to learn a few phrases in the local language — people really appreciate the effort. Don't forget to try the local cuisine, as food is an essential part of any culture.",
-   words:[{w:'broaden',tr:'расширять'},{w:'expose',tr:'знакомить'},{w:'customs',tr:'обычаи'},{w:'cuisine',tr:'кухня'}]},
+  {title:'Morning Routine',meta:'A2–B1 · повседневная жизнь',color:'accent',
+   src:'https://raw.githubusercontent.com/AraAraD/englishup/main/Track1.mp3',
+   words:[
+     {w:'urge',tr:'побуждение, желание',def:'A strong desire to do something.'},
+     {w:'refreshing',tr:'освежающий',def:'Making you feel less tired or hot.'},
+     {w:'brew',tr:'заваривать',def:'To make tea or coffee.'},
+     {w:'glance',tr:'бросить взгляд',def:'To look quickly at something.'},
+     {w:'headlines',tr:'заголовки новостей',def:'The titles of news stories.'},
+     {w:'energised',tr:'заряженный энергией',def:'Feeling full of energy.'},
+     {w:'tackle',tr:'браться за задачу',def:'To deal with a difficult problem.'},
+     {w:'commute',tr:'ежедневная поездка на работу',def:'A regular journey between home and work.'},
+     {w:'roughly',tr:'приблизительно',def:'Approximately, not exactly.'},
+     {w:'review',tr:'просматривать, проверять',def:'To look at something again carefully.'},
+   ]},
+  {title:'Daily Conversations',meta:'B1 · рабочее общение',color:'accent4',
+   src:'https://raw.githubusercontent.com/AraAraD/englishup/main/Track2.mp3',
+   words:[
+     {w:'settle in',tr:'обустраиваться, привыкать',def:'To become comfortable in a new place.'},
+     {w:'adjust',tr:'адаптироваться',def:'To change to suit a new situation.'},
+     {w:'welcoming',tr:'гостеприимный, дружелюбный',def:'Friendly to new people.'},
+     {w:'quarterly',tr:'ежеквартальный',def:'Happening every three months.'},
+     {w:'compile',tr:'составлять, собирать',def:'To collect information and organise it.'},
+     {w:'wrap up',tr:'завершать',def:'To finish or complete something.'},
+     {w:'prioritise',tr:'расставлять приоритеты',def:'To decide what is most important.'},
+     {w:'clarify',tr:'уточнять, прояснять',def:'To make something easier to understand.'},
+     {w:'deadline',tr:'крайний срок',def:'The latest time something must be done.'},
+     {w:'impressive',tr:'впечатляющий',def:'Causing admiration or respect.'},
+   ]},
+  {title:'Job Interview',meta:'B1–B2 · собеседование',color:'accent5',
+   src:'https://raw.githubusercontent.com/AraAraD/englishup/main/Track3.mp3',
+   words:[
+     {w:'nerve-wracking',tr:'изматывающий нервы',def:'Causing a lot of anxiety.'},
+     {w:'background',tr:'опыт, биография',def:'A person\'s experience and history.'},
+     {w:'specialise',tr:'специализироваться',def:'To focus on one particular area.'},
+     {w:'consistently',tr:'последовательно, стабильно',def:'Always behaving in the same way.'},
+     {w:'cross-functional',tr:'межфункциональный',def:'Involving different departments or skills.'},
+     {w:'constructive criticism',tr:'конструктивная критика',def:'Helpful feedback aimed at improvement.'},
+     {w:'refine',tr:'совершенствовать',def:'To improve something by making small changes.'},
+     {w:'adaptability',tr:'адаптивность',def:'The ability to change to suit new conditions.'},
+     {w:'work ethic',tr:'трудовая этика',def:'A belief in the importance of working hard.'},
+     {w:'achievement',tr:'достижение',def:'Something accomplished successfully.'},
+   ]},
+  {title:'News in Slow English',meta:'B2 · новости',color:'accent3',
+   src:'https://raw.githubusercontent.com/AraAraD/englishup/main/Track4.mp3',
+   words:[
+     {w:'groundbreaking',tr:'революционный',def:'New and very different from what existed before.'},
+     {w:'unveil',tr:'представлять, раскрывать',def:'To show something new to the public.'},
+     {w:'harness',tr:'использовать (ресурс)',def:'To control and use a resource or energy.'},
+     {w:'cautiously optimistic',tr:'осторожно оптимистичный',def:'Hopeful but careful about being too positive.'},
+     {w:'breakthrough',tr:'прорыв',def:'An important discovery or development.'},
+     {w:'fossil fuels',tr:'ископаемое топливо',def:'Coal, oil and gas used as energy sources.'},
+     {w:'combat',tr:'бороться с',def:'To take action to reduce or prevent something bad.'},
+     {w:'substantial',tr:'существенный',def:'Large in size or amount.'},
+     {w:'deploy',tr:'развёртывать, применять',def:'To put something into use.'},
+     {w:'dependence',tr:'зависимость',def:'The state of relying on something.'},
+   ]},
+  {title:'Science & Technology',meta:'B2 · наука и технологии',color:'accent2',
+   src:'https://raw.githubusercontent.com/AraAraD/englishup/main/Track5.mp3',
+   words:[
+     {w:'embedded',tr:'встроенный, глубоко укоренившийся',def:'Firmly fixed in something.'},
+     {w:'sophisticated',tr:'сложный, передовой',def:'Highly developed and complex.'},
+     {w:'diagnostic',tr:'диагностический',def:'Related to identifying diseases or problems.'},
+     {w:'implications',tr:'последствия, подтекст',def:'The possible effects or results of something.'},
+     {w:'algorithmic bias',tr:'алгоритмическая предвзятость',def:'Unfair results produced by computer algorithms.'},
+     {w:'displacement',tr:'вытеснение, перемещение',def:'The forcing of people from their usual place.'},
+     {w:'policymakers',tr:'политики, законодатели',def:'People who make official decisions and rules.'},
+     {w:'accountability',tr:'ответственность, подотчётность',def:'The obligation to explain and justify actions.'},
+     {w:'accelerated',tr:'ускоренный',def:'Made to happen faster than normal.'},
+     {w:'extraordinary',tr:'необыкновенный',def:'Very unusual or remarkable.'},
+   ]},
+  {title:'Travel & Tourism',meta:'B1–B2 · путешествия',color:'accent',
+   src:'https://raw.githubusercontent.com/AraAraD/englishup/main/Track6.mp3',
+   words:[
+     {w:'transformative',tr:'преобразующий',def:'Causing a major change in someone or something.'},
+     {w:'immerse',tr:'погружаться',def:'To become completely involved in something.'},
+     {w:'off the beaten path',tr:'вдали от туристических маршрутов',def:'Away from popular tourist areas.'},
+     {w:'hidden gems',tr:'скрытые жемчужины',def:'Wonderful places that few people know about.'},
+     {w:'native tongue',tr:'родной язык',def:'The first language a person learns.'},
+     {w:'authentically',tr:'подлинно, по-настоящему',def:'In a genuine, real way.'},
+     {w:'cuisine',tr:'кухня (кулинарная)',def:'The style of cooking of a particular country.'},
+     {w:'mindset',tr:'склад ума, мировоззрение',def:'A person\'s way of thinking about things.'},
+     {w:'embrace',tr:'принимать, охватывать',def:'To accept something enthusiastically.'},
+     {w:'curiosity',tr:'любопытство',def:'A strong desire to learn or know something.'},
+   ]},
 ];
 
 const pronunWords = [
@@ -1012,48 +1089,136 @@ function showGrammar(i, btn) {
 }
 
 // ═══════════════════════════════════════════
-// AUDIO
+// AUDIO — real HTML5 player
 // ═══════════════════════════════════════════
+const audioElements = [];
+
 function buildAudio() {
   document.getElementById('audio-cards').innerHTML = audioTracks.map((t, i) => {
-    const bars = Array.from({length: 32}, (_, j) =>
-      `<div class="bar" style="height:${5+Math.random()*18}px;background:var(--${t.color});opacity:0.6;animation-delay:${j*0.05}s;"></div>`).join('');
-    const chips = t.words.map(w => `<div class="vocab-chip" onclick="speak('${w.w}')">${w.w}<span>${w.tr}</span></div>`).join('');
-    return `<div class="audio-card" id="acard-${i}">
+    const chips = t.words.map(w => `
+      <div class="vocab-chip" onclick="speak('${w.w}')">
+        ${w.w}<span class="chip-tr">${w.tr}</span>
+        <div class="chip-def-popup">
+          <div class="def-word">${w.w}</div>
+          <div class="def-tr">${w.tr}</div>
+          <div class="def-text">${w.def}</div>
+        </div>
+      </div>`).join('');
+    return `
+    <div class="audio-card" id="acard-${i}">
+      <audio id="audio-el-${i}" src="${t.src}" preload="none"></audio>
       <div class="audio-top">
         <button class="audio-play-btn" id="abtn-${i}" onclick="toggleAudio(${i})">▶</button>
         <div style="flex:1;">
           <div class="audio-title">${t.title}</div>
           <div class="audio-meta">${t.meta}</div>
-          <div class="audio-waveform">${bars}</div>
+          <div class="audio-player">
+            <div class="audio-progress-wrap" id="prog-wrap-${i}" onclick="seekAudio(${i}, event)">
+              <div class="audio-progress-fill" id="prog-fill-${i}"></div>
+            </div>
+            <div class="audio-time" id="atime-${i}">0:00 / 0:00</div>
+          </div>
+          <div class="audio-loading" id="aloading-${i}">⏳ Загрузка...</div>
         </div>
       </div>
       <div class="accordion">
-        <button class="acc-toggle" id="atog-${i}" onclick="toggleAcc(${i})"><span class="acc-arr">▼</span> Слова из этой дорожки</button>
+        <button class="acc-toggle" id="atog-${i}" onclick="toggleAcc(${i})">
+          <span class="acc-arr">▼</span> Слова из этой дорожки (наведи — узнай значение)
+        </button>
         <div class="acc-body" id="abody-${i}"><div class="vocab-chips">${chips}</div></div>
       </div>
     </div>`;
   }).join('');
+
+  // bind audio events
+  audioTracks.forEach((_, i) => {
+    const el = document.getElementById('audio-el-' + i);
+    audioElements[i] = el;
+
+    el.addEventListener('timeupdate', () => {
+      if (!el.duration) return;
+      const pct = (el.currentTime / el.duration) * 100;
+      document.getElementById('prog-fill-' + i).style.width = pct + '%';
+      document.getElementById('atime-' + i).textContent = formatTime(el.currentTime) + ' / ' + formatTime(el.duration);
+    });
+
+    el.addEventListener('ended', () => {
+      document.getElementById('acard-' + i).classList.remove('playing');
+      document.getElementById('abtn-' + i).textContent = '▶';
+      document.getElementById('prog-fill-' + i).style.width = '0%';
+      currentAudioIdx = -1;
+    });
+
+    el.addEventListener('waiting', () => {
+      document.getElementById('acard-' + i).classList.add('loading');
+      document.getElementById('aloading-' + i).style.display = 'block';
+    });
+
+    el.addEventListener('canplay', () => {
+      document.getElementById('acard-' + i).classList.remove('loading');
+      document.getElementById('aloading-' + i).style.display = 'none';
+    });
+
+    el.addEventListener('loadedmetadata', () => {
+      document.getElementById('atime-' + i).textContent = '0:00 / ' + formatTime(el.duration);
+    });
+  });
+
   document.getElementById('pronun-grid').innerHTML = pronunWords.map(p =>
     `<div class="pronun-card"><div class="pronun-word">${p.w}</div><div class="pronun-ipa">${p.ipa}</div><button class="pronun-speak" onclick="speak('${p.w}')">🔊</button></div>`).join('');
 }
 
+function formatTime(s) {
+  if (isNaN(s)) return '0:00';
+  const m = Math.floor(s / 60);
+  const sec = Math.floor(s % 60);
+  return m + ':' + (sec < 10 ? '0' : '') + sec;
+}
+
 function toggleAudio(i) {
-  if (currentAudioIdx === i) { stopAllAudio(); return; }
-  stopAllAudio(); currentAudioIdx = i;
-  document.getElementById('acard-'+i).classList.add('playing');
-  document.getElementById('abtn-'+i).textContent = '⏹';
-  speak(audioTracks[i].text);
-  speechSynthesis.onend = () => {
-    const c=document.getElementById('acard-'+i),b=document.getElementById('abtn-'+i);
-    if(c)c.classList.remove('playing');if(b)b.textContent='▶';currentAudioIdx=-1;
-  };
+  const el = audioElements[i];
+  if (!el) return;
+
+  // pause currently playing
+  if (currentAudioIdx === i) {
+    el.pause();
+    document.getElementById('acard-' + i).classList.remove('playing');
+    document.getElementById('abtn-' + i).textContent = '▶';
+    currentAudioIdx = -1;
+    return;
+  }
+
+  // stop previous
+  stopAllAudio();
+
+  currentAudioIdx = i;
+  document.getElementById('acard-' + i).classList.add('playing');
+  document.getElementById('abtn-' + i).textContent = '⏸';
+  el.play().catch(() => {
+    document.getElementById('abtn-' + i).textContent = '▶';
+    document.getElementById('acard-' + i).classList.remove('playing');
+    currentAudioIdx = -1;
+  });
+}
+
+function seekAudio(i, e) {
+  const el = audioElements[i];
+  if (!el || !el.duration) return;
+  const rect = document.getElementById('prog-wrap-' + i).getBoundingClientRect();
+  const pct = (e.clientX - rect.left) / rect.width;
+  el.currentTime = pct * el.duration;
 }
 
 function stopAllAudio() {
-  if('speechSynthesis' in window) speechSynthesis.cancel();
-  if(currentAudioIdx>=0){const c=document.getElementById('acard-'+currentAudioIdx),b=document.getElementById('abtn-'+currentAudioIdx);if(c)c.classList.remove('playing');if(b)b.textContent='▶';}
-  currentAudioIdx=-1;
+  audioElements.forEach((el, i) => {
+    if (el && !el.paused) {
+      el.pause();
+      document.getElementById('acard-' + i) && document.getElementById('acard-' + i).classList.remove('playing');
+      document.getElementById('abtn-' + i) && (document.getElementById('abtn-' + i).textContent = '▶');
+    }
+  });
+  if ('speechSynthesis' in window) speechSynthesis.cancel();
+  currentAudioIdx = -1;
 }
 
 function toggleAcc(i){const b=document.getElementById('abody-'+i),t=document.getElementById('atog-'+i),o=b.classList.contains('open');b.classList.toggle('open',!o);t.classList.toggle('open',!o);}
