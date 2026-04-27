@@ -213,6 +213,124 @@ nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:12px;p
 .stat-bar{height:100%;border-radius:3px;transition:width 0.7s ease;}
 .profile-avatar{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent4));display:flex;align-items:center;justify-content:center;font-size:36px;margin:0 auto 16px;}
 
+/* THEME TOGGLE */
+.theme-toggle-btn{flex-shrink:0;background:var(--surface2);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:15px;padding:6px 10px;cursor:pointer;transition:all 0.2s;line-height:1;}
+.theme-toggle-btn:hover{border-color:rgba(79,255,176,0.4);}
+
+/* LIGHT THEME */
+body.light-theme{--bg:#f0f2f7;--surface:#ffffff;--surface2:#e8eaf0;--border:rgba(0,0,0,0.1);--text:#1a1d26;--muted:#6b7280;}
+body.light-theme::before{opacity:0.1;}
+body.light-theme .nav-tab{color:#4b5563;}
+body.light-theme .nav-tab.active{background:#fff;color:#1a1d26;}
+body.light-theme .word-card{box-shadow:0 1px 4px rgba(0,0,0,0.07);}
+body.light-theme .modal{background:#fff;}
+body.light-theme .quiz-opt{background:#fff;}
+body.light-theme .grammar-content{background:#fff;}
+body.light-theme .audio-card{background:#fff;}
+body.light-theme .phrase-item{background:#fff;}
+body.light-theme .stat-card{background:#fff;}
+body.light-theme .fc-card{background:#fff;}
+body.light-theme .dict-input{background:#fff;color:#1a1d26;}
+
+/* FLASHCARDS */
+.fc-wrap{max-width:540px;margin:0 auto;}
+.fc-progress-row{display:flex;gap:4px;margin-bottom:20px;}
+.fc-card-container{perspective:1000px;height:240px;margin-bottom:18px;cursor:pointer;}
+.fc-card{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform 0.5s ease;border-radius:var(--radius);}
+.fc-card.flipped{transform:rotateY(180deg);}
+.fc-front,.fc-back{position:absolute;inset:0;backface-visibility:hidden;border-radius:var(--radius);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px;border:1px solid var(--border);}
+.fc-front{background:var(--surface);}
+.fc-back{background:var(--surface2);transform:rotateY(180deg);}
+.fc-word{font-family:'Clash Display',sans-serif;font-size:36px;font-weight:700;margin-bottom:8px;}
+.fc-ipa{color:var(--muted);font-size:13px;margin-bottom:10px;}
+.fc-hint{font-size:11px;color:var(--muted);position:absolute;bottom:14px;}
+.fc-ru{font-size:20px;color:var(--accent);font-weight:600;margin-bottom:6px;}
+.fc-def{color:#c5cad9;font-size:12px;text-align:center;line-height:1.7;max-width:340px;}
+.fc-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+.fc-btn-know{background:rgba(79,255,176,0.12);border:1px solid rgba(79,255,176,0.35);color:var(--accent);padding:10px 28px;border-radius:10px;cursor:pointer;font-size:14px;font-family:'DM Sans',sans-serif;transition:all 0.2s;}
+.fc-btn-know:hover{background:rgba(79,255,176,0.2);}
+.fc-btn-again{background:rgba(255,107,107,0.1);border:1px solid rgba(255,107,107,0.3);color:var(--accent2);padding:10px 28px;border-radius:10px;cursor:pointer;font-size:14px;font-family:'DM Sans',sans-serif;transition:all 0.2s;}
+.fc-btn-again:hover{background:rgba(255,107,107,0.18);}
+.fc-counter{font-size:12px;color:var(--muted);text-align:center;margin-bottom:10px;}
+.fc-stats{display:flex;gap:18px;justify-content:center;margin-top:8px;}
+.fc-stat{text-align:center;}
+.fc-stat-n{font-family:'Clash Display',sans-serif;font-size:22px;font-weight:700;}
+.fc-stat-l{color:var(--muted);font-size:10px;}
+.fc-done{text-align:center;padding:48px 20px;}
+
+/* DICTATION */
+.dict-wrap{max-width:600px;margin:0 auto;}
+.dict-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:26px;margin-bottom:14px;}
+.dict-sentence{font-size:14px;color:#c5cad9;line-height:1.9;margin-bottom:16px;}
+.dict-sentence .dict-blank{display:inline-block;min-width:90px;border-bottom:2px solid var(--accent4);margin:0 4px;vertical-align:bottom;}
+.dict-input-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
+.dict-input{flex:1;min-width:160px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:9px 13px;color:var(--text);font-size:14px;font-family:'DM Sans',sans-serif;outline:none;transition:border-color 0.2s;}
+.dict-input:focus{border-color:rgba(79,255,176,0.4);}
+.dict-input.correct{border-color:var(--accent);background:rgba(79,255,176,0.06);}
+.dict-input.wrong{border-color:var(--accent2);background:rgba(255,107,107,0.06);}
+.dict-fb{font-size:12px;margin-top:8px;display:none;}
+.dict-speak-btn{background:var(--surface2);border:1px solid var(--border);color:var(--muted);padding:8px 14px;border-radius:8px;cursor:pointer;font-size:13px;transition:all 0.2s;white-space:nowrap;}
+.dict-speak-btn:hover{border-color:var(--accent3);color:var(--accent3);}
+.dict-prog{display:flex;gap:4px;margin-bottom:18px;}
+.dict-prog-dot{height:4px;flex:1;border-radius:2px;background:var(--surface2);transition:background 0.3s;}
+.dict-prog-dot.done{background:var(--accent);}
+.dict-prog-dot.cur{background:var(--accent4);}
+.dict-score-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:36px;text-align:center;display:none;}
+
+/* WORDLE */
+.wordle-row{display:flex;gap:5px;}
+.wordle-cell{width:52px;height:52px;border:2px solid var(--border);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'Clash Display',sans-serif;font-size:20px;font-weight:700;text-transform:uppercase;transition:all 0.15s;background:var(--surface);}
+.wordle-cell.filled{border-color:rgba(255,255,255,0.2);transform:scale(1.04);}
+.wordle-cell.correct{background:#538d4e;border-color:#538d4e;color:#fff;}
+.wordle-cell.present{background:#b59f3b;border-color:#b59f3b;color:#fff;}
+.wordle-cell.absent{background:var(--surface2);border-color:var(--surface2);color:var(--muted);}
+.wordle-key{min-width:36px;height:44px;border-radius:6px;border:none;background:var(--surface2);color:var(--text);font-family:'Clash Display',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all 0.15s;padding:0 6px;text-transform:uppercase;}
+.wordle-key:hover{background:rgba(255,255,255,0.1);}
+.wordle-key.correct{background:#538d4e;color:#fff;}
+.wordle-key.present{background:#b59f3b;color:#fff;}
+.wordle-key.absent{background:#3a3a3c;color:#666;}
+.wordle-key.wide{min-width:58px;font-size:11px;}
+/* FILL IN BLANK */
+.fb-opt{padding:12px 14px;border-radius:10px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-size:13px;font-weight:500;cursor:pointer;transition:all 0.18s;text-align:left;font-family:'DM Sans',sans-serif;}
+.fb-opt:hover{border-color:var(--accent4);background:rgba(116,185,255,0.05);}
+.fb-opt.correct{border-color:var(--accent);background:rgba(79,255,176,0.08);color:var(--accent);pointer-events:none;}
+.fb-opt.wrong{border-color:var(--accent2);background:rgba(255,107,107,0.08);color:var(--accent2);pointer-events:none;}
+/* ACTIVITY CHART */
+.activity-grid{display:flex;gap:3px;flex-wrap:wrap;margin-top:10px;}
+.act-day{width:13px;height:13px;border-radius:3px;background:var(--surface2);}
+.act-day.l1{background:rgba(79,255,176,0.25);}
+.act-day.l2{background:rgba(79,255,176,0.5);}
+.act-day.l3{background:rgba(79,255,176,0.75);}
+.act-day.l4{background:var(--accent);}
+/* light theme Wordle */
+body.light-theme .wordle-cell{background:#fff;}
+body.light-theme .wordle-key{background:#d3d6da;color:#000;}
+body.light-theme .wordle-key.absent{background:#787c7e;color:#fff;}
+
+/* READING & STORIES */
+.reading-topic-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;cursor:pointer;transition:all 0.2s;position:relative;overflow:hidden;}
+.reading-topic-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent4));opacity:0;transition:opacity 0.2s;}
+.reading-topic-card:hover{transform:translateY(-2px);border-color:rgba(79,255,176,0.3);}
+.reading-topic-card:hover::before{opacity:1;}
+.reading-topic-icon{font-size:26px;margin-bottom:9px;}
+.reading-topic-title{font-family:'Clash Display',sans-serif;font-size:15px;font-weight:600;margin-bottom:4px;}
+.reading-topic-meta{font-size:11px;color:var(--muted);}
+.reading-passage{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:28px;margin-bottom:20px;line-height:1.9;font-size:14px;color:#c5cad9;}
+.reading-passage h3{font-family:'Clash Display',sans-serif;font-size:20px;font-weight:700;color:var(--text);margin-bottom:14px;}
+.reading-passage p{margin-bottom:12px;}
+.reading-questions{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;}
+.reading-q{margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);}
+.reading-q:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+.reading-q-text{font-size:14px;font-weight:500;margin-bottom:10px;line-height:1.6;}
+.reading-q-num{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px;}
+.reading-opt{display:block;width:100%;text-align:left;padding:9px 13px;margin-bottom:5px;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--text);font-size:13px;cursor:pointer;transition:all 0.18s;font-family:'DM Sans',sans-serif;}
+.reading-opt:hover{border-color:var(--accent4);background:rgba(116,185,255,0.05);}
+.reading-opt.correct{border-color:var(--accent);background:rgba(79,255,176,0.08);color:var(--accent);}
+.reading-opt.wrong{border-color:var(--accent2);background:rgba(255,107,107,0.08);color:var(--accent2);}
+.reading-result-bar{background:var(--surface2);border-radius:8px;padding:14px 18px;margin-top:18px;text-align:center;display:none;}
+.story-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px;cursor:pointer;transition:all 0.2s;}
+.story-card:hover{border-color:rgba(79,255,176,0.3);transform:translateY(-2px);}
+
 @media(max-width:768px){
   nav{padding:8px 10px;gap:7px;}
   .nav-tabs{gap:1px;}
@@ -243,7 +361,13 @@ nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:12px;p
     <button class="nav-tab" onclick="showSection('phrases',this)">💬 Фразы</button>
     <button class="nav-tab" onclick="showSection('sprint',this)">⏱ Спринт</button>
     <button class="nav-tab" onclick="showSection('builder',this)">🔤 Составь</button>
+    <button class="nav-tab" onclick="showSection('flashcards',this)">🃏 Карточки</button>
+    <button class="nav-tab" onclick="showSection('dictation',this)">✍️ Диктант</button>
+    <button class="nav-tab" onclick="showSection('wordle',this)">🟩 Wordle</button>
+    <button class="nav-tab" onclick="showSection('reading',this)">📖 Чтение</button>
+    <button class="nav-tab" onclick="showSection('stories',this)">📚 Истории</button>
   </div>
+  <button class="theme-toggle-btn" onclick="toggleTheme()" title="Сменить тему">🌙</button>
   <button class="profile-btn" onclick="showSection('progress',this)">👤 Профиль</button>
 </nav>
 
@@ -253,6 +377,12 @@ nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:12px;p
     <div class="level-badge">● B1–B2 Intermediate</div>
     <div class="section-title">Словарь</div>
     <div class="section-sub">Наведи — увидишь перевод. Нажми — откроется подробно с примерами.</div>
+    <div id="vocab-counter" style="margin-top:10px;display:inline-flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:7px 16px;font-size:13px;">
+      <span style="color:var(--muted);">Изучено:</span>
+      <span id="vocab-opened-count" style="font-family:'Clash Display',sans-serif;font-weight:700;color:var(--accent);">0</span>
+      <span style="color:var(--muted);">/</span>
+      <span id="vocab-total-count" style="font-family:'Clash Display',sans-serif;font-weight:700;color:var(--text);">0</span>
+    </div>
   </div>
   <div class="vocab-controls">
     <input class="search-bar" id="vocab-search" type="text" placeholder="🔍 Поиск слова..." oninput="searchVocab(this.value)">
@@ -379,7 +509,7 @@ nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:12px;p
     <div class="section-sub">Расставь слова в правильном порядке</div>
   </div>
   <div style="max-width:640px;margin:0 auto;">
-    <div id="builder-progress-row" style="display:flex;gap:4px;margin-bottom:20px;"></div>
+    <div id="builder-progress-row" style="display:none;"></div>
     <div id="builder-card" style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;">
       <div id="builder-label" style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:9px;"></div>
       <div id="builder-hint" style="font-size:13px;color:#c5cad9;line-height:1.7;margin-bottom:16px;"></div>
@@ -401,6 +531,143 @@ nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:12px;p
   </div>
 </div>
 
+<!-- FLASHCARDS -->
+<div class="section" id="section-flashcards">
+  <div class="section-header">
+    <div class="section-title">🃏 Карточки</div>
+    <div class="section-sub">Нажми на карточку чтобы увидеть перевод</div>
+  </div>
+  <div class="fc-wrap">
+    <div id="fc-progress-row" class="fc-progress-row" style="display:none;"></div>
+    <div class="fc-counter" id="fc-counter"></div>
+    <div id="fc-main">
+      <div class="fc-card-container" onclick="flipFC()">
+        <div class="fc-card" id="fc-card">
+          <div class="fc-front">
+            <div class="fc-word" id="fc-word"></div>
+            <div class="fc-ipa" id="fc-ipa"></div>
+            <div class="fc-hint">👆 Нажми чтобы увидеть перевод</div>
+          </div>
+          <div class="fc-back">
+            <div class="fc-ru" id="fc-ru"></div>
+            <div class="fc-def" id="fc-def"></div>
+            <div class="fc-hint">👆 Нажми чтобы вернуться</div>
+          </div>
+        </div>
+      </div>
+      <div id="fc-action-btns" style="display:none;">
+        <div class="fc-btns">
+          <button class="fc-btn-again" onclick="fcAnswer(false)">🔁 Ещё раз</button>
+          <button class="fc-btn-know" onclick="fcAnswer(true)">✅ Знаю!</button>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:12px;">
+        <button class="btn btn-ghost" style="font-size:12px;" onclick="fcSpeak()">🔊 Произнести</button>
+      </div>
+    </div>
+    <div class="fc-done" id="fc-done" style="display:none;">
+      <div style="font-size:52px;margin-bottom:12px;">🎓</div>
+      <div style="font-family:'Clash Display',sans-serif;font-size:24px;font-weight:700;margin-bottom:8px;">Колода пройдена!</div>
+      <div class="fc-stats">
+        <div class="fc-stat"><div class="fc-stat-n" style="color:var(--accent)" id="fc-known-n">0</div><div class="fc-stat-l">Знаю</div></div>
+        <div class="fc-stat"><div class="fc-stat-n" style="color:var(--accent2)" id="fc-again-n">0</div><div class="fc-stat-l">Ещё раз</div></div>
+      </div>
+      <div style="margin-top:20px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
+        <button class="btn btn-primary" onclick="initFC()">Начать заново</button>
+        <button class="btn btn-ghost" onclick="initFCweak()">🔁 Только незнакомые</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DICTATION -->
+<div class="section" id="section-dictation">
+  <div class="section-header">
+    <div class="section-title">✍️ Диктант</div>
+    <div class="section-sub">Слушай слово и напечатай его по-английски</div>
+  </div>
+  <div class="dict-wrap">
+    <div class="dict-prog" id="dict-prog" style="display:none;"></div>
+    <div id="dict-card" class="dict-card">
+      <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;" id="dict-label"></div>
+      <div class="dict-sentence" id="dict-sentence"></div>
+      <div class="dict-input-row">
+        <button class="dict-speak-btn" onclick="dictSpeak()">🔊 Прослушать</button>
+        <input class="dict-input" id="dict-input" type="text" placeholder="Напечатай слово..." onkeydown="if(event.key==='Enter')checkDict()">
+        <button class="btn btn-primary" onclick="checkDict()">Проверить</button>
+      </div>
+      <div class="dict-fb" id="dict-fb"></div>
+      <div style="display:flex;gap:7px;margin-top:12px;flex-wrap:wrap;">
+        <button class="btn btn-ghost" style="font-size:12px;" onclick="skipDict()">Пропустить →</button>
+        <button class="btn btn-ghost" style="font-size:12px;" onclick="dictHint()">💡 Подсказка</button>
+      </div>
+    </div>
+    <div class="dict-score-box" id="dict-score">
+      <div style="font-size:52px;margin-bottom:10px;">✍️</div>
+      <div style="font-family:'Clash Display',sans-serif;font-size:24px;font-weight:700;margin-bottom:6px;">Диктант завершён!</div>
+      <div style="color:var(--muted);margin-bottom:20px;" id="dict-score-text"></div>
+      <button class="btn btn-primary" onclick="initDict()">Ещё раз</button>
+    </div>
+  </div>
+</div>
+
+<!-- WORDLE -->
+<div class="section" id="section-wordle">
+  <div class="section-header">
+    <div class="section-title">🟩 Wordle</div>
+    <div class="section-sub">Угадай английское слово за 6 попыток</div>
+  </div>
+  <div style="max-width:420px;margin:0 auto;">
+    <div id="wordle-mode-select" style="display:flex;gap:8px;justify-content:center;margin-bottom:18px;flex-wrap:wrap;">
+      <button class="filter-btn active" onclick="setWordleLen(5,this)">5 букв</button>
+      <button class="filter-btn" onclick="setWordleLen(6,this)">6 букв</button>
+      <button class="filter-btn" onclick="setWordleLen(7,this)">7 букв</button>
+    </div>
+    <div id="wordle-grid" style="display:flex;flex-direction:column;gap:5px;align-items:center;margin-bottom:18px;"></div>
+    <div id="wordle-keyboard" style="display:flex;flex-direction:column;gap:5px;align-items:center;margin-bottom:16px;"></div>
+    <div id="wordle-msg" style="text-align:center;font-size:14px;min-height:22px;margin-bottom:10px;"></div>
+    <div id="wordle-answer-reveal" style="display:none;text-align:center;margin-bottom:12px;"></div>
+    <div style="text-align:center;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
+      <button class="btn btn-primary" id="wordle-new-btn" onclick="initWordle()">Новое слово</button>
+      <button class="btn btn-ghost" id="wordle-hint-btn" onclick="wordleHint()">💡 Подсказка (перевод)</button>
+    </div>
+    <div id="wordle-hint-text" style="text-align:center;color:var(--accent3);font-size:13px;margin-top:8px;min-height:18px;"></div>
+    <div id="wordle-stats-bar" style="display:flex;gap:18px;justify-content:center;margin-top:18px;"></div>
+  </div>
+</div>
+
+<!-- READING -->
+<div class="section" id="section-reading">
+  <div class="section-header">
+    <div class="section-title">📖 Чтение</div>
+    <div class="section-sub">IELTS-формат: читай текст и отвечай на вопросы</div>
+  </div>
+  <div style="max-width:820px;margin:0 auto;">
+    <div id="reading-topic-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-bottom:24px;"></div>
+    <div id="reading-article" style="display:none;">
+      <button onclick="backToReadingTopics()" style="background:var(--surface2);border:none;color:var(--muted);padding:6px 12px;border-radius:7px;cursor:pointer;font-size:12px;font-family:'DM Sans',sans-serif;margin-bottom:18px;">← Темы</button>
+      <div id="reading-content"></div>
+    </div>
+  </div>
+</div>
+
+<!-- STORIES -->
+<div class="section" id="section-stories">
+  <div class="section-header">
+    <div class="section-title">📚 Истории</div>
+    <div class="section-sub">Мини-истории с вопросами в формате IELTS</div>
+  </div>
+  <div style="max-width:820px;margin:0 auto;">
+    <div id="stories-list-view">
+      <div id="stories-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;"></div>
+    </div>
+    <div id="stories-article" style="display:none;">
+      <button onclick="backToStories()" style="background:var(--surface2);border:none;color:var(--muted);padding:6px 12px;border-radius:7px;cursor:pointer;font-size:12px;font-family:'DM Sans',sans-serif;margin-bottom:18px;">← Истории</button>
+      <div id="stories-content"></div>
+    </div>
+  </div>
+</div>
+
 <!-- PROFILE / PROGRESS -->
 <div class="section" id="section-progress">
   <div class="section-header">
@@ -409,6 +676,15 @@ nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:12px;p
     <div class="section-sub">Статистика и прогресс обучения</div>
   </div>
   <div id="stat-cards" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:12px;margin-bottom:24px;max-width:800px;margin-left:auto;margin-right:auto;"></div>
+  <!-- ACTIVITY CHART -->
+  <div style="max-width:800px;margin:0 auto 18px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;">
+    <div style="font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin-bottom:4px;">📅 Активность (последние 12 недель)</div>
+    <div style="font-size:11px;color:var(--muted);margin-bottom:10px;">Каждая клетка = один день активности</div>
+    <div class="activity-grid" id="activity-grid"></div>
+    <div style="display:flex;align-items:center;gap:6px;margin-top:8px;font-size:10px;color:var(--muted);">
+      Меньше <div class="act-day"></div><div class="act-day l1"></div><div class="act-day l2"></div><div class="act-day l3"></div><div class="act-day l4"></div> Больше
+    </div>
+  </div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:800px;margin:0 auto;">
     <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;">
       <div style="font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin-bottom:12px;">🎯 Результаты тестов</div>
@@ -419,6 +695,10 @@ nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:12px;p
       <div id="stat-sprint"></div>
       <div style="font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin:16px 0 12px;">🔤 Сборщик предложений</div>
       <div id="stat-builder"></div>
+      <div style="font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin:16px 0 12px;">🟩 Wordle</div>
+      <div id="stat-wordle"></div>
+      <div style="font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin:16px 0 12px;">✏️ Заполни пропуск</div>
+      <div id="stat-fillblank"></div>
     </div>
   </div>
   <div style="text-align:center;margin-top:20px;">
@@ -536,6 +816,48 @@ const words = [
   {en:'set out',tr:'set aʊt',ru:'намечать, излагать',pos:'phrase',def:'To start with a plan or to explain clearly.',ex:[{en:'She <strong>set out</strong> her ideas clearly.',ru:'Она чётко изложила свои идеи.'},{en:'He <strong>set out</strong> to become an engineer.',ru:'Он задался целью стать инженером.'}]},
   {en:'deal with',tr:'diːl wɪð',ru:'справляться, заниматься',pos:'phrase',def:'To handle or manage something.',ex:[{en:'How do you <strong>deal with</strong> stress?',ru:'Как ты справляешься со стрессом?'},{en:'We need to <strong>deal with</strong> this problem now.',ru:'Нам нужно заняться этой проблемой сейчас.'}]},
   {en:'run out of',tr:'rʌn aʊt ɒv',ru:'заканчиваться',pos:'phrase',def:'To have no more of something.',ex:[{en:'We <strong>ran out of</strong> time.',ru:'У нас закончилось время.'},{en:"Don't let your phone <strong>run out of</strong> battery.",ru:'Не давай телефону разрядиться.'}]},
+  // EXTRA WORDS (20 new B1-B2)
+  {en:'persist',tr:'pəˈsɪst',ru:'упорствовать, сохраняться',pos:'verb',def:'To continue doing something despite difficulties.',ex:[{en:'She <strong>persisted</strong> despite many setbacks.',ru:'Она упорствовала несмотря на множество неудач.'},{en:'The problem <strong>persists</strong> even now.',ru:'Проблема сохраняется и сейчас.'}]},
+  {en:'imply',tr:'ɪmˈplaɪ',ru:'подразумевать',pos:'verb',def:'To suggest something without saying it directly.',ex:[{en:'Are you <strong>implying</strong> that I am wrong?',ru:'Ты подразумеваешь, что я не прав?'},{en:'Silence can <strong>imply</strong> agreement.',ru:'Молчание может подразумевать согласие.'}]},
+  {en:'obtain',tr:'əbˈteɪn',ru:'получать, добывать',pos:'verb',def:'To get something, especially with effort.',ex:[{en:'You need a visa to <strong>obtain</strong> entry.',ru:'Для въезда необходимо получить визу.'},{en:'She <strong>obtained</strong> a degree in law.',ru:'Она получила степень по праву.'}]},
+  {en:'reinforce',tr:'ˌriːɪnˈfɔːs',ru:'укреплять, подкреплять',pos:'verb',def:'To strengthen or support something.',ex:[{en:'Practice <strong>reinforces</strong> vocabulary.',ru:'Практика закрепляет словарный запас.'},{en:'His words <strong>reinforced</strong> her confidence.',ru:'Его слова укрепили её уверенность.'}]},
+  {en:'undermine',tr:'ˌʌndəˈmaɪn',ru:'подрывать',pos:'verb',def:'To weaken or damage something gradually.',ex:[{en:'Stress can <strong>undermine</strong> your health.',ru:'Стресс может подорвать здоровье.'},{en:'His behaviour <strong>undermined</strong> trust.',ru:'Его поведение подрывало доверие.'}]},
+  {en:'enhance',tr:'ɪnˈhɑːns',ru:'улучшать, усиливать',pos:'verb',def:'To improve the quality or value of something.',ex:[{en:'Good sleep <strong>enhances</strong> performance.',ru:'Хороший сон улучшает производительность.'},{en:'She took courses to <strong>enhance</strong> her skills.',ru:'Она прошла курсы для улучшения навыков.'}]},
+  {en:'prospect',tr:'ˈprɒspekt',ru:'перспектива, возможность',pos:'noun',def:'The possibility of a future event.',ex:[{en:'The <strong>prospect</strong> of promotion excited her.',ru:'Перспектива повышения её воодушевила.'},{en:'There are good <strong>prospects</strong> in this field.',ru:'В этой сфере хорошие перспективы.'}]},
+  {en:'phenomenon',tr:'fɪˈnɒmɪnən',ru:'явление, феномен',pos:'noun',def:'A fact or event that is observed.',ex:[{en:'Social media is a modern <strong>phenomenon</strong>.',ru:'Социальные сети — современное явление.'},{en:'Scientists study this <strong>phenomenon</strong>.',ru:'Учёные изучают это явление.'}]},
+  {en:'perception',tr:'pəˈsepʃən',ru:'восприятие',pos:'noun',def:'The way something is understood or interpreted.',ex:[{en:'Our <strong>perception</strong> of reality can be misleading.',ru:'Наше восприятие реальности может быть обманчивым.'},{en:'Public <strong>perception</strong> matters to politicians.',ru:'Общественное восприятие важно для политиков.'}]},
+  {en:'surplus',tr:'ˈsɜːpləs',ru:'излишек, избыток',pos:'noun',def:'An amount left over after use.',ex:[{en:'The country has a trade <strong>surplus</strong>.',ru:'Страна имеет торговый профицит.'},{en:'There is a <strong>surplus</strong> of workers.',ru:'Есть избыток рабочей силы.'}]},
+  {en:'profound',tr:'prəˈfaʊnd',ru:'глубокий, значительный',pos:'adj',def:'Very great or intense.',ex:[{en:'Travel had a <strong>profound</strong> effect on him.',ru:'Путешествия оказали на него глубокое влияние.'},{en:'She made a <strong>profound</strong> observation.',ru:'Она сделала глубокое наблюдение.'}]},
+  {en:'explicit',tr:'ɪkˈsplɪsɪt',ru:'явный, чёткий',pos:'adj',def:'Clear and exact, leaving nothing implied.',ex:[{en:'Please give <strong>explicit</strong> instructions.',ru:'Пожалуйста, дайте чёткие инструкции.'},{en:'The rules are very <strong>explicit</strong>.',ru:'Правила очень чёткие.'}]},
+  {en:'genuine',tr:'ˈdʒenjuɪn',ru:'настоящий, искренний',pos:'adj',def:'Real, not fake; sincere.',ex:[{en:'Is this a <strong>genuine</strong> diamond?',ru:'Это настоящий бриллиант?'},{en:'She showed <strong>genuine</strong> interest.',ru:'Она проявила искренний интерес.'}]},
+  {en:'excessive',tr:'ɪkˈsesɪv',ru:'чрезмерный',pos:'adj',def:'More than is necessary or reasonable.',ex:[{en:'<strong>Excessive</strong> screen time is harmful.',ru:'Чрезмерное время у экрана вредно.'},{en:'The price seems <strong>excessive</strong>.',ru:'Цена кажется чрезмерной.'}]},
+  {en:'mutual',tr:'ˈmjuːtʃuəl',ru:'взаимный',pos:'adj',def:'Shared by two or more people.',ex:[{en:'They have a <strong>mutual</strong> understanding.',ru:'У них есть взаимопонимание.'},{en:'The agreement was <strong>mutual</strong>.',ru:'Соглашение было взаимным.'}]},
+  {en:'vague',tr:'veɪɡ',ru:'расплывчатый, неясный',pos:'adj',def:'Not clear or definite.',ex:[{en:'His answer was very <strong>vague</strong>.',ru:'Его ответ был очень расплывчатым.'},{en:'I have a <strong>vague</strong> memory of that day.',ru:'У меня смутное воспоминание о том дне.'}]},
+  {en:'thoroughly',tr:'ˈθʌrəlɪ',ru:'основательно, тщательно',pos:'adv',def:'In a careful and complete way.',ex:[{en:'Read the instructions <strong>thoroughly</strong>.',ru:'Прочитайте инструкции тщательно.'},{en:'She <strong>thoroughly</strong> checked her work.',ru:'Она тщательно проверила свою работу.'}]},
+  {en:'put off',tr:'pʊt ɒf',ru:'откладывать, отпугивать',pos:'phrase',def:'To delay, or to cause someone to dislike something.',ex:[{en:"Don't <strong>put off</strong> what you can do today.",ru:'Не откладывай то, что можешь сделать сегодня.'},{en:'The smell <strong>put me off</strong> eating.',ru:'Запах отбил у меня аппетит.'}]},
+  {en:'figure out',tr:'ˈfɪɡər aʊt',ru:'разобраться, понять',pos:'phrase',def:'To understand or solve something.',ex:[{en:"I can't <strong>figure out</strong> this puzzle.",ru:'Я не могу разобраться с этой головоломкой.'},{en:'She <strong>figured out</strong> the answer.',ru:'Она разобралась с ответом.'}]},
+  {en:'turn out',tr:'tɜːn aʊt',ru:'оказываться',pos:'phrase',def:'To happen in a certain way; to be discovered.',ex:[{en:'It <strong>turned out</strong> she was right.',ru:'Оказалось, она была права.'},{en:'How did the project <strong>turn out</strong>?',ru:'Как оказался проект?'}]},
+  // B2 ADVANCED VOCABULARY
+  {en:'ambivalent',tr:'æmˈbɪvələnt',ru:'двойственный, амбивалентный',pos:'adj',def:'Having mixed feelings about something.',ex:[{en:'She felt <strong>ambivalent</strong> about the job offer.',ru:'Она испытывала смешанные чувства по поводу предложения.'},{en:'His response was <strong>ambivalent</strong> at best.',ru:'Его ответ в лучшем случае был двойственным.'}]},
+  {en:'condescending',tr:'ˌkɒndɪˈsendɪŋ',ru:'снисходительный',pos:'adj',def:'Showing a feeling of superiority over others.',ex:[{en:'His tone was <strong>condescending</strong> and unhelpful.',ru:'Его тон был снисходительным и бесполезным.'},{en:'Try not to sound <strong>condescending</strong>.',ru:'Постарайся не казаться снисходительным.'}]},
+  {en:'resilient',tr:'rɪˈzɪlɪənt',ru:'стойкий, жизнеспособный',pos:'adj',def:'Able to recover quickly from difficulties.',ex:[{en:'She is incredibly <strong>resilient</strong>.',ru:'Она невероятно стойкая.'},{en:'Children are often more <strong>resilient</strong> than adults.',ru:'Дети часто более стойкие, чем взрослые.'}]},
+  {en:'eloquent',tr:'ˈeləkwənt',ru:'красноречивый',pos:'adj',def:'Fluent and persuasive in speaking or writing.',ex:[{en:'She gave an <strong>eloquent</strong> speech.',ru:'Она произнесла красноречивую речь.'},{en:'He was known for his <strong>eloquent</strong> writing style.',ru:'Он был известен своим красноречивым стилем письма.'}]},
+  {en:'scrutinise',tr:'ˈskruːtɪnaɪz',ru:'тщательно изучать, проверять',pos:'verb',def:'To examine closely and critically.',ex:[{en:'The media began to <strong>scrutinise</strong> his record.',ru:'СМИ начали тщательно изучать его послужной список.'},{en:'Every detail was <strong>scrutinised</strong> carefully.',ru:'Каждая деталь была тщательно изучена.'}]},
+  {en:'mitigate',tr:'ˈmɪtɪɡeɪt',ru:'смягчать, уменьшать',pos:'verb',def:'To make something less severe or serious.',ex:[{en:'Steps were taken to <strong>mitigate</strong> the risks.',ru:'Были приняты меры по снижению рисков.'},{en:'Good communication can <strong>mitigate</strong> conflict.',ru:'Хорошая коммуникация может смягчить конфликт.'}]},
+  {en:'advocate',tr:'ˈædvəkeɪt',ru:'отстаивать, выступать за',pos:'verb',def:'To publicly support or recommend a cause.',ex:[{en:'She <strong>advocates</strong> for environmental reform.',ru:'Она выступает за экологические реформы.'},{en:'He <strong>advocated</strong> a more cautious approach.',ru:'Он отстаивал более осторожный подход.'}]},
+  {en:'plausible',tr:'ˈplɔːzɪbəl',ru:'правдоподобный',pos:'adj',def:'Seeming reasonable or probable.',ex:[{en:'His explanation seems <strong>plausible</strong>.',ru:'Его объяснение кажется правдоподобным.'},{en:'That is the most <strong>plausible</strong> theory.',ru:'Это наиболее правдоподобная теория.'}]},
+  {en:'magnitude',tr:'ˈmæɡnɪtjuːd',ru:'масштаб, величина',pos:'noun',def:'The great size or extent of something.',ex:[{en:'The <strong>magnitude</strong> of the problem was alarming.',ru:'Масштаб проблемы был тревожным.'},{en:'We underestimated the <strong>magnitude</strong> of the task.',ru:'Мы недооценили масштаб задачи.'}]},
+  {en:'intricate',tr:'ˈɪntrɪkɪt',ru:'сложный, запутанный',pos:'adj',def:'Very complicated or detailed.',ex:[{en:'The design is <strong>intricate</strong> and beautiful.',ru:'Дизайн сложный и красивый.'},{en:'The plot is <strong>intricate</strong> but rewarding.',ru:'Сюжет запутанный, но интересный.'}]},
+  {en:'pursuant',tr:'pəˈsjuːənt',ru:'согласно, в соответствии с',pos:'adv',def:'In accordance with or as a consequence of.',ex:[{en:'<strong>Pursuant</strong> to our agreement, payment is due.',ru:'Согласно нашему соглашению, платёж причитается.'},{en:'Action was taken <strong>pursuant</strong> to regulations.',ru:'Меры были приняты в соответствии с правилами.'}]},
+  {en:'contentious',tr:'kənˈtenʃəs',ru:'спорный, дискуссионный',pos:'adj',def:'Causing or likely to cause argument.',ex:[{en:'This is a <strong>contentious</strong> political issue.',ru:'Это спорный политический вопрос.'},{en:'The <strong>contentious</strong> debate lasted hours.',ru:'Жаркая дискуссия длилась часами.'}]},
+  {en:'plead',tr:'pliːd',ru:'умолять, ходатайствовать',pos:'verb',def:'To make an emotional appeal or to enter a plea.',ex:[{en:'She <strong>pleaded</strong> for more time.',ru:'Она умоляла дать ей больше времени.'},{en:'He <strong>pleaded</strong> not guilty in court.',ru:'Он заявил о своей невиновности в суде.'}]},
+  {en:'scrutiny',tr:'ˈskruːtɪnɪ',ru:'тщательная проверка',pos:'noun',def:'Critical observation or examination.',ex:[{en:'The plan came under intense <strong>scrutiny</strong>.',ru:'План подвергся жёсткой проверке.'},{en:'Public <strong>scrutiny</strong> is essential in a democracy.',ru:'Общественный контроль важен в демократии.'}]},
+  {en:'meticulous',tr:'mɪˈtɪkjuləs',ru:'скрупулёзный, тщательный',pos:'adj',def:'Very careful and precise.',ex:[{en:'She kept <strong>meticulous</strong> records of every expense.',ru:'Она вела скрупулёзные записи каждого расхода.'},{en:'His <strong>meticulous</strong> attention to detail impressed everyone.',ru:'Его скрупулёзное внимание к деталям впечатлило всех.'}]},
+  {en:'herald',tr:'ˈherəld',ru:'возвещать, предвещать',pos:'verb',def:'To be a sign that something is coming; to announce.',ex:[{en:'The discovery was <strong>heralded</strong> as a breakthrough.',ru:'Открытие было провозглашено прорывом.'},{en:'Spring flowers <strong>herald</strong> warmer days.',ru:'Весенние цветы предвещают тёплые дни.'}]},
+  {en:'deteriorate',tr:'dɪˈtɪərɪəreɪt',ru:'ухудшаться',pos:'verb',def:'To become progressively worse.',ex:[{en:'His health began to <strong>deteriorate</strong> rapidly.',ru:'Его здоровье начало быстро ухудшаться.'},{en:'Relations between the two countries <strong>deteriorated</strong>.',ru:'Отношения между двумя странами ухудшились.'}]},
+  {en:'paramount',tr:'ˈpærəmaʊnt',ru:'первостепенный, самый важный',pos:'adj',def:'More important than anything else.',ex:[{en:'Safety is of <strong>paramount</strong> importance.',ru:'Безопасность имеет первостепенное значение.'},{en:'The patient\'s welfare is <strong>paramount</strong>.',ru:'Благополучие пациента является главным приоритетом.'}]},
+  {en:'reconcile',tr:'ˈrekənsaɪl',ru:'примирять, согласовывать',pos:'verb',def:'To restore friendly relations; to make compatible.',ex:[{en:'They managed to <strong>reconcile</strong> their differences.',ru:'Им удалось урегулировать разногласия.'},{en:'It is hard to <strong>reconcile</strong> these two views.',ru:'Трудно совместить эти две точки зрения.'}]},
+  {en:'convoluted',tr:'ˈkɒnvəluːtɪd',ru:'запутанный, сложный',pos:'adj',def:'Extremely complex and difficult to follow.',ex:[{en:'The explanation was far too <strong>convoluted</strong>.',ru:'Объяснение было слишком запутанным.'},{en:'The plot of the film was <strong>convoluted</strong>.',ru:'Сюжет фильма был запутанным.'}]},
 ];
 
 // ═══════════════════════════════════════════
@@ -699,9 +1021,13 @@ const grammarTopics = [
 // ═══════════════════════════════════════════
 // DATA — AUDIO (expanded)
 // ═══════════════════════════════════════════
+// NOTE: Используй одну из этих схем URL в зависимости от настройки:
+// GitHub Pages: https://AraAraD.github.io/englishup/Track1.mp3
+// jsDelivr CDN: https://cdn.jsdelivr.net/gh/AraAraD/englishup@main/Track1.mp3
+// raw.github (только при CORS разрешении): https://AraAraD.github.io/englishup/Track1.mp3
 const audioTracks = [
   {title:'Morning Routine',meta:'A2–B1 · повседневная жизнь',color:'accent',
-   src:'https://raw.githubusercontent.com/AraAraD/englishup/main/Track1.mp3',
+   src:'https://AraAraD.github.io/englishup/Track1.mp3',
    words:[
      {w:'urge',tr:'побуждение, желание',def:'A strong desire to do something.'},
      {w:'refreshing',tr:'освежающий',def:'Making you feel less tired or hot.'},
@@ -715,7 +1041,7 @@ const audioTracks = [
      {w:'review',tr:'просматривать, проверять',def:'To look at something again carefully.'},
    ]},
   {title:'Daily Conversations',meta:'B1 · рабочее общение',color:'accent4',
-   src:'https://raw.githubusercontent.com/AraAraD/englishup/main/Track2.mp3',
+   src:'https://AraAraD.github.io/englishup/Track2.mp3',
    words:[
      {w:'settle in',tr:'обустраиваться, привыкать',def:'To become comfortable in a new place.'},
      {w:'adjust',tr:'адаптироваться',def:'To change to suit a new situation.'},
@@ -729,7 +1055,7 @@ const audioTracks = [
      {w:'impressive',tr:'впечатляющий',def:'Causing admiration or respect.'},
    ]},
   {title:'Job Interview',meta:'B1–B2 · собеседование',color:'accent5',
-   src:'https://raw.githubusercontent.com/AraAraD/englishup/main/Track3.mp3',
+   src:'https://AraAraD.github.io/englishup/Track3.mp3',
    words:[
      {w:'nerve-wracking',tr:'изматывающий нервы',def:'Causing a lot of anxiety.'},
      {w:'background',tr:'опыт, биография',def:'A person\'s experience and history.'},
@@ -743,7 +1069,7 @@ const audioTracks = [
      {w:'achievement',tr:'достижение',def:'Something accomplished successfully.'},
    ]},
   {title:'News in Slow English',meta:'B2 · новости',color:'accent3',
-   src:'https://raw.githubusercontent.com/AraAraD/englishup/main/Track4.mp3',
+   src:'https://AraAraD.github.io/englishup/Track4.mp3',
    words:[
      {w:'groundbreaking',tr:'революционный',def:'New and very different from what existed before.'},
      {w:'unveil',tr:'представлять, раскрывать',def:'To show something new to the public.'},
@@ -757,7 +1083,7 @@ const audioTracks = [
      {w:'dependence',tr:'зависимость',def:'The state of relying on something.'},
    ]},
   {title:'Science & Technology',meta:'B2 · наука и технологии',color:'accent2',
-   src:'https://raw.githubusercontent.com/AraAraD/englishup/main/Track5.mp3',
+   src:'https://AraAraD.github.io/englishup/Track5.mp3',
    words:[
      {w:'embedded',tr:'встроенный, глубоко укоренившийся',def:'Firmly fixed in something.'},
      {w:'sophisticated',tr:'сложный, передовой',def:'Highly developed and complex.'},
@@ -771,7 +1097,7 @@ const audioTracks = [
      {w:'extraordinary',tr:'необыкновенный',def:'Very unusual or remarkable.'},
    ]},
   {title:'Travel & Tourism',meta:'B1–B2 · путешествия',color:'accent',
-   src:'https://raw.githubusercontent.com/AraAraD/englishup/main/Track6.mp3',
+   src:'https://AraAraD.github.io/englishup/Track6.mp3',
    words:[
      {w:'transformative',tr:'преобразующий',def:'Causing a major change in someone or something.'},
      {w:'immerse',tr:'погружаться',def:'To become completely involved in something.'},
@@ -877,6 +1203,14 @@ const phrases = {
     {en:"What are you up to this weekend?",ru:"Что ты делаешь в эти выходные?"},
     {en:"Could you do me a quick favour?",ru:"Не мог бы ты оказать мне быструю услугу?"},
     {en:"I couldn't help overhearing...",ru:"Я невольно услышал(а)..."},
+    {en:"It's on the tip of my tongue.",ru:"Это вертится у меня на языке."},
+    {en:"I'll keep that in mind.",ru:"Я буду иметь это в виду."},
+    {en:"That's the last thing I expected.",ru:"Это последнее, чего я ожидал."},
+    {en:"You're telling me!",ru:"Вот именно! Не говори!"},
+    {en:"It's worth a shot.",ru:"Это стоит попробовать."},
+    {en:"I'd rather not, if you don't mind.",ru:"Я бы предпочёл не делать этого, если не против."},
+    {en:"There's no harm in trying.",ru:"Попытка — не пытка."},
+    {en:"Better late than never.",ru:"Лучше поздно, чем никогда."},
   ],
   'Работа':[
     {en:"I'd like to schedule a meeting to discuss this.",ru:"Я хотел бы назначить встречу для обсуждения."},
@@ -887,6 +1221,13 @@ const phrases = {
     {en:"We need to align on the next steps.",ru:"Нам нужно согласовать следующие шаги."},
     {en:"Can we push the deadline by a few days?",ru:"Можем ли мы перенести дедлайн на несколько дней?"},
     {en:"I'll loop you in on the email chain.",ru:"Я добавлю тебя в переписку."},
+    {en:"Let's circle back to this later.",ru:"Давайте вернёмся к этому позже."},
+    {en:"We're on the same page, right?",ru:"Мы понимаем друг друга правильно?"},
+    {en:"Can you walk me through the process?",ru:"Не могли бы вы объяснить мне процесс?"},
+    {en:"Let's move this forward.",ru:"Давайте продвинемся по этому вопросу."},
+    {en:"What's the bottom line?",ru:"В чём суть / итог?"},
+    {en:"I'll take ownership of this task.",ru:"Я возьму ответственность за эту задачу."},
+    {en:"Could we revisit this point?",ru:"Не могли бы мы вернуться к этому пункту?"},
   ],
   'Эмоции':[
     {en:"I'm absolutely thrilled about this!",ru:"Я в полном восторге от этого!"},
@@ -896,18 +1237,79 @@ const phrases = {
     {en:"Honestly, I'm not sure how I feel about it.",ru:"Честно говоря, я не уверен, как к этому отношусь."},
     {en:"That really means a lot to me.",ru:"Это очень много значит для меня."},
     {en:"I'm a little nervous, to be honest.",ru:"Честно говоря, я немного нервничаю."},
+    {en:"I can't put it into words.",ru:"Я не могу выразить это словами."},
+    {en:"My heart wasn't in it.",ru:"Душа у меня к этому не лежала."},
+    {en:"It caught me completely off guard.",ru:"Это застало меня врасплох."},
+    {en:"I'm at a loss for words.",ru:"Я не нахожу слов."},
+  ],
+  'Книжные / Литературные':[
+    {en:"To be or not to be — that is the question.",ru:"Быть или не быть — вот в чём вопрос."},
+    {en:"It was the best of times, it was the worst of times.",ru:"Это было лучшее из времён, это было худшее из времён."},
+    {en:"All that glitters is not gold.",ru:"Не всё то золото, что блестит."},
+    {en:"The road to hell is paved with good intentions.",ru:"Благими намерениями вымощена дорога в ад."},
+    {en:"Actions speak louder than words.",ru:"Поступки говорят громче слов."},
+    {en:"Once in a blue moon.",ru:"Очень редко (раз в год по обещанию)."},
+    {en:"Time flies when you're having fun.",ru:"Время летит, когда веселишься."},
+    {en:"Every cloud has a silver lining.",ru:"Нет худа без добра."},
+    {en:"The pen is mightier than the sword.",ru:"Перо сильнее меча."},
+    {en:"Curiosity killed the cat.",ru:"Любопытство сгубило кошку."},
+    {en:"A stitch in time saves nine.",ru:"Один раз отмерь, семь раз отрежь."},
+    {en:"Don't judge a book by its cover.",ru:"Не суди книгу по обложке."},
+    {en:"Knowledge is power.",ru:"Знание — сила."},
+    {en:"Necessity is the mother of invention.",ru:"Нужда — мать изобретательности."},
+  ],
+  'Описание людей':[
+    {en:"She has a way with words.",ru:"У неё есть дар слова."},
+    {en:"He's a man of few words.",ru:"Он немногословный человек."},
+    {en:"She wears her heart on her sleeve.",ru:"Она не скрывает своих чувств."},
+    {en:"He has a sharp eye for detail.",ru:"У него острый взгляд на детали."},
+    {en:"She's the life and soul of the party.",ru:"Она душа любой компании."},
+    {en:"He's a jack of all trades.",ru:"Он мастер на все руки."},
+    {en:"She has a level head on her shoulders.",ru:"У неё холодная голова."},
+    {en:"He never beats around the bush.",ru:"Он всегда говорит прямо."},
+    {en:"She takes everything in her stride.",ru:"Она принимает всё спокойно."},
+    {en:"He means well but often misjudges.",ru:"Он желает добра, но часто неправильно оценивает."},
   ],
 };
 
 const sentences = [
-  {words:['I','have','been','studying','English','for','two','years'],hint:'Я изучаю английский уже два года.',label:'Present Perfect Continuous'},
-  {words:['If','I','had','more','time','I','would','travel','more'],hint:'Если бы у меня было больше времени, я бы путешествовал больше.',label:'2nd Conditional'},
-  {words:['The','report','was','written','by','the','team'],hint:'Отчёт был написан командой.',label:'Passive Voice'},
-  {words:['She','told','me','that','she','was','tired'],hint:'Она сказала мне, что устала.',label:'Reported Speech'},
-  {words:['You','should','review','your','notes','before','the','exam'],hint:'Тебе стоит повторить записи перед экзаменом.',label:'Modal Verbs'},
-  {words:['Despite','being','tired','she','continued','working'],hint:'Несмотря на усталость, она продолжала работать.',label:'Despite + -ing'},
-  {words:['The','more','you','practice','the','better','you','become'],hint:'Чем больше практикуешься, тем лучше становишься.',label:'The more...the more...'},
-  {words:['It','is','time','we','made','a','decision'],hint:'Пора нам принять решение.',label:"It's time + Past Simple"},
+  // PRESENT PERFECT
+  {words:['I','have','been','studying','English','for','two','years'],hint:'Я изучаю английский уже два года.',label:'Present Perfect Continuous',level:'A2-B1'},
+  {words:['She','has','just','finished','her','homework'],hint:'Она только что закончила домашнее задание.',label:'Present Perfect + just',level:'A2-B1'},
+  {words:['Have','you','ever','visited','London'],hint:'Ты когда-нибудь бывал в Лондоне?',label:'Present Perfect + ever',level:'A2-B1'},
+  {words:['He','has','worked','here','since','2020'],hint:'Он работает здесь с 2020 года.',label:'Present Perfect + since',level:'A2-B1'},
+  // PAST SIMPLE & CONTINUOUS
+  {words:['She','was','reading','when','the','phone','rang'],hint:'Она читала, когда зазвонил телефон.',label:'Past Continuous vs Past Simple',level:'B1'},
+  {words:['They','travelled','to','Japan','last','summer'],hint:'Они путешествовали в Японию прошлым летом.',label:'Past Simple',level:'A2-B1'},
+  // CONDITIONALS
+  {words:['If','I','had','more','time','I','would','travel','more'],hint:'Если бы у меня было больше времени, я бы путешествовал больше.',label:'2nd Conditional',level:'B1'},
+  {words:['If','you','study','hard','you','will','pass','the','exam'],hint:'Если будешь усердно учиться, сдашь экзамен.',label:'1st Conditional',level:'B1'},
+  {words:['If','I','had','known','about','it','I','would','have','helped'],hint:'Если бы я знал об этом, я бы помог.',label:'3rd Conditional',level:'B2'},
+  {words:['Unless','you','leave','now','you','will','miss','the','train'],hint:'Если не уйдёшь сейчас, опоздаешь на поезд.',label:'Unless + 1st Conditional',level:'B1-B2'},
+  // PASSIVE VOICE
+  {words:['The','report','was','written','by','the','team'],hint:'Отчёт был написан командой.',label:'Passive Voice – Past Simple',level:'B1'},
+  {words:['English','is','spoken','all','over','the','world'],hint:'На английском говорят по всему миру.',label:'Passive Voice – Present Simple',level:'B1'},
+  {words:['The','new','bridge','will','be','completed','next','year'],hint:'Новый мост будет завершён в следующем году.',label:'Passive Voice – Future',level:'B1-B2'},
+  {words:['The','package','had','been','delivered','before','noon'],hint:'Посылка была доставлена до полудня.',label:'Past Perfect Passive',level:'B2'},
+  // REPORTED SPEECH
+  {words:['She','told','me','that','she','was','tired'],hint:'Она сказала мне, что устала.',label:'Reported Speech',level:'B1'},
+  {words:['He','asked','whether','I','had','finished','the','project'],hint:'Он спросил, закончил ли я проект.',label:'Reported Question',level:'B1-B2'},
+  {words:['They','said','they','would','call','me','the','next','day'],hint:'Они сказали, что позвонят мне на следующий день.',label:'Reported Speech – Future',level:'B1-B2'},
+  // MODAL VERBS
+  {words:['You','should','review','your','notes','before','the','exam'],hint:'Тебе стоит повторить записи перед экзаменом.',label:'Modal Verbs – should',level:'B1'},
+  {words:['She','must','have','forgotten','about','the','meeting'],hint:'Она, должно быть, забыла о встрече.',label:'Modal Perfect – must have',level:'B2'},
+  {words:['You','needn\'t','worry','about','the','deadline'],hint:'Тебе не нужно беспокоиться о сроке.',label:'Modal Verbs – needn\'t',level:'B1-B2'},
+  // ADVANCED STRUCTURES
+  {words:['Despite','being','tired','she','continued','working'],hint:'Несмотря на усталость, она продолжала работать.',label:'Despite + -ing',level:'B1-B2'},
+  {words:['The','more','you','practice','the','better','you','become'],hint:'Чем больше практикуешься, тем лучше становишься.',label:'The more...the better...',level:'B1-B2'},
+  {words:['It','is','time','we','made','a','decision'],hint:'Пора нам принять решение.',label:"It's time + Past Simple",level:'B2'},
+  {words:['Not','only','did','she','win','but','she','also','broke','the','record'],hint:'Она не только победила, но и побила рекорд.',label:'Inversion – Not only',level:'B2'},
+  {words:['Having','studied','all','night','he','fell','asleep','immediately'],hint:'Проучившись всю ночь, он сразу заснул.',label:'Perfect Participle',level:'B2'},
+  {words:['Were','I','to','win','the','lottery','I','would','travel','everywhere'],hint:'Выиграй я в лотерею, я бы путешествовал везде.',label:'Formal Inversion – Were I to',level:'B2+'},
+  {words:['She','wished','she','had','taken','a','different','path'],hint:'Она хотела бы, чтобы выбрала другой путь.',label:'Wish + Past Perfect',level:'B2'},
+  {words:['By','the','time','he','arrived','we','had','already','left'],hint:'К тому времени, как он приехал, мы уже ушли.',label:'Past Perfect – By the time',level:'B1-B2'},
+  {words:['It','was','not','until','midnight','that','she','finally','came','home'],hint:'Только в полночь она наконец пришла домой.',label:'It was not until... that',level:'B2'},
+  {words:['The','sooner','you','start','the','better','off','you\'ll','be'],hint:'Чем раньше начнёшь, тем лучше тебе будет.',label:'Comparative structure',level:'B2'},
 ];
 
 // ═══════════════════════════════════════════
@@ -940,12 +1342,19 @@ function showSection(id, btn) {
   stopAllAudio();
   if (id === 'progress') buildProgress();
   if (id === 'sprint') resetSprintLobby();
+  if (id === 'flashcards' && fcIdx >= fcDeck.length) initFC();
+  if (id === 'dictation' && dictIdx >= dictDeck.length) initDict();
+  if (id === 'wordle') { if(!wordleTarget) initWordle(); }
+  if (id === 'reading') buildReadingTopics();
+  if (id === 'stories') buildStoriesGrid();
 }
 
 // ═══════════════════════════════════════════
 // VOCAB
 // ═══════════════════════════════════════════
 function buildVocab() {
+  document.getElementById('vocab-total-count').textContent = words.length;
+  document.getElementById('vocab-opened-count').textContent = getStat('vocabOpened', 0);
   document.getElementById('cards-grid').innerHTML = words.map((w, i) => `
     <div class="word-card" data-pos="${w.pos}" onclick="openWordModal(${i})">
       <span class="pos-badge">${w.pos}</span>
@@ -969,6 +1378,8 @@ function openWordModal(i) {
     <button class="modal-speak" onclick="speak('${w.en}')">🔊 Послушать произношение</button>`;
   document.getElementById('word-modal').classList.add('open');
   setStat('vocabOpened', getStat('vocabOpened', 0) + 1);
+  document.getElementById('vocab-opened-count').textContent = getStat('vocabOpened', 0);
+  trackActivity();
 }
 
 function filterCards(pos, btn) {
@@ -1159,6 +1570,15 @@ function buildAudio() {
       document.getElementById('aloading-' + i).style.display = 'none';
     });
 
+    el.addEventListener('error', () => {
+      document.getElementById('acard-' + i).classList.remove('loading');
+      document.getElementById('aloading-' + i).style.display = 'none';
+      document.getElementById('abtn-' + i).textContent = '⚠️';
+      document.getElementById('abtn-' + i).style.background = 'rgba(255,107,107,0.3)';
+      document.getElementById('atime-' + i).textContent = 'Файл недоступен';
+      document.getElementById('atime-' + i).style.color = 'var(--accent2)';
+    });
+
     el.addEventListener('loadedmetadata', () => {
       document.getElementById('atime-' + i).textContent = '0:00 / ' + formatTime(el.duration);
     });
@@ -1259,7 +1679,7 @@ function startSprint(){
   document.getElementById('sprint-bar').style.width='100%';
   sprintWordList=shuffleArr([...Array(words.length).keys()]);sprintPos=0;
   clearInterval(sprintTimer);
-  sprintTimer=setInterval(()=>{sprintSeconds--;document.getElementById('sprint-timer').textContent=sprintSeconds;document.getElementById('sprint-bar').style.width=(sprintSeconds/60*100)+'%';if(sprintSeconds<=10)document.getElementById('sprint-timer').style.color='var(--accent2)';if(sprintSeconds<=0){clearInterval(sprintTimer);endSprint();}},1000);
+  sprintTimer=setInterval(()=>{sprintSeconds=Math.max(0,sprintSeconds-1);document.getElementById('sprint-timer').textContent=sprintSeconds;document.getElementById('sprint-bar').style.width=(sprintSeconds/60*100)+'%';if(sprintSeconds<=10)document.getElementById('sprint-timer').style.color='var(--accent2)';if(sprintSeconds<=0){clearInterval(sprintTimer);endSprint();}},1000);
   nextSprintWord();
 }
 
@@ -1275,7 +1695,22 @@ function nextSprintWord(){
 
 function answerSprint(chosen,correct,btn){
   document.querySelectorAll('.sprint-opt').forEach(b=>{b.style.pointerEvents='none';if(b.textContent===correct)b.classList.add('correct');});
-  if(chosen===correct){sprintScoreVal++;document.getElementById('sprint-score-live').textContent=sprintScoreVal;btn.classList.add('correct');}else btn.classList.add('wrong');
+  if(chosen===correct){
+    sprintScoreVal++;
+    document.getElementById('sprint-score-live').textContent=sprintScoreVal;
+    btn.classList.add('correct');
+    // Bonus time: +1s for first 15 correct, then +0.5s
+    const bonus = sprintScoreVal <= 15 ? 1 : 0.5;
+    sprintSeconds = Math.min(60, sprintSeconds + bonus);
+    document.getElementById('sprint-timer').textContent = Math.ceil(sprintSeconds);
+    document.getElementById('sprint-bar').style.width = (sprintSeconds/60*100)+'%';
+    // Show bonus flash
+    const flash = document.createElement('div');
+    flash.textContent = '+' + (Number.isInteger(bonus) ? bonus : bonus.toFixed(1)) + 'с';
+    flash.style.cssText='position:fixed;top:40%;left:50%;transform:translate(-50%,-50%);font-family:Clash Display,sans-serif;font-size:22px;font-weight:700;color:var(--accent);pointer-events:none;animation:fadeUp 0.7s ease forwards;z-index:999;';
+    document.body.appendChild(flash);
+    setTimeout(()=>flash.remove(),700);
+  } else btn.classList.add('wrong');
   setTimeout(nextSprintWord,380);
 }
 
@@ -1298,7 +1733,7 @@ function renderBuilderQuestion(){
   if(builderCurrent>=sentences.length){showBuilderDone();return;}
   builderPlaced=[];
   const s=sentences[builderCurrent];
-  document.getElementById('builder-label').textContent=`Предложение ${builderCurrent+1} из ${sentences.length} · ${s.label}`;
+  document.getElementById('builder-label').textContent=`Предложение ${builderCurrent+1} из ${sentences.length} · ${s.label} · Уровень: ${s.level||'B1'}`;
   document.getElementById('builder-hint').textContent='💡 '+s.hint;
   document.getElementById('drop-zone').innerHTML='<span style="color:var(--muted);font-size:12px;pointer-events:none;">Нажимай на слова снизу →</span>';
   document.getElementById('builder-fb').style.display='none';
@@ -1329,20 +1764,693 @@ function showBuilderDone(){document.getElementById('builder-card').style.display
 // ═══════════════════════════════════════════
 function buildProgress(){
   const vo=getStat('vocabOpened',0),qr=getStat('quizResults',{}),sb=getStat('sprintBest',0),sg=getStat('sprintGames',0),bc=getStat('builderCorrect',0),bt=getStat('builderTotal',0);
+  const wg=getStat('wordleGames',0),ww=getStat('wordleWins',0),fbc=getStat('fbCorrect',0),fbt=getStat('fbTotal',0);
+  const streak=getStat('activityLog',{});
+  const totalDays=Object.keys(streak).length;
+
   document.getElementById('stat-cards').innerHTML=[
     {num:vo,lbl:'Слов открыто',color:'var(--accent)',pct:Math.min(100,vo/words.length*100)},
     {num:Object.keys(qr).length+'/'+quizTopics.length,lbl:'Тем пройдено',color:'var(--accent4)',pct:Object.keys(qr).length/quizTopics.length*100},
     {num:sb,lbl:'Рекорд спринта',color:'var(--accent3)',pct:Math.min(100,sb/25*100)},
-    {num:bc+'/'+bt,lbl:'Предложений собрано',color:'var(--accent2)',pct:bt?bc/bt*100:0},
+    {num:totalDays,lbl:'Дней занятий',color:'var(--accent2)',pct:Math.min(100,totalDays/30*100)},
   ].map(c=>`<div class="stat-card"><div class="stat-num" style="color:${c.color}">${c.num}</div><div class="stat-lbl">${c.lbl}</div><div class="stat-bar-wrap"><div class="stat-bar" style="width:${c.pct.toFixed(0)}%;background:${c.color};"></div></div></div>`).join('');
 
   document.getElementById('stat-quiz-list').innerHTML=quizTopics.map(t=>{const r=qr[t.id];if(!r)return`<div style="color:var(--muted);font-size:12px;padding:6px 0;border-bottom:1px solid var(--border);">${t.icon} ${t.title} — не пройден</div>`;const pct=Math.round(r.best/r.total*100);return`<div style="padding:6px 0;border-bottom:1px solid var(--border);"><div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="font-size:12px;">${t.icon} ${t.title}</span><span style="font-size:11px;color:${pct>=70?'var(--accent)':'var(--accent3)'};">${r.best}/${r.total}</span></div><div style="height:3px;background:var(--surface2);border-radius:2px;"><div style="height:100%;width:${pct}%;background:${pct>=70?'var(--accent)':'var(--accent3)'};border-radius:2px;"></div></div></div>`;}).join('');
 
   document.getElementById('stat-sprint').innerHTML=`<div style="font-size:26px;font-family:'Clash Display',sans-serif;font-weight:700;color:var(--accent3);">${sb}</div><div style="color:var(--muted);font-size:11px;">лучший результат · ${sg} игр сыграно</div>`;
   document.getElementById('stat-builder').innerHTML=`<div style="font-size:26px;font-family:'Clash Display',sans-serif;font-weight:700;color:var(--accent2);">${bc}<span style="font-size:14px;color:var(--muted);">/${bt}</span></div><div style="color:var(--muted);font-size:11px;">верных ответов</div>`;
+  document.getElementById('stat-wordle').innerHTML=`<div style="font-size:26px;font-family:'Clash Display',sans-serif;font-weight:700;color:#538d4e;">${ww}<span style="font-size:14px;color:var(--muted);">/${wg}</span></div><div style="color:var(--muted);font-size:11px;">побед · ${wg?Math.round(ww/wg*100):0}% win rate</div>`;
+  document.getElementById('stat-fillblank').innerHTML=`<div style="font-size:26px;font-family:'Clash Display',sans-serif;font-weight:700;color:var(--accent4);">${fbc}<span style="font-size:14px;color:var(--muted);">/${fbt}</span></div><div style="color:var(--muted);font-size:11px;">верных ответов · ${fbt?Math.round(fbc/fbt*100):0}%</div>`;
+
+  // Activity grid (84 days = 12 weeks)
+  const log=getStat('activityLog',{});
+  const gridEl=document.getElementById('activity-grid');
+  if(gridEl){
+    const days=84;
+    let html='';
+    for(let i=days-1;i>=0;i--){
+      const d=new Date();d.setDate(d.getDate()-i);
+      const key=d.toISOString().slice(0,10);
+      const count=log[key]||0;
+      const lvl=count===0?'':count===1?'l1':count<=3?'l2':count<=6?'l3':'l4';
+      html+=`<div class="act-day ${lvl}" title="${key}: ${count} действий"></div>`;
+    }
+    gridEl.innerHTML=html;
+  }
 }
 
 function resetProgress(){if(confirm('Сбросить всю статистику?')){localStorage.removeItem(STATS_KEY);buildProgress();}}
+
+// ═══════════════════════════════════════════
+// WORDLE
+// ═══════════════════════════════════════════
+const wordleWordsByLen = {
+  5: ['begin','bring','build','catch','cause','check','claim','clear','close','cover','crash','doubt','drive','early','entry','event','every','exact','exist','extra','face','false','field','final','focus','force','found','given','grasp','great','group','grown','guard','guide','habit','happy','human','image','imply','issue','judge','known','large','learn','leave','level','light','limit','local','logic','loose','major','match','might','model','money','moral','nerve','never','night','novel','occur','often','order','other','ought','panel','pause','peace','place','plain','plant','point','power','press','price','prime','proof','prove','quick','quiet','quite','range','react','ready','realm','refer','right','rigid','risen','rough','round','ruled','scene','sense','skill','sleep','small','smart','solve','sound','speak','spend','split','stake','stand','start','state','steel','stick','still','stock','store','stuck','study','style','sunny','sworn','table','taken','taste','teach','terms','thank','there','thing','think','touch','tough','track','trade','train','treat','trend','trial','trust','truth','twice','unify','unite','until','usage','usual','valid','value','vital','voice','waste','watch','where','which','whole','world','worth','would','write','wrong','yield'],
+  6: ['absorb','accept','access','accord','accuse','across','actual','affect','afford','agency','almost','amount','appear','assess','assist','assume','attach','attend','belief','belong','beyond','branch','bridge','budget','burden','career','change','charge','choice','chosen','client','combat','commit','common','comply','concern','define','demand','design','detail','differ','direct','divide','double','effect','emerge','employ','ensure','entire','escape','exceed','expert','extend','factor','figure','filter','follow','formal','former','fulfil','future','gather','gentle','global','growth','handle','hardly','honest','impact','impart','impose','income','indeed','injury','intent','invest','launch','leader','manage','market','master','matter','mental','method','mirror','moment','narrow','nearby','notice','object','obtain','office','output','parent','partly','permit','person','prefer','profit','prompt','proper','pursue','rating','reason','record','reduce','regard','relate','remain','remove','repeat','report','result','return','review','reward','select','should','simple','single','source','stable','strict','string','strong','submit','supply','survey','system','talent','target','thread','threat','though','thrive','timing','titled','united','uphold','useful','verify','wealth','within','wonder'],
+  7: ['achieve','acquire','address','analyse','another','balance','benefit','capable','capture','careful','central','certain','clarify','climate','closely','combine','comment','compare','complex','confirm','connect','context','control','correct','council','counter','culture','current','develop','discuss','display','diverse','economy','educate','element','enhance','examine','example','explain','express','extreme','failure','feature','feeling','forward','freedom','fulfill','genuine','history','improve','include','initial','insight','intense','involve','justice','leading','maximum','measure','mission','monitor','network','observe','obvious','pattern','perform','prepare','prevent','primary','process','product','program','provide','purpose','qualify','quality','reflect','regular','release','replace','require','respond','revenue','section','serious','service','several','similar','society','someone','specify','station','student','subject','succeed','support','through','totally','towards','usually','various','whether','without']
+};
+
+let wordleLen=5, wordleTarget='', wordleGuesses=[], wordleCurrent='', wordleGameOver=false;
+
+function setWordleLen(n,btn){
+  document.querySelectorAll('#wordle-mode-select .filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  wordleLen=n;
+  initWordle();
+}
+
+function initWordle(){
+  const pool=wordleWordsByLen[wordleLen];
+  wordleTarget=pool[Math.floor(Math.random()*pool.length)];
+  wordleGuesses=[];
+  wordleCurrent='';
+  wordleGameOver=false;
+  document.getElementById('wordle-msg').textContent='';
+  document.getElementById('wordle-hint-text').textContent='';
+  document.getElementById('wordle-answer-reveal').style.display='none';
+  renderWordleGrid();
+  renderWordleKeyboard();
+  setStat('wordleGames',(getStat('wordleGames',0)+1));
+}
+
+function renderWordleGrid(){
+  const maxRows=6,grid=document.getElementById('wordle-grid');
+  let html='';
+  for(let r=0;r<maxRows;r++){
+    html+='<div class="wordle-row">';
+    const guess=wordleGuesses[r]||'';
+    const cur=r===wordleGuesses.length?wordleCurrent:'';
+    for(let c=0;c<wordleLen;c++){
+      let letter='',cls='wordle-cell';
+      if(r<wordleGuesses.length){
+        letter=guess[c]||'';
+        const res=scoreGuess(guess);
+        if(res[c]==='correct')cls+=' correct';
+        else if(res[c]==='present')cls+=' present';
+        else if(res[c]==='absent')cls+=' absent';
+      } else if(r===wordleGuesses.length){
+        letter=cur[c]||'';
+        if(letter)cls+=' filled';
+      }
+      html+=`<div class="${cls}">${letter}</div>`;
+    }
+    html+='</div>';
+  }
+  grid.innerHTML=html;
+}
+
+function scoreGuess(guess){
+  const result=Array(wordleLen).fill('absent');
+  const targetArr=[...wordleTarget];
+  const guessArr=[...guess];
+  // mark correct
+  guessArr.forEach((l,i)=>{if(l===targetArr[i]){result[i]='correct';targetArr[i]=null;guessArr[i]=null;}});
+  // mark present
+  guessArr.forEach((l,i)=>{if(l&&targetArr.includes(l)){result[i]='present';targetArr[targetArr.indexOf(l)]=null;}});
+  return result;
+}
+
+function renderWordleKeyboard(){
+  const rows=[['q','w','e','r','t','y','u','i','o','p'],['a','s','d','f','g','h','j','k','l'],['↵','z','x','c','v','b','n','m','⌫']];
+  const letterState={};
+  wordleGuesses.forEach(g=>{const r=scoreGuess(g);[...g].forEach((l,i)=>{const s=r[i];if(!letterState[l]||s==='correct'||(s==='present'&&letterState[l]==='absent'))letterState[l]=s;});});
+  document.getElementById('wordle-keyboard').innerHTML=rows.map(row=>`<div class="wordle-row">${row.map(k=>`<button class="wordle-key${k==='↵'||k==='⌫'?' wide':''} ${letterState[k]||''}" onclick="wordleKey('${k}')">${k}</button>`).join('')}</div>`).join('');
+}
+
+function wordleKey(k){
+  if(wordleGameOver)return;
+  if(k==='⌫'){wordleCurrent=wordleCurrent.slice(0,-1);}
+  else if(k==='↵'){submitWordle();}
+  else if(wordleCurrent.length<wordleLen&&/^[a-z]$/.test(k)){wordleCurrent+=k;}
+  renderWordleGrid();
+}
+
+function submitWordle(){
+  if(wordleCurrent.length!==wordleLen){showWordleMsg('⚠️ Слово должно быть '+wordleLen+' букв',true);return;}
+  const allWords=Object.values(wordleWordsByLen).flat();
+  if(!allWords.includes(wordleCurrent)){showWordleMsg('❓ Слово не найдено',true);return;}
+  wordleGuesses.push(wordleCurrent);
+  wordleCurrent='';
+  renderWordleGrid();
+  renderWordleKeyboard();
+  const last=wordleGuesses[wordleGuesses.length-1];
+  if(last===wordleTarget){
+    showWordleMsg('🎉 Правильно! '+wordleTarget.toUpperCase(),false);
+    wordleGameOver=true;
+    setStat('wordleWins',(getStat('wordleWins',0)+1));
+    trackActivity();
+  } else if(wordleGuesses.length>=6){
+    wordleGameOver=true;
+    document.getElementById('wordle-answer-reveal').style.display='block';
+    document.getElementById('wordle-answer-reveal').innerHTML=`<div style="color:var(--accent2);font-size:13px;">Загаданное слово: <strong style="color:var(--text);font-size:18px;font-family:'Clash Display',sans-serif;">${wordleTarget.toUpperCase()}</strong></div>`;
+    showWordleMsg('😔 Попытки закончились',false);
+  }
+}
+
+function showWordleMsg(msg,temp){
+  const el=document.getElementById('wordle-msg');
+  el.textContent=msg;
+  if(temp)setTimeout(()=>{if(el.textContent===msg)el.textContent='';},1200);
+}
+
+function wordleHint(){
+  const w=words.find(x=>x.en.toLowerCase()===wordleTarget)||null;
+  document.getElementById('wordle-hint-text').textContent=w?'🇷🇺 '+w.ru:'Перевод: (нет в словаре)';
+}
+
+// keyboard input for Wordle
+document.addEventListener('keydown',e=>{
+  const ws=document.getElementById('section-wordle');
+  if(!ws||!ws.classList.contains('active'))return;
+  if(wordleGameOver)return;
+  if(e.key==='Enter')wordleKey('↵');
+  else if(e.key==='Backspace')wordleKey('⌫');
+  else if(/^[a-zA-Z]$/.test(e.key))wordleKey(e.key.toLowerCase());
+});
+
+// ═══════════════════════════════════════════
+// FILL IN THE BLANK
+// ═══════════════════════════════════════════
+const fillBlanks=[
+  {sentence:'She decided to __ a career in medicine.',blank:'pursue',opts:['pursue','refuse','reduce','assume'],hint:'стремиться к'},
+  {sentence:'We need to __ the risks before starting.',blank:'evaluate',opts:['generate','evaluate','restrict','acquire'],hint:'оценить'},
+  {sentence:'The team __ a new strategy for growth.',blank:'implemented',opts:['implemented','perceived','undermined','suggested'],hint:'внедрила'},
+  {sentence:'He __ his fear of public speaking.',blank:'overcame',opts:['overcame','reinforced','obtained','implied'],hint:'преодолел'},
+  {sentence:'Please __ what you mean by that.',blank:'clarify',opts:['clarify','restrict','assume','engage'],hint:'уточни'},
+  {sentence:'The results __ the importance of practice.',blank:'demonstrate',opts:['demonstrate','undermine','persist','vague'],hint:'демонстрируют'},
+  {sentence:'Good sleep can __ your performance.',blank:'enhance',opts:['enhance','restrict','expose','surplus'],hint:'улучшить'},
+  {sentence:'The two teams decided to __ on the project.',blank:'collaborate',opts:['collaborate','challenge','assume','restrict'],hint:'сотрудничать'},
+  {sentence:'She __ her mistake and apologised.',blank:'acknowledged',opts:['acknowledged','generated','adapted','restricted'],hint:'признала'},
+  {sentence:'We need to __ a solution to this problem.',blank:'resolve',opts:['resolve','persist','surplus','reflect'],hint:'найти решение'},
+  {sentence:'He __ on his friends for support.',blank:'relies',opts:['relies','exposes','determines','restricts'],hint:'полагается'},
+  {sentence:'The company wants to __ new skills.',blank:'acquire',opts:['acquire','undermine','surplus','vague'],hint:'приобрести'},
+  {sentence:"Don't __ what you can do today.",blank:'put off',opts:['put off','figure out','run out of','turn out'],hint:'откладывать'},
+  {sentence:'She could __ the answer to the problem.',blank:'figure out',opts:['figure out','put off','turn out','run out of'],hint:'разобраться'},
+  {sentence:'It __ she was absolutely right.',blank:'turned out',opts:['turned out','put off','run out of','figure out'],hint:'оказалось'},
+];
+let fbDeck=[],fbIdx=0,fbCorrect=0,fbAnswered=false;
+
+function initFB(){
+  fbDeck=shuffleArr([...fillBlanks]);
+  fbIdx=0;fbCorrect=0;fbAnswered=false;
+  document.getElementById('fb-card').style.display='block';
+  document.getElementById('fb-done').style.display='none';
+  renderFB();
+}
+
+function renderFB(){
+  if(fbIdx>=fbDeck.length){showFBDone();return;}
+  fbAnswered=false;
+  const item=fbDeck[fbIdx];
+  document.getElementById('fb-label').textContent=`Вопрос ${fbIdx+1} из ${fbDeck.length} · Перевод подсказки: «${item.hint}»`;
+  const parts=item.sentence.split('__');
+  document.getElementById('fb-sentence').innerHTML=parts[0]+'<span style="display:inline-block;min-width:90px;border-bottom:2px solid var(--accent4);margin:0 4px;">&nbsp;&nbsp;&nbsp;</span>'+parts[1];
+  document.getElementById('fb-feedback').style.display='none';
+  document.getElementById('fb-progress').innerHTML=fbDeck.map((_,i)=>`<div style="height:4px;flex:1;border-radius:2px;background:${i<fbIdx?'var(--accent)':i===fbIdx?'var(--accent4)':'var(--surface2)'};transition:background 0.3s;"></div>`).join('');
+  const shuffled=shuffleArr([...item.opts]);
+  document.getElementById('fb-options').innerHTML=shuffled.map(o=>`<button class="fb-opt" onclick="checkFB('${o}')">${o}</button>`).join('');
+}
+
+function checkFB(chosen){
+  if(fbAnswered)return;
+  fbAnswered=true;
+  const item=fbDeck[fbIdx];
+  const correct=item.blank;
+  document.querySelectorAll('.fb-opt').forEach(b=>{b.style.pointerEvents='none';if(b.textContent===correct)b.classList.add('correct');});
+  const fb=document.getElementById('fb-feedback');
+  fb.style.display='block';
+  if(chosen===correct){
+    fb.style.cssText='display:block;margin-top:14px;padding:10px 13px;border-radius:8px;background:rgba(79,255,176,0.08);border:1px solid rgba(79,255,176,0.2);color:var(--accent);font-size:13px;';
+    fb.textContent='✅ Правильно! '+correct;
+    fbCorrect++;
+    document.querySelector('.fb-opt.correct').classList.add('correct');
+    setTimeout(()=>{fbIdx++;renderFB();},900);
+  } else {
+    document.querySelector(`.fb-opt:not(.correct)`,...[])||null;
+    document.querySelectorAll('.fb-opt').forEach(b=>{if(b.textContent===chosen)b.classList.add('wrong');});
+    fb.style.cssText='display:block;margin-top:14px;padding:10px 13px;border-radius:8px;background:rgba(255,107,107,0.08);border:1px solid rgba(255,107,107,0.2);color:var(--accent2);font-size:13px;';
+    fb.innerHTML=`❌ Неверно. Правильный ответ: <strong style="color:var(--text)">${correct}</strong>`;
+    setTimeout(()=>{fbIdx++;renderFB();},1500);
+  }
+}
+
+function skipFB(){fbIdx++;renderFB();}
+function showFBDone(){
+  document.getElementById('fb-card').style.display='none';
+  document.getElementById('fb-done').style.display='block';
+  const pct=Math.round(fbCorrect/fbDeck.length*100);
+  document.getElementById('fb-done-score').textContent=`${fbCorrect} из ${fbDeck.length} правильно · ${pct}%`;
+  setStat('fbCorrect',(getStat('fbCorrect',0)+fbCorrect));
+  setStat('fbTotal',(getStat('fbTotal',0)+fbDeck.length));
+  trackActivity();
+}
+
+// ═══════════════════════════════════════════
+// ACTIVITY TRACKING
+// ═══════════════════════════════════════════
+function trackActivity(){
+  const today=new Date().toISOString().slice(0,10);
+  const log=getStat('activityLog',{});
+  log[today]=(log[today]||0)+1;
+  setStat('activityLog',log);
+}
+
+// ═══════════════════════════════════════════
+// THEME TOGGLE
+// ═══════════════════════════════════════════
+function toggleTheme(){
+  const light = document.body.classList.toggle('light-theme');
+  document.querySelector('.theme-toggle-btn').textContent = light ? '☀️' : '🌙';
+  setStat('theme', light ? 'light' : 'dark');
+}
+(function(){if(getStat('theme','dark')==='light'){document.body.classList.add('light-theme');const b=document.querySelector('.theme-toggle-btn');if(b)b.textContent='☀️';}})();
+
+// ═══════════════════════════════════════════
+// FLASHCARDS
+// ═══════════════════════════════════════════
+let fcDeck = [], fcIdx = 0, fcKnown = 0, fcAgain = 0, fcFlipped = false;
+
+function initFC(deck){
+  fcDeck = deck ? [...deck] : shuffleArr([...words]);
+  fcIdx = 0; fcKnown = 0; fcAgain = 0; fcFlipped = false;
+  document.getElementById('fc-main').style.display = 'block';
+  document.getElementById('fc-done').style.display = 'none';
+  renderFC();
+}
+
+function initFCweak(){
+  const weakKeys = getStat('fcWeak', []);
+  const deck = weakKeys.length ? words.filter(w => weakKeys.includes(w.en)) : shuffleArr([...words]);
+  initFC(deck);
+}
+
+function renderFC(){
+  const card = document.getElementById('fc-card');
+  card.classList.remove('flipped');
+  fcFlipped = false;
+  document.getElementById('fc-action-btns').style.display = 'none';
+  const total = fcDeck.length;
+  document.getElementById('fc-counter').textContent = `${fcIdx + 1} / ${total} · ✅ ${fcKnown}  🔁 ${fcAgain}`;
+  const w = fcDeck[fcIdx];
+  document.getElementById('fc-word').textContent = w.en;
+  document.getElementById('fc-ipa').textContent = '[' + w.tr + ']';
+  document.getElementById('fc-ru').textContent = w.ru;
+  document.getElementById('fc-def').textContent = w.def;
+  // progress dots
+  document.getElementById('fc-progress-row').innerHTML = fcDeck.map((_,i)=>`<div style="height:4px;flex:1;border-radius:2px;background:${i<fcIdx?'var(--accent)':i===fcIdx?'var(--accent4)':'var(--surface2)'};transition:background 0.3s;"></div>`).join('');
+}
+
+function flipFC(){
+  fcFlipped = !fcFlipped;
+  document.getElementById('fc-card').classList.toggle('flipped', fcFlipped);
+  document.getElementById('fc-action-btns').style.display = fcFlipped ? 'block' : 'none';
+}
+
+function fcAnswer(known){
+  const w = fcDeck[fcIdx];
+  if(known){ fcKnown++;
+    const weakList = getStat('fcWeak', []).filter(x => x !== w.en);
+    setStat('fcWeak', weakList);
+  } else { fcAgain++;
+    const weakList = getStat('fcWeak', []);
+    if(!weakList.includes(w.en)) weakList.push(w.en);
+    setStat('fcWeak', weakList);
+  }
+  fcIdx++;
+  if(fcIdx >= fcDeck.length){ showFCdone(); return; }
+  renderFC();
+}
+
+function showFCdone(){
+  document.getElementById('fc-main').style.display = 'none';
+  document.getElementById('fc-done').style.display = 'block';
+  document.getElementById('fc-known-n').textContent = fcKnown;
+  document.getElementById('fc-again-n').textContent = fcAgain;
+}
+
+function fcSpeak(){ if(fcDeck[fcIdx]) speak(fcDeck[fcIdx].en); }
+
+// ═══════════════════════════════════════════
+// DICTATION
+// ═══════════════════════════════════════════
+const dictWords = [
+  {word:'accomplish',ru:'достигать'},{word:'contribute',ru:'вносить вклад'},
+  {word:'demonstrate',ru:'демонстрировать'},{word:'evaluate',ru:'оценивать'},
+  {word:'overcome',ru:'преодолевать'},{word:'acknowledge',ru:'признавать'},
+  {word:'implement',ru:'внедрять'},{word:'emphasise',ru:'подчёркивать'},
+  {word:'negotiate',ru:'вести переговоры'},{word:'anticipate',ru:'предвидеть'},
+  {word:'collaborate',ru:'сотрудничать'},{word:'maintain',ru:'поддерживать'},
+  {word:'distinguish',ru:'различать'},{word:'generate',ru:'создавать'},
+  {word:'clarify',ru:'уточнять'},{word:'significant',ru:'значимый'},
+  {word:'assumption',ru:'предположение'},{word:'consequence',ru:'последствие'},
+  {word:'perspective',ru:'точка зрения'},{word:'evidence',ru:'доказательство'},
+  {word:'obstacle',ru:'препятствие'},{word:'priority',ru:'приоритет'},
+  {word:'commitment',ru:'обязательство'},{word:'strategy',ru:'стратегия'},
+  {word:'transition',ru:'переход'},{word:'efficient',ru:'эффективный'},
+  {word:'fundamental',ru:'фундаментальный'},{word:'sustainable',ru:'устойчивый'},
+  {word:'vulnerable',ru:'уязвимый'},{word:'controversial',ru:'спорный'},
+  {word:'consequently',ru:'следовательно'},{word:'gradually',ru:'постепенно'},
+  {word:'approximately',ru:'приблизительно'},{word:'eventually',ru:'в конечном счёте'},
+  {word:'primarily',ru:'прежде всего'},{word:'thoroughly',ru:'тщательно'},
+  {word:'reliable',ru:'надёжный'},{word:'flexible',ru:'гибкий'},
+  {word:'transparent',ru:'прозрачный'},{word:'adequate',ru:'достаточный'},
+  {word:'beneficial',ru:'полезный'},{word:'considerable',ru:'значительный'},
+  {word:'inevitable',ru:'неизбежный'},{word:'ambiguous',ru:'неоднозначный'},
+  {word:'persist',ru:'упорствовать'},{word:'enhance',ru:'улучшать'},
+  {word:'undermine',ru:'подрывать'},{word:'reinforce',ru:'укреплять'},
+  {word:'perception',ru:'восприятие'},{word:'phenomenon',ru:'явление'},
+  {word:'profound',ru:'глубокий'},{word:'genuine',ru:'настоящий'},
+  {word:'excessive',ru:'чрезмерный'},{word:'explicit',ru:'явный'},
+  {word:'mutual',ru:'взаимный'},{word:'prospect',ru:'перспектива'},
+];
+let dictDeck = [], dictIdx = 0, dictCorrect = 0, dictHintCount = 0, dictUsedSet = new Set();
+
+function initDict(){
+  // Non-repeating: shuffle all, cycle through without repeating
+  dictUsedSet.clear();
+  const shuffled = shuffleArr([...dictWords]);
+  dictDeck = shuffled.slice(0, 12);
+  dictIdx = 0; dictCorrect = 0;
+  document.getElementById('dict-card').style.display = 'block';
+  document.getElementById('dict-score').style.display = 'none';
+  renderDict();
+}
+
+function renderDict(){
+  if(dictIdx >= dictDeck.length){ showDictScore(); return; }
+  const item = dictDeck[dictIdx];
+  dictHintCount = 0;
+  document.getElementById('dict-label').textContent = `Слово ${dictIdx+1} из ${dictDeck.length}`;
+  document.getElementById('dict-sentence').innerHTML = `Переведи на английский: <strong style="color:var(--accent3)">${item.ru}</strong>`;
+  const inp = document.getElementById('dict-input');
+  inp.value = ''; inp.className = 'dict-input'; inp.placeholder = 'Напечатай слово...';
+  document.getElementById('dict-fb').style.display = 'none';
+  // progress
+  document.getElementById('dict-prog').innerHTML = dictDeck.map((_,i)=>`<div class="dict-prog-dot${i<dictIdx?' done':i===dictIdx?' cur':''}"></div>`).join('');
+  setTimeout(()=>inp.focus(), 50);
+}
+
+function dictSpeak(){
+  if(dictDeck[dictIdx]) speak(dictDeck[dictIdx].word);
+}
+
+function checkDict(){
+  const item = dictDeck[dictIdx];
+  const inp = document.getElementById('dict-input');
+  const val = inp.value.trim().toLowerCase();
+  const correct = item.word.toLowerCase();
+  const fb = document.getElementById('dict-fb');
+  fb.style.display = 'block';
+  if(val === correct){
+    inp.classList.add('correct');
+    fb.style.cssText = 'display:block;margin-top:8px;padding:8px 12px;border-radius:7px;background:rgba(79,255,176,0.08);border:1px solid rgba(79,255,176,0.2);color:var(--accent);font-size:13px;';
+    fb.textContent = '✅ Правильно! ' + item.word;
+    dictCorrect++;
+    setTimeout(()=>{ dictIdx++; renderDict(); }, 800);
+  } else {
+    inp.classList.add('wrong');
+    fb.style.cssText = 'display:block;margin-top:8px;padding:8px 12px;border-radius:7px;background:rgba(255,107,107,0.08);border:1px solid rgba(255,107,107,0.2);color:var(--accent2);font-size:13px;';
+    fb.innerHTML = `❌ Неверно. Правильно: <strong style="color:var(--text)">${item.word}</strong>`;
+    setTimeout(()=>{ inp.classList.remove('wrong'); fb.style.display='none'; inp.value=''; inp.focus(); }, 1400);
+  }
+}
+
+function skipDict(){ dictIdx++; renderDict(); }
+
+function dictHint(){
+  const item = dictDeck[dictIdx];
+  const inp = document.getElementById('dict-input');
+  dictHintCount++;
+  const revealed = item.word.split('').map((c,i) => i < dictHintCount*2 ? c : '_').join(' ');
+  inp.placeholder = revealed;
+}
+
+function showDictScore(){
+  document.getElementById('dict-card').style.display = 'none';
+  const box = document.getElementById('dict-score');
+  box.style.display = 'block';
+  const pct = Math.round(dictCorrect / dictDeck.length * 100);
+  document.getElementById('dict-score-text').textContent = `${dictCorrect} из ${dictDeck.length} правильно · ${pct}%`;
+}
+
+// ═══════════════════════════════════════════
+// READING
+// ═══════════════════════════════════════════
+const readingTopics = [
+  {id:'ai',icon:'🤖',title:'Artificial Intelligence',meta:'B2 · Наука и технологии',
+   passage:`<h3>The Rise of Artificial Intelligence</h3>
+<p>Artificial intelligence, commonly referred to as AI, has undergone a remarkable transformation over the past two decades. What was once confined to research laboratories and science fiction novels has now become an integral part of everyday life, reshaping industries, redefining human work, and raising profound questions about the future of society. From the recommendation algorithms that suggest what to watch on streaming platforms to the sophisticated language models capable of generating coherent text, AI is no longer a distant prospect — it is a present reality.</p>
+<p>The roots of artificial intelligence stretch back to the 1950s, when Alan Turing proposed a now-famous test to determine whether a machine could exhibit intelligent behaviour indistinguishable from that of a human. For decades, progress was slow and punctuated by periods of reduced funding and interest, known as "AI winters." However, the convergence of three key factors in the 21st century — the availability of vast amounts of data, unprecedented computing power, and advances in machine learning algorithms — has propelled AI development to an extraordinary pace.</p>
+<p>One of the most significant breakthroughs has been in the domain of deep learning, a subset of machine learning that uses artificial neural networks modelled loosely on the human brain. These networks can identify patterns in enormous datasets with remarkable accuracy. In practical terms, this means that AI systems can now diagnose certain cancers from medical images with greater accuracy than experienced radiologists, translate text between dozens of languages in real time, and autonomously navigate complex urban environments in self-driving vehicles.</p>
+<p>However, the rapid advancement of AI is not without controversy. One of the most pressing concerns is the potential displacement of workers. Economists and technologists debate the extent to which automation will replace jobs versus creating new categories of employment. Historical precedent — such as the Industrial Revolution — suggests that technological disruption, while painful in the short term, ultimately generates more opportunities than it eliminates. Nevertheless, this transition may not be smooth or equitable, and those in lower-skilled roles are considered most vulnerable.</p>
+<p>Another critical issue is algorithmic bias. Since AI systems learn from existing data, they can inadvertently perpetuate and even amplify the prejudices embedded in that data. Facial recognition software, for instance, has been shown to perform significantly worse on darker-skinned faces, raising serious concerns about its use by law enforcement agencies. Policymakers around the world are grappling with how to regulate AI systems in a way that is both effective and does not stifle innovation.</p>
+<p>Perhaps the most far-reaching debate concerns the long-term trajectory of AI. Some researchers warn of the risks associated with artificial general intelligence (AGI) — a hypothetical system that could perform any intellectual task that a human can. Others dismiss such concerns as premature, arguing that current AI is highly specialised and lacks the general reasoning capabilities of human beings. What is clear, however, is that decisions made today about the development and governance of AI will have profound and lasting consequences for humanity.</p>`,
+   questions:[
+     {q:'According to the passage, what three factors have accelerated AI development in the 21st century?',opts:['Data, computing power, and algorithms','Funding, research, and talent','Internet, smartphones, and social media','Governments, universities, and companies'],right:0},
+     {q:'What does the author mean by "AI winters"?',opts:['Cold temperatures affecting server performance','Periods of reduced AI funding and interest','Seasonal fluctuations in computing demand','Security breaches in AI systems'],right:1},
+     {q:'Which of the following best describes the author\'s tone when discussing job displacement?',opts:['Entirely optimistic','Dismissive of concerns','Cautiously balanced','Deeply pessimistic'],right:2},
+     {q:'The word "perpetuate" in paragraph five is closest in meaning to:',opts:['eliminate','challenge','continue indefinitely','discover'],right:2},
+     {q:'What can be inferred about AGI from the final paragraph?',opts:['It already exists in research labs','It is agreed to be the greatest threat to humanity','Experts disagree about when and whether it will emerge','It is the same as current narrow AI'],right:2},
+     {q:'Which of the following is NOT mentioned as a current application of AI?',opts:['Medical image diagnosis','Language translation','Colonising other planets','Self-driving vehicles'],right:2},
+   ]},
+  {id:'climate',icon:'🌍',title:'Climate Change',meta:'B2 · Экология',
+   passage:`<h3>Climate Change: The Defining Challenge of Our Era</h3>
+<p>Climate change has emerged as arguably the most complex and consequential challenge facing humanity in the twenty-first century. The scientific consensus is overwhelming: the Earth's average surface temperature has risen by approximately 1.1 degrees Celsius since the pre-industrial period, primarily as a result of human activities that release greenhouse gases — particularly carbon dioxide and methane — into the atmosphere. If current trends continue unchecked, scientists project that warming could exceed 2 degrees Celsius by the end of this century, triggering a cascade of environmental, social, and economic consequences of unprecedented scale.</p>
+<p>The evidence of climate change is visible across the globe. Arctic sea ice is melting at accelerating rates, with some projections suggesting that the Arctic Ocean could be ice-free in summer within decades. Glaciers that have existed for millennia are retreating. Sea levels are rising, threatening low-lying coastal communities from Bangladesh to Miami. Meanwhile, extreme weather events — including heatwaves, droughts, wildfires, and intense tropical storms — are becoming more frequent and severe, displacing millions of people and causing hundreds of billions of dollars in damage annually.</p>
+<p>Agriculture is particularly vulnerable. Rising temperatures, changing precipitation patterns, and the increased frequency of extreme events are already affecting crop yields in many parts of the world. Regions that currently produce significant quantities of staple foods — including wheat, rice, and maize — may face severe reductions in output, threatening food security for billions of people, particularly in the developing world where adaptive capacity is lowest.</p>
+<p>The political response to climate change has been fitful and often insufficient. The 2015 Paris Agreement represented a landmark moment in international cooperation, with nearly every nation in the world committing to limiting global warming to well below 2 degrees Celsius above pre-industrial levels. However, critics argue that the pledges made under the agreement are voluntary and remain far short of what is required. Many countries have struggled to meet their stated targets, and political will has ebbed and flowed with changing governments and economic pressures.</p>
+<p>Technological solutions offer genuine hope. Renewable energy — particularly solar and wind power — has become dramatically cheaper over the past decade, making it increasingly competitive with fossil fuels even without government subsidies. Electric vehicles are gaining market share rapidly. Carbon capture technologies, while still expensive and not yet proven at scale, could potentially remove significant quantities of CO₂ from the atmosphere. However, technology alone cannot solve the problem; fundamental changes in consumption patterns, land use, and economic systems are also required.</p>
+<p>Ultimately, climate change is not merely an environmental issue — it is a question of justice. The countries and communities that have contributed least to the problem are often those most acutely affected by its consequences. Addressing climate change effectively will therefore require not only technological innovation and political determination but also a deep commitment to equity and international solidarity.</p>`,
+   questions:[
+     {q:'According to the passage, by how much has Earth\'s temperature risen since pre-industrial times?',opts:['0.5°C','1.1°C','2.0°C','3.5°C'],right:1},
+     {q:'Which sector does the author describe as "particularly vulnerable" to climate change?',opts:['Technology','Finance','Agriculture','Transport'],right:2},
+     {q:'The word "fitful" in paragraph four is closest in meaning to:',opts:['strong and consistent','irregular and inconsistent','fast and decisive','slow but steady'],right:1},
+     {q:'What is the author\'s assessment of the Paris Agreement?',opts:['It is fully sufficient to address climate change','It is an important step but critics say it falls short','It has been abandoned by most countries','It focuses only on renewable energy'],right:1},
+     {q:'Which of the following does the author NOT mention as a consequence of climate change?',opts:['Rising sea levels','Melting glaciers','Increased volcanic activity','More frequent wildfires'],right:2},
+     {q:'What does the author argue in the final paragraph?',opts:['Climate change is exaggerated','Technology alone can solve the problem','Climate change is also an issue of justice and equity','Rich countries are most affected'],right:2},
+   ]},
+  {id:'sleep',icon:'😴',title:'The Science of Sleep',meta:'B1-B2 · Здоровье',
+   passage:`<h3>Why Sleep Matters More Than You Think</h3>
+<p>For much of modern history, sleep was considered little more than an inconvenient interruption to the productive waking hours of the day. Influential figures from Thomas Edison to Margaret Thatcher boasted of needing only four or five hours per night, and the ability to function on minimal sleep was often worn as a badge of honour in competitive professional environments. However, decades of rigorous scientific research have fundamentally overturned this view. We now know that sleep is not a passive state but an active, complex biological process essential to virtually every aspect of physical and mental health.</p>
+<p>During sleep, the brain performs a remarkable series of maintenance and consolidation tasks. One of the most important is memory consolidation: experiences and information encountered during the day are processed, organised, and transferred from short-term to long-term memory. Research has shown that students who sleep after studying retain significantly more information than those who stay awake. Equally important is the brain's glymphatic system, which is primarily active during sleep and acts as a biological waste-disposal system, flushing out toxic proteins — including those associated with Alzheimer's disease — that accumulate during waking hours.</p>
+<p>The consequences of inadequate sleep are both immediate and far-reaching. In the short term, even a single night of poor sleep impairs attention, reaction time, decision-making, and emotional regulation. Studies have found that driving while sleep-deprived is comparable in danger to driving under the influence of alcohol. Over time, chronic sleep deprivation is associated with a significantly increased risk of a range of serious health conditions, including cardiovascular disease, type 2 diabetes, obesity, and depression.</p>
+<p>The amount of sleep required varies across the lifespan. Newborns may need up to 17 hours per day, while teenagers — whose brains are undergoing extensive development — require around 8 to 10 hours. For most adults, the recommended amount is 7 to 9 hours per night, though individual variation is real and significant. What is clear is that the vast majority of adults who believe they can thrive on six hours or fewer are, according to the research, almost certainly mistaken — and likely unaware of the extent of their impairment, since sleep deprivation impairs the ability to accurately assess one's own performance.</p>
+<p>Modern lifestyles pose significant challenges to healthy sleep. Artificial light — particularly the blue-spectrum light emitted by smartphone, tablet, and computer screens — suppresses the production of melatonin, the hormone that signals to the body that it is time to sleep. The prevalence of shift work, long commutes, high levels of stress, and the cultural expectation of constant connectivity all conspire to erode sleep quality and duration. In the United States alone, the Centers for Disease Control has declared insufficient sleep a public health epidemic.</p>
+<p>Addressing the sleep crisis requires changes at both individual and societal levels. Individuals can adopt better sleep hygiene: maintaining a consistent schedule, reducing screen exposure before bed, limiting caffeine and alcohol, and creating a cool, dark sleeping environment. At the societal level, there are growing calls to shift school start times to align with teenagers' natural sleep cycles, and to recognise adequate rest as a workplace and public health priority rather than a personal weakness.</p>`,
+   questions:[
+     {q:'What does the passage say about historical attitudes towards sleep?',opts:['Sleep was always considered essential','Short sleep was often seen as a sign of strength','Scientists always understood its importance','People slept more in the past'],right:1},
+     {q:'What is the glymphatic system responsible for, according to the passage?',opts:['Storing long-term memories','Regulating emotional responses','Removing toxic proteins from the brain','Producing melatonin'],right:2},
+     {q:'According to paragraph three, which of the following is a short-term consequence of poor sleep?',opts:['Type 2 diabetes','Impaired decision-making','Cardiovascular disease','Depression'],right:1},
+     {q:'The author suggests that sleep-deprived people often:',opts:['sleep more the following night','accurately assess their own performance','underestimate how impaired they are','seek medical advice immediately'],right:2},
+     {q:'Why does the author mention blue-spectrum light in paragraph five?',opts:['To recommend blue light as beneficial','To explain how it suppresses melatonin','To describe how screens help people sleep','To criticise smartphone manufacturers'],right:1},
+     {q:'Which recommendation does the passage make at the societal level?',opts:['Banning smartphones in schools','Reducing working hours for all employees','Adjusting school start times for teenagers','Making sleep medication freely available'],right:2},
+   ]},
+  {id:'cities',icon:'🏙️',title:'The Future of Cities',meta:'B2 · Урбанистика',
+   passage:`<h3>Smart Cities: Reimagining Urban Life</h3>
+<p>More than half of the world's population now lives in urban areas, and this proportion is projected to rise to two-thirds by 2050. Cities are engines of economic productivity, cultural creativity, and social innovation — but they are also sources of significant stress: congestion, pollution, inequality, and the strain on infrastructure and public services. As the urban population swells, city planners, architects, and technologists are exploring how digital technologies can be harnessed to make cities more liveable, sustainable, and efficient. The result is the emerging concept of the "smart city."</p>
+<p>A smart city uses digital technologies — including sensors, data analytics, artificial intelligence, and connected devices — to optimise the management of urban systems. Transport networks can be adjusted in real time based on traffic flow data, reducing congestion and emissions. Smart energy grids can balance supply and demand more efficiently, integrating renewable sources and reducing waste. Public safety systems can use predictive analytics to deploy resources more effectively. Even waste management can be optimised through sensors that indicate when bins need collecting, reducing unnecessary vehicle journeys.</p>
+<p>Several cities around the world have become leading examples of smart city implementation. Singapore has invested heavily in integrated data platforms that manage everything from public transport to water usage. Barcelona has installed a network of sensors throughout the city to monitor and manage irrigation, lighting, and parking. In Estonia, one of the world's most digitally advanced societies, citizens can vote, access medical records, and complete tax returns entirely online — services that have been praised for their efficiency and transparency.</p>
+<p>However, the smart city concept is not without its critics. Perhaps the most significant concern relates to data privacy. Smart cities generate enormous quantities of data about the movements, habits, and behaviours of their residents. Who owns this data? Who has access to it? How is it protected from misuse? The potential for surveillance — whether by governments or by private corporations — is considerable. Civil liberties organisations have raised alarms about cities that deploy facial recognition technology in public spaces, arguing that this fundamentally undermines privacy and can disproportionately affect minority communities.</p>
+<p>There is also the risk that the benefits of smart city technology will not be distributed equitably. Infrastructure investment tends to concentrate in wealthy neighbourhoods, while poorer areas may be left behind. Similarly, residents who lack digital literacy or access to smartphones and the internet may be excluded from services that increasingly require online interaction. Critics argue that technology cannot substitute for the political decisions needed to address the root causes of urban inequality.</p>
+<p>The smart city of the future, if it is to fulfil its promise, must be designed with inclusivity and democratic accountability at its core. Technology should serve people — not the other way around. This means involving communities in decisions about how their data is used, ensuring that digital services are accessible to all, and maintaining human oversight of automated systems. Urban innovation is exciting and full of potential, but it must be guided by a clear sense of values and purpose.</p>`,
+   questions:[
+     {q:'What percentage of the global population is projected to live in urban areas by 2050?',opts:['50%','60%','67%','75%'],right:2},
+     {q:'Which city is mentioned as having sensors to monitor irrigation and parking?',opts:['Singapore','Estonia','Barcelona','Dubai'],right:2},
+     {q:'According to paragraph four, what is the most significant concern about smart cities?',opts:['High implementation costs','Data privacy and surveillance','Unreliable technology','Environmental damage'],right:1},
+     {q:'The word "disproportionately" in paragraph four is closest in meaning to:',opts:['fairly','unfairly in greater measure','equally','gradually'],right:1},
+     {q:'What does the author argue in the final paragraph?',opts:['Smart cities should be led by corporations','Technology should serve human values','AI should replace all urban management','Smart cities are too expensive to build'],right:1},
+     {q:'Which of the following criticisms of smart cities does the passage NOT mention?',opts:['Unequal distribution of benefits','Data privacy risks','Excessive energy consumption','Exclusion of digitally illiterate residents'],right:2},
+   ]},
+];
+
+let currentReadingId = null, readingAnswers = {}, readingLocked = {};
+
+function buildReadingTopics(){
+  document.getElementById('reading-topic-grid').innerHTML = readingTopics.map(t=>`
+    <div class="reading-topic-card" onclick="openReading('${t.id}')">
+      <div class="reading-topic-icon">${t.icon}</div>
+      <div class="reading-topic-title">${t.title}</div>
+      <div class="reading-topic-meta">${t.meta}</div>
+    </div>`).join('');
+}
+
+function openReading(id){
+  const topic = readingTopics.find(t=>t.id===id);
+  currentReadingId = id;
+  readingAnswers = {}; readingLocked = {};
+  document.getElementById('reading-topic-grid').style.display='none';
+  document.getElementById('reading-article').style.display='block';
+  document.getElementById('reading-content').innerHTML = `
+    <div class="reading-passage">${topic.passage}</div>
+    <div class="reading-questions">
+      <div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:700;margin-bottom:18px;">Questions (IELTS format)</div>
+      ${topic.questions.map((q,qi)=>`
+        <div class="reading-q" id="rq-${qi}">
+          <div class="reading-q-num">Question ${qi+1}</div>
+          <div class="reading-q-text">${q.q}</div>
+          ${q.opts.map((o,oi)=>`<button class="reading-opt" onclick="answerReading(${qi},${oi})">${String.fromCharCode(65+oi)}) ${o}</button>`).join('')}
+          <div id="rfb-${qi}" style="display:none;font-size:12px;margin-top:6px;"></div>
+        </div>`).join('')}
+      <div class="reading-result-bar" id="reading-result-bar"></div>
+    </div>`;
+}
+
+function answerReading(qi,oi){
+  if(readingLocked[qi]) return;
+  readingLocked[qi] = true;
+  readingAnswers[qi] = oi;
+  const topic = readingTopics.find(t=>t.id===currentReadingId);
+  const q = topic.questions[qi];
+  const btns = document.querySelectorAll(`#rq-${qi} .reading-opt`);
+  btns.forEach((b,i)=>{
+    b.style.pointerEvents='none';
+    if(i===q.right) b.classList.add('correct');
+    else if(i===oi && oi!==q.right) b.classList.add('wrong');
+  });
+  const fb = document.getElementById(`rfb-${qi}`);
+  fb.style.display = 'block';
+  fb.style.color = oi===q.right ? 'var(--accent)' : 'var(--accent2)';
+  fb.textContent = oi===q.right ? '✅ Correct!' : `❌ Correct answer: ${String.fromCharCode(65+q.right)}) ${q.opts[q.right]}`;
+  // Check if all answered
+  if(Object.keys(readingLocked).length === topic.questions.length){
+    const correct = topic.questions.filter((_,i)=>readingAnswers[i]===topic.questions[i].right).length;
+    const bar = document.getElementById('reading-result-bar');
+    bar.style.display='block';
+    bar.innerHTML = `<div style="font-family:'Clash Display',sans-serif;font-size:28px;font-weight:700;color:var(--accent)">${correct}/${topic.questions.length}</div><div style="color:var(--muted);font-size:13px;">правильных ответов · ${Math.round(correct/topic.questions.length*100)}%</div>`;
+  }
+}
+
+function backToReadingTopics(){
+  document.getElementById('reading-topic-grid').style.display='grid';
+  document.getElementById('reading-article').style.display='none';
+}
+
+// ═══════════════════════════════════════════
+// STORIES
+// ═══════════════════════════════════════════
+const stories = [
+  {id:'s1',icon:'☕',title:'A Second Chance',meta:'B1 · Короткий рассказ',
+   text:`<p>Maria had always believed that second chances were reserved for other people — the lucky ones. She had grown up in a small apartment on the east side of the city, raised by a mother who worked two jobs and still found time to read her a story every night. Despite the constraints of their circumstances, Maria had been a dedicated student, winning a scholarship to study business at the state university. Everything seemed to be going to plan.</p>
+<p>Then, in her third year, her mother fell ill. The diagnosis was serious, and the treatment expensive. Maria made the decision without hesitation: she would leave university, take a job at the local supermarket, and help cover the costs. "I'll go back," she told herself. "When things settle down." But things did not settle down for a long time, and the years slipped past with a quiet persistence that she had not anticipated.</p>
+<p>It was on a Tuesday morning — an unremarkable day, the kind that tends to carry life-changing events without prior warning — that she noticed the flyer on the community centre board. An adult education programme was offering fully-funded evening courses in business management. Applications closed in three days. Maria stared at the flyer for a long time, aware of the familiar voice in her head suggesting that it was too late, that too much time had passed, that she was no longer the kind of person such opportunities were designed for.</p>
+<p>But another voice — quieter, steadier, and somehow more insistent — reminded her of her mother, who had never once described herself as someone to whom good things did not happen. Maria took a photo of the flyer with her phone and walked home.</p>
+<p>She submitted her application that evening. When the acceptance letter arrived two weeks later, she read it three times before she allowed herself to smile.</p>`,
+   questions:[
+     {q:'Why did Maria leave university?',opts:['She failed her exams','She lost her scholarship','Her mother became ill','She found a better opportunity'],right:2},
+     {q:'The phrase "the years slipped past with a quiet persistence" suggests that:',opts:['Maria was very busy and active','time passed slowly and painfully','time passed without her fully noticing','Maria was content with her life'],right:2},
+     {q:'What was Maria\'s initial reaction to the flyer?',opts:['She was immediately enthusiastic','She felt it was too late for her','She ignored it completely','She was angry about it'],right:1},
+     {q:'What motivated Maria to apply for the course?',opts:['Financial incentives','Pressure from friends','The memory of her mother\'s attitude','A conversation with a counsellor'],right:2},
+     {q:'Which word best describes Maria\'s character throughout the story?',opts:['Impulsive','Reckless','Determined','Indifferent'],right:2},
+   ]},
+  {id:'s2',icon:'🚂',title:'The Last Train',meta:'B1-B2 · Напряжённый рассказ',
+   text:`<p>The platform was deserted except for Daniel and the sound of his own breathing. The departure board flickered once and went dark. He checked his watch: 23:47. The last train to the city was due at 23:50, and he had a job interview at eight the next morning — the first serious opportunity he had been offered in eight months.</p>
+<p>He had missed the earlier train because of a phone call from his brother, who was going through a difficult time and had needed someone to talk to. Daniel did not regret staying on the line. But he was aware, standing on the cold platform in the November dark, that the consequences of missing this last connection would be significant. There were no hotels in this village that he could afford, and a taxi to the city would cost more than he had in his account.</p>
+<p>At 23:53, a faint light appeared at the far end of the track. Daniel felt his shoulders drop with relief. But as the vehicle drew closer, he realised it was not a passenger train — it was a maintenance vehicle, moving slowly, its amber lights casting strange shadows across the platform. It stopped directly in front of him.</p>
+<p>The driver leaned out of the cab window. He was a broad-shouldered man with a weathered face and an expression of mild curiosity. "You look like a man who's missed his train," he said.</p>
+<p>"I have," Daniel admitted.</p>
+<p>The driver studied him for a moment. "I'm heading to the central depot. Goes right through the city centre." He paused. "Strictly speaking, I'm not supposed to carry passengers."</p>
+<p>Daniel looked at the empty platform, at the darkened departure board, at the phone in his hand showing seventeen percent battery. Then he looked back at the driver.</p>
+<p>"Strictly speaking," Daniel replied carefully, "I'm supposed to be in the city."</p>
+<p>The driver held his gaze for another second, then jerked his head towards the cab. "Get in, then. And don't tell anyone."</p>`,
+   questions:[
+     {q:'Why was Daniel at the station so late?',opts:['He had been working overtime','He had been talking to his brother','He missed the bus from the city','He fell asleep on an earlier train'],right:1},
+     {q:'What was approaching at 23:53?',opts:['The last passenger train','A freight train','A maintenance vehicle','A taxi'],right:2},
+     {q:'The phrase "felt his shoulders drop with relief" indicates that Daniel:',opts:['was exhausted','was initially relieved but then disappointed','was angry','was completely calm'],right:1},
+     {q:'Why did the driver hesitate before offering Daniel a lift?',opts:['He did not trust Daniel','He was not authorised to carry passengers','His vehicle was full','He was afraid of losing his job'],right:1},
+     {q:'What does Daniel\'s final reply suggest about his character?',opts:['He is dishonest and manipulative','He is humorous and quick-thinking','He is aggressive and demanding','He is passive and indecisive'],right:1},
+   ]},
+  {id:'s3',icon:'🏔️',title:'Above the Clouds',meta:'B2 · Вдохновляющий рассказ',
+   text:`<p>The mountain had defeated Elena three times. Each attempt had ended the same way: first with optimism, then with exhaustion, and finally with the particular kind of defeat that settles into the body differently from ordinary failure — heavier, more personal, harder to reason away. Her climbing partners had been kind about it, but she had seen the way they looked at each other on the descent, and she had understood.</p>
+<p>The fourth attempt was different from the outset, and not because of anything she had changed in her training regime, her equipment, or her preparation. It was different because of a conversation she had had with an elderly guide at the mountain lodge the evening before the climb. She had been sitting alone, nursing a coffee and staring at the weather maps, when the old man sat down across from her without being invited.</p>
+<p>"You've been up before," he said. It was not a question.</p>
+<p>"Three times," she replied. "Three failures."</p>
+<p>He shook his head slowly. "Three attempts. Not the same thing." He was quiet for a moment, and she expected the usual reassurances. Instead, he said: "The mountain doesn't care about your story. It just sits there. The only story that matters is the one you tell yourself on the way up."</p>
+<p>Elena had turned this over in her mind all night. By the time she set out at four in the morning, something had shifted — not dramatically, not with sudden clarity, but with the kind of quiet, incremental settling that precedes genuine change. She climbed without hurrying. She rested when she needed to. She spoke to herself — not in the language of motivation or performance, but in the plain, direct language of fact: one step, then another; this foothold, then that one.</p>
+<p>She reached the summit at 14:20 on a Saturday afternoon in September. The view was extraordinary, but what she noticed first was the silence — vast, indifferent, and oddly comforting. She stood there for eleven minutes, then began the descent. She did not feel triumphant. She felt, more precisely, like herself.</p>`,
+   questions:[
+     {q:'How many times had Elena attempted the mountain before this story?',opts:['Two','Three','Four','Five'],right:1},
+     {q:'According to the passage, what made the fourth attempt different?',opts:['Better equipment','Improved training','A conversation with an old guide','Better weather conditions'],right:2},
+     {q:'What was the guide\'s key message to Elena?',opts:['The mountain is too dangerous','She should give up climbing','Her previous failures were not real failures','The story she tells herself matters most'],right:3},
+     {q:'The phrase "quiet, incremental settling" in paragraph six suggests:',opts:['sudden and dramatic change','slow, gradual, genuine transformation','confusion and uncertainty','physical exhaustion'],right:1},
+     {q:'How did Elena feel when she reached the summit?',opts:['Triumphant and proud','Relieved and emotional','Simply like herself','Disappointed'],right:2},
+     {q:'What does the author suggest about the relationship between failure and growth?',opts:['Failure should be avoided at all costs','Failure and attempt are very different things','Success is impossible without others','Physical preparation is all that matters'],right:1},
+   ]},
+  {id:'s4',icon:'📱',title:'Digital Detox',meta:'B1-B2 · Современная жизнь',
+   text:`<p>James had not planned to spend a week without his smartphone. The decision was made for him at seven thirty on a Monday morning, when he placed his phone on the roof of his car while loading his bag into the boot, drove away, and did not realise what he had done until he was already halfway to work. By the time he turned back, the phone was gone — whether fallen, stolen, or run over, he could not determine. He filed a police report out of habit more than hope, and ordered a replacement that would arrive in five to seven business days.</p>
+<p>The first day was the most difficult. James was surprised by how frequently his hand moved towards his pocket and found nothing. He ate lunch without photographing it. He waited for a bus without knowing precisely when it would arrive. He sat in a meeting and realised, with a faint shock, that he was listening to his colleagues rather than reading messages under the table. A colleague mentioned a film she had enjoyed. James did not immediately look it up. He simply said, "That sounds interesting," and found that this was enough.</p>
+<p>By the third day, something unexpected had happened. James was sleeping better. He had always attributed his poor sleep to stress, but he now recalled that he had been in the habit of reading the news on his phone until the moment he closed his eyes. Without that ritual, he found himself lying in the dark with his thoughts, which were less alarming than he had anticipated. He read two chapters of a novel he had bought six months ago and never opened. He woke up before his alarm.</p>
+<p>On the fifth day, he had lunch with a friend he had not seen in person for nearly three months, despite exchanging dozens of messages with her. They talked for two hours. He noticed things about her face — the way she laughed, a new haircut — that no photograph had communicated. "You seem different," she told him. "Less distracted."</p>
+<p>When the replacement phone arrived on Friday, James set it up slowly. He reinstalled his email and his maps application. He paused before reinstalling his social media apps and, after some consideration, decided to leave them off for another week. Perhaps longer. He wasn't sure yet. But he wanted to think about it — not look it up, not ask the internet, just think.</p>`,
+   questions:[
+     {q:'How did James lose his phone?',opts:['It was stolen from his car','He dropped it in a meeting','He left it on the car roof','He lost it on the bus'],right:2},
+     {q:'According to paragraph two, which change did James notice on the first day?',opts:['He ate more slowly','He was actually listening in meetings','He enjoyed the silence','He felt less stressed'],right:1},
+     {q:'What does the author imply James had previously attributed his poor sleep to?',opts:['Caffeine consumption','His phone use','Work stress','Noise in his environment'],right:2},
+     {q:'The phrase "less alarming than he had anticipated" suggests that James:',opts:['had been afraid of the dark','had expected his thoughts to be more disturbing','had been anxious about sleep','had been surprised by the noise'],right:1},
+     {q:'What is the significance of James not reinstalling his social media apps?',opts:['He is unable to remember his password','He has decided to give up social media forever','He is beginning to question his relationship with technology','His phone does not support the apps'],right:2},
+     {q:'Which theme best describes this story?',opts:['The dangers of modern technology','The importance of friendship','Rediscovering life beyond constant digital connection','The difficulty of changing habits'],right:2},
+   ]},
+];
+
+let currentStoryId = null, storyAnswers = {}, storyLocked = {};
+
+function buildStoriesGrid(){
+  document.getElementById('stories-grid').innerHTML = stories.map(s=>`
+    <div class="story-card" onclick="openStory('${s.id}')">
+      <div style="font-size:28px;margin-bottom:8px;">${s.icon}</div>
+      <div style="font-family:'Clash Display',sans-serif;font-size:15px;font-weight:600;margin-bottom:4px;">${s.title}</div>
+      <div style="font-size:11px;color:var(--muted);">${s.meta}</div>
+    </div>`).join('');
+}
+
+function openStory(id){
+  const story = stories.find(s=>s.id===id);
+  currentStoryId = id;
+  storyAnswers = {}; storyLocked = {};
+  document.getElementById('stories-list-view').style.display='none';
+  document.getElementById('stories-article').style.display='block';
+  document.getElementById('stories-content').innerHTML = `
+    <div class="reading-passage">${story.text}</div>
+    <div class="reading-questions">
+      <div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:700;margin-bottom:18px;">Comprehension Questions (IELTS format)</div>
+      ${story.questions.map((q,qi)=>`
+        <div class="reading-q" id="sq-${qi}">
+          <div class="reading-q-num">Question ${qi+1}</div>
+          <div class="reading-q-text">${q.q}</div>
+          ${q.opts.map((o,oi)=>`<button class="reading-opt" onclick="answerStory(${qi},${oi})">${String.fromCharCode(65+oi)}) ${o}</button>`).join('')}
+          <div id="sfb-${qi}" style="display:none;font-size:12px;margin-top:6px;"></div>
+        </div>`).join('')}
+      <div class="reading-result-bar" id="story-result-bar"></div>
+    </div>`;
+}
+
+function answerStory(qi,oi){
+  if(storyLocked[qi]) return;
+  storyLocked[qi] = true;
+  storyAnswers[qi] = oi;
+  const story = stories.find(s=>s.id===currentStoryId);
+  const q = story.questions[qi];
+  const btns = document.querySelectorAll(`#sq-${qi} .reading-opt`);
+  btns.forEach((b,i)=>{
+    b.style.pointerEvents='none';
+    if(i===q.right) b.classList.add('correct');
+    else if(i===oi && oi!==q.right) b.classList.add('wrong');
+  });
+  const fb = document.getElementById(`sfb-${qi}`);
+  fb.style.display='block';
+  fb.style.color = oi===q.right ? 'var(--accent)' : 'var(--accent2)';
+  fb.textContent = oi===q.right ? '✅ Correct!' : `❌ Correct answer: ${String.fromCharCode(65+q.right)}) ${q.opts[q.right]}`;
+  if(Object.keys(storyLocked).length === story.questions.length){
+    const correct = story.questions.filter((_,i)=>storyAnswers[i]===story.questions[i].right).length;
+    const bar = document.getElementById('story-result-bar');
+    bar.style.display='block';
+    bar.innerHTML=`<div style="font-family:'Clash Display',sans-serif;font-size:28px;font-weight:700;color:var(--accent)">${correct}/${story.questions.length}</div><div style="color:var(--muted);font-size:13px;">правильных ответов · ${Math.round(correct/story.questions.length*100)}%</div>`;
+  }
+}
+
+function backToStories(){
+  document.getElementById('stories-list-view').style.display='block';
+  document.getElementById('stories-article').style.display='none';
+}
 
 // ═══════════════════════════════════════════
 // BOOT
@@ -1353,6 +2461,11 @@ buildGrammar();
 buildAudio();
 buildPhrases();
 initBuilder();
+initFC();
+initDict();
+initWordle();
+buildReadingTopics();
+buildStoriesGrid();
 </script>
 </body>
 </html>
