@@ -11,21 +11,241 @@
 body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;overflow-x:hidden;}
 body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:0.4;}
 
-/* NAV */
-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:12px;padding:10px 20px;background:rgba(13,15,20,0.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
-.logo{font-family:'Clash Display',sans-serif;font-size:19px;font-weight:700;color:var(--accent);letter-spacing:-0.5px;flex-shrink:0;}
-.logo span{color:var(--text);}
-.nav-tabs{display:flex;gap:2px;background:var(--surface2);border-radius:10px;padding:3px;overflow-x:auto;flex:1;}
-.nav-tab{padding:6px 11px;border-radius:7px;border:none;background:transparent;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;cursor:pointer;transition:all 0.2s;white-space:nowrap;}
-.nav-tab:hover{color:var(--text);}
-.nav-tab.active{background:var(--surface);color:var(--text);box-shadow:0 1px 6px rgba(0,0,0,0.25);}
-.profile-btn{flex-shrink:0;background:var(--surface2);border:1px solid var(--border);border-radius:10px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;padding:7px 14px;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;gap:6px;white-space:nowrap;}
-.profile-btn:hover{border-color:rgba(79,255,176,0.4);color:var(--accent);}
+/* ═══════════════════════════════════════════
+   LAYOUT SHELL
+═══════════════════════════════════════════ */
+.app-shell{display:flex;min-height:100vh;}
 
-/* SECTIONS — centered */
-.section{display:none;padding:36px 20px;max-width:1000px;margin:0 auto;position:relative;z-index:1;}
-.section.active{display:block;animation:fadeUp 0.35s ease;}
-@keyframes fadeUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+/* ═══════════════════════════════════════════
+   SIDEBAR (desktop)
+═══════════════════════════════════════════ */
+.sidebar{
+  position:fixed;top:0;left:0;bottom:0;
+  width:220px;
+  background:var(--surface);
+  border-right:1px solid var(--border);
+  display:flex;flex-direction:column;
+  z-index:100;
+  transition:width 0.25s ease;
+  overflow:hidden;
+}
+.sidebar-logo{
+  display:flex;align-items:center;gap:10px;
+  padding:22px 18px 16px;
+  border-bottom:1px solid var(--border);
+  flex-shrink:0;
+}
+.sidebar-logo-icon{
+  width:34px;height:34px;border-radius:10px;
+  background:linear-gradient(135deg,var(--accent),var(--accent4));
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;font-weight:900;color:#0d0f14;
+  font-family:'Clash Display',sans-serif;flex-shrink:0;
+}
+.sidebar-logo-text{
+  font-family:'Clash Display',sans-serif;font-size:17px;font-weight:700;
+  color:var(--text);white-space:nowrap;letter-spacing:-0.3px;
+}
+.sidebar-logo-text span{color:var(--accent);}
+
+.sidebar-nav{flex:1;overflow-y:auto;padding:10px 8px;display:flex;flex-direction:column;gap:2px;}
+.sidebar-nav::-webkit-scrollbar{width:0;}
+
+.sidebar-group-label{
+  font-size:9px;text-transform:uppercase;letter-spacing:1.2px;
+  color:var(--muted);padding:10px 10px 4px;
+  white-space:nowrap;
+}
+.nav-item{
+  display:flex;align-items:center;gap:11px;
+  padding:9px 11px;border-radius:10px;
+  border:none;background:transparent;
+  color:var(--muted);cursor:pointer;
+  font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;
+  transition:all 0.18s;text-align:left;width:100%;
+  white-space:nowrap;position:relative;
+}
+.nav-item:hover{background:var(--surface2);color:var(--text);}
+.nav-item.active{
+  background:rgba(79,255,176,0.1);
+  color:var(--accent);
+}
+.nav-item.active::before{
+  content:'';position:absolute;left:0;top:20%;bottom:20%;
+  width:3px;border-radius:0 3px 3px 0;
+  background:var(--accent);
+}
+.nav-item-icon{font-size:16px;width:20px;text-align:center;flex-shrink:0;}
+.nav-item-label{flex:1;}
+.nav-item-badge{
+  background:rgba(79,255,176,0.15);color:var(--accent);
+  font-size:9px;padding:2px 6px;border-radius:10px;font-weight:600;
+}
+
+.sidebar-footer{
+  border-top:1px solid var(--border);
+  padding:10px 8px;display:flex;flex-direction:column;gap:2px;flex-shrink:0;
+}
+
+/* ═══════════════════════════════════════════
+   MAIN CONTENT
+═══════════════════════════════════════════ */
+.main-content{
+  margin-left:220px;
+  flex:1;min-width:0;
+}
+
+/* ═══════════════════════════════════════════
+   TOPBAR (desktop only, above content)
+═══════════════════════════════════════════ */
+.topbar{
+  position:sticky;top:0;z-index:50;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px 28px;
+  background:rgba(13,15,20,0.85);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+}
+body.light-theme .topbar{background:rgba(240,242,247,0.9);}
+.topbar-title{
+  font-family:'Clash Display',sans-serif;font-size:18px;font-weight:700;
+  color:var(--text);letter-spacing:-0.3px;
+}
+.topbar-actions{display:flex;align-items:center;gap:8px;}
+.topbar-btn{
+  background:var(--surface2);border:1px solid var(--border);
+  border-radius:9px;color:var(--text);font-size:14px;
+  padding:7px 10px;cursor:pointer;transition:all 0.2s;line-height:1;
+}
+.topbar-btn:hover{border-color:rgba(79,255,176,0.4);color:var(--accent);}
+
+/* ═══════════════════════════════════════════
+   SECTIONS
+═══════════════════════════════════════════ */
+.section{display:none;padding:32px 28px;max-width:1000px;margin:0 auto;position:relative;z-index:1;}
+.section.active{display:block;animation:fadeUp 0.3s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+
+/* ═══════════════════════════════════════════
+   MOBILE BOTTOM NAV
+═══════════════════════════════════════════ */
+.mobile-nav{display:none;}
+.mobile-topbar{display:none;}
+
+/* Mobile drawer overlay */
+.mobile-drawer-overlay{
+  display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);
+  backdrop-filter:blur(4px);z-index:400;
+}
+.mobile-drawer-overlay.open{display:block;}
+.mobile-drawer{
+  position:fixed;bottom:0;left:0;right:0;
+  background:var(--surface);border-radius:20px 20px 0 0;
+  border-top:1px solid var(--border);
+  padding:12px 16px 32px;
+  z-index:401;
+  transform:translateY(100%);
+  transition:transform 0.35s cubic-bezier(0.32,0.72,0,1);
+}
+.mobile-drawer.open{transform:translateY(0);}
+.mobile-drawer-handle{
+  width:36px;height:4px;border-radius:2px;
+  background:var(--border);margin:0 auto 16px;
+}
+.mobile-drawer-title{
+  font-family:'Clash Display',sans-serif;font-size:15px;font-weight:700;
+  color:var(--muted);margin-bottom:12px;text-transform:uppercase;
+  letter-spacing:0.5px;font-size:11px;
+}
+.mobile-drawer-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:8px;
+}
+.mobile-drawer-item{
+  display:flex;flex-direction:column;align-items:center;gap:5px;
+  padding:12px 6px;border-radius:12px;border:none;
+  background:var(--surface2);color:var(--muted);
+  cursor:pointer;transition:all 0.18s;
+  font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;
+}
+.mobile-drawer-item:active{transform:scale(0.95);}
+.mobile-drawer-item.active{background:rgba(79,255,176,0.12);color:var(--accent);}
+.mobile-drawer-item-icon{font-size:20px;}
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════ */
+@media(max-width:900px){
+  .sidebar{width:64px;}
+  .sidebar-logo-text,.nav-item-label,.nav-item-badge,.sidebar-group-label{display:none;}
+  .sidebar-logo{padding:16px;justify-content:center;}
+  .nav-item{justify-content:center;padding:10px;border-radius:10px;}
+  .nav-item.active::before{display:none;}
+  .nav-item.active{background:rgba(79,255,176,0.12);}
+  .nav-item-icon{width:auto;}
+  .main-content{margin-left:64px;}
+  .topbar{padding:10px 18px;}
+  .section{padding:24px 16px;}
+}
+
+@media(max-width:640px){
+  .sidebar{display:none;}
+  .main-content{margin-left:0;padding-bottom:80px;}
+  .mobile-nav{
+    display:flex;position:fixed;bottom:0;left:0;right:0;
+    background:rgba(13,15,20,0.96);backdrop-filter:blur(20px);
+    border-top:1px solid var(--border);
+    z-index:200;height:64px;
+    padding:0 4px;
+    align-items:stretch;
+  }
+  body.light-theme .mobile-nav{background:rgba(240,242,247,0.97);}
+  .mobile-nav-item{
+    flex:1;display:flex;flex-direction:column;align-items:center;
+    justify-content:center;gap:3px;border:none;background:transparent;
+    color:var(--muted);cursor:pointer;
+    font-family:'DM Sans',sans-serif;font-size:9px;font-weight:500;
+    transition:color 0.18s;padding:4px 2px;
+    min-width:0;
+  }
+  .mobile-nav-item.active{color:var(--accent);}
+  .mobile-nav-item-icon{
+    font-size:20px;line-height:1;
+    transition:transform 0.18s;
+  }
+  .mobile-nav-item.active .mobile-nav-item-icon{transform:scale(1.15);}
+  .mobile-nav-dot{
+    width:4px;height:4px;border-radius:50%;background:var(--accent);
+    opacity:0;transition:opacity 0.18s;
+  }
+  .mobile-nav-item.active .mobile-nav-dot{opacity:1;}
+  .mobile-topbar{
+    display:flex;position:sticky;top:0;z-index:50;
+    align-items:center;justify-content:space-between;
+    padding:12px 16px;
+    background:rgba(13,15,20,0.92);backdrop-filter:blur(20px);
+    border-bottom:1px solid var(--border);
+  }
+  body.light-theme .mobile-topbar{background:rgba(240,242,247,0.95);}
+  .mobile-topbar-logo{
+    font-family:'Clash Display',sans-serif;font-size:17px;font-weight:700;
+    color:var(--text);
+  }
+  .mobile-topbar-logo span{color:var(--accent);}
+  .mobile-topbar-actions{display:flex;gap:6px;}
+  .topbar{display:none;}
+  .section{padding:20px 14px;}
+  .section-title{font-size:24px;}
+  .grammar-layout{grid-template-columns:1fr;}
+  .quiz-options{grid-template-columns:1fr;}
+  .audio-top{flex-direction:column;align-items:flex-start;}
+}
+
+/* Light theme sidebar */
+body.light-theme .sidebar{background:#ffffff;border-right-color:rgba(0,0,0,0.08);}
+body.light-theme .nav-item:hover{background:#f0f2f7;}
+body.light-theme .nav-item.active{background:rgba(79,255,176,0.12);}
+body.light-theme .topbar-btn{background:#e8eaf0;border-color:rgba(0,0,0,0.08);}
+body.light-theme .mobile-drawer{background:#ffffff;}
 .section-header{text-align:center;margin-bottom:32px;}
 .section-title{font-family:'Clash Display',sans-serif;font-size:32px;font-weight:700;margin-bottom:8px;letter-spacing:-1px;}
 .section-sub{color:var(--muted);font-size:14px;}
@@ -214,14 +434,9 @@ nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:12px;p
 .profile-avatar{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent4));display:flex;align-items:center;justify-content:center;font-size:36px;margin:0 auto 16px;}
 
 /* THEME TOGGLE */
-.theme-toggle-btn{flex-shrink:0;background:var(--surface2);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:15px;padding:6px 10px;cursor:pointer;transition:all 0.2s;line-height:1;}
-.theme-toggle-btn:hover{border-color:rgba(79,255,176,0.4);}
-
-/* LIGHT THEME */
+.theme-toggle-btn{display:none;} /* replaced by topbar-btn */
 body.light-theme{--bg:#f0f2f7;--surface:#ffffff;--surface2:#e8eaf0;--border:rgba(0,0,0,0.1);--text:#1a1d26;--muted:#6b7280;}
 body.light-theme::before{opacity:0.1;}
-body.light-theme .nav-tab{color:#4b5563;}
-body.light-theme .nav-tab.active{background:#fff;color:#1a1d26;}
 body.light-theme .word-card{box-shadow:0 1px 4px rgba(0,0,0,0.07);}
 body.light-theme .modal{background:#fff;}
 body.light-theme .quiz-opt{background:#fff;}
@@ -278,23 +493,85 @@ body.light-theme .dict-input{background:#fff;color:#1a1d26;}
 .dict-score-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:36px;text-align:center;display:none;}
 
 /* WORDLE */
-.wordle-row{display:flex;gap:5px;}
-.wordle-cell{width:52px;height:52px;border:2px solid var(--border);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'Clash Display',sans-serif;font-size:20px;font-weight:700;text-transform:uppercase;transition:all 0.15s;background:var(--surface);}
-.wordle-cell.filled{border-color:rgba(255,255,255,0.2);transform:scale(1.04);}
+.wlen-btn{padding:5px 13px;border-radius:6px;border:none;background:transparent;color:var(--muted);font-family:'Clash Display',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all 0.18s;}
+.wlen-btn.active{background:var(--surface);color:var(--text);box-shadow:0 1px 6px rgba(0,0,0,0.3);}
+.wordle-row{display:flex;gap:6px;}
+.wordle-cell{
+  width:56px;height:56px;border:2px solid var(--border);border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Clash Display',sans-serif;font-size:22px;font-weight:700;text-transform:uppercase;
+  background:var(--surface);color:var(--text);
+  transition:border-color 0.1s, transform 0.1s;
+  position:relative;
+}
+.wordle-cell.filled{border-color:rgba(255,255,255,0.35);animation:wPop 0.1s ease;}
+@keyframes wPop{0%{transform:scale(1);}50%{transform:scale(1.12);}100%{transform:scale(1);}}
+/* flip animation */
+.wordle-cell.flip{animation:wFlip 0.5s ease forwards;}
+@keyframes wFlip{
+  0%{transform:rotateX(0deg);}
+  45%{transform:rotateX(-90deg);}
+  55%{transform:rotateX(-90deg);}
+  100%{transform:rotateX(0deg);}
+}
+/* results applied after flip */
 .wordle-cell.correct{background:#538d4e;border-color:#538d4e;color:#fff;}
 .wordle-cell.present{background:#b59f3b;border-color:#b59f3b;color:#fff;}
-.wordle-cell.absent{background:var(--surface2);border-color:var(--surface2);color:var(--muted);}
-.wordle-key{min-width:36px;height:44px;border-radius:6px;border:none;background:var(--surface2);color:var(--text);font-family:'Clash Display',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all 0.15s;padding:0 6px;text-transform:uppercase;}
-.wordle-key:hover{background:rgba(255,255,255,0.1);}
+.wordle-cell.absent{background:#3a3a3c;border-color:#3a3a3c;color:#888;}
+/* shake on bad word */
+.wordle-row.shake{animation:wShake 0.5s ease;}
+@keyframes wShake{
+  0%,100%{transform:translateX(0);}
+  15%{transform:translateX(-6px);}
+  30%{transform:translateX(6px);}
+  45%{transform:translateX(-5px);}
+  60%{transform:translateX(5px);}
+  75%{transform:translateX(-3px);}
+  90%{transform:translateX(3px);}
+}
+/* bounce on win */
+.wordle-cell.bounce{animation:wBounce 0.6s ease forwards;}
+@keyframes wBounce{
+  0%{transform:translateY(0);}
+  30%{transform:translateY(-18px);}
+  60%{transform:translateY(-8px);}
+  80%{transform:translateY(-14px);}
+  100%{transform:translateY(0);}
+}
+/* keyboard */
+.wordle-key{
+  min-width:38px;height:56px;border-radius:8px;border:none;
+  background:var(--surface2);color:var(--text);
+  font-family:'Clash Display',sans-serif;font-size:13px;font-weight:700;
+  cursor:pointer;transition:all 0.18s;padding:0 6px;text-transform:uppercase;
+  display:flex;align-items:center;justify-content:center;
+}
+.wordle-key:active{transform:scale(0.93);}
+.wordle-key.wide{min-width:54px;font-size:11px;}
 .wordle-key.correct{background:#538d4e;color:#fff;}
 .wordle-key.present{background:#b59f3b;color:#fff;}
-.wordle-key.absent{background:#3a3a3c;color:#666;}
-.wordle-key.wide{min-width:58px;font-size:11px;}
-/* FILL IN BLANK */
-.fb-opt{padding:12px 14px;border-radius:10px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-size:13px;font-weight:500;cursor:pointer;transition:all 0.18s;text-align:left;font-family:'DM Sans',sans-serif;}
-.fb-opt:hover{border-color:var(--accent4);background:rgba(116,185,255,0.05);}
-.fb-opt.correct{border-color:var(--accent);background:rgba(79,255,176,0.08);color:var(--accent);pointer-events:none;}
-.fb-opt.wrong{border-color:var(--accent2);background:rgba(255,107,107,0.08);color:var(--accent2);pointer-events:none;}
+.wordle-key.absent{background:#3a3a3c;color:#555;}
+/* toast */
+.wordle-toast-pill{
+  display:inline-block;background:var(--text);color:var(--bg);
+  font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;
+  padding:7px 18px;border-radius:30px;
+  animation:toastIn 0.25s ease;pointer-events:none;
+}
+@keyframes toastIn{from{opacity:0;transform:translateY(-8px);}to{opacity:1;transform:translateY(0);}}
+.wordle-toast-pill.error{background:var(--accent2);color:#fff;}
+.wordle-toast-pill.success{background:var(--accent);color:#0d0f14;}
+/* dist bars */
+.wdist-row{display:flex;align-items:center;gap:8px;margin-bottom:5px;}
+.wdist-label{font-size:12px;width:14px;text-align:center;color:var(--muted);}
+.wdist-bar{height:22px;border-radius:5px;background:var(--surface2);min-width:28px;display:flex;align-items:center;padding:0 8px;font-size:12px;font-weight:600;transition:width 0.5s ease;position:relative;overflow:hidden;}
+.wdist-bar.current{background:var(--accent);color:#0d0f14;}
+/* light theme overrides */
+body.light-theme .wordle-cell{background:#fff;}
+body.light-theme .wordle-cell.absent{background:#787c7e;color:#fff;}
+body.light-theme .wordle-key{background:#d3d6da;color:#000;}
+body.light-theme .wordle-key.absent{background:#787c7e;color:#fff;}
+body.light-theme .wordle-toast-pill{background:#1a1d26;color:#fff;}
 /* ACTIVITY CHART */
 .activity-grid{display:flex;gap:3px;flex-wrap:wrap;margin-top:10px;}
 .act-day{width:13px;height:13px;border-radius:3px;background:var(--surface2);}
@@ -302,10 +579,6 @@ body.light-theme .dict-input{background:#fff;color:#1a1d26;}
 .act-day.l2{background:rgba(79,255,176,0.5);}
 .act-day.l3{background:rgba(79,255,176,0.75);}
 .act-day.l4{background:var(--accent);}
-/* light theme Wordle */
-body.light-theme .wordle-cell{background:#fff;}
-body.light-theme .wordle-key{background:#d3d6da;color:#000;}
-body.light-theme .wordle-key.absent{background:#787c7e;color:#fff;}
 
 /* READING & STORIES */
 .reading-topic-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;cursor:pointer;transition:all 0.2s;position:relative;overflow:hidden;}
@@ -351,25 +624,97 @@ body.light-theme .wordle-key.absent{background:#787c7e;color:#fff;}
   <div class="modal" id="modal-inner"></div>
 </div>
 
-<nav>
-  <div class="logo">English<span>Up</span></div>
-  <div class="nav-tabs">
-    <button class="nav-tab active" onclick="showSection('vocab',this)">📚 Словарь</button>
-    <button class="nav-tab" onclick="showSection('quiz',this)">🎯 Тест</button>
-    <button class="nav-tab" onclick="showSection('grammar',this)">📖 Грамматика</button>
-    <button class="nav-tab" onclick="showSection('audio',this)">🎧 Аудио</button>
-    <button class="nav-tab" onclick="showSection('phrases',this)">💬 Фразы</button>
-    <button class="nav-tab" onclick="showSection('sprint',this)">⏱ Спринт</button>
-    <button class="nav-tab" onclick="showSection('builder',this)">🔤 Составь</button>
-    <button class="nav-tab" onclick="showSection('flashcards',this)">🃏 Карточки</button>
-    <button class="nav-tab" onclick="showSection('dictation',this)">✍️ Диктант</button>
-    <button class="nav-tab" onclick="showSection('wordle',this)">🟩 Wordle</button>
-    <button class="nav-tab" onclick="showSection('reading',this)">📖 Чтение</button>
-    <button class="nav-tab" onclick="showSection('stories',this)">📚 Истории</button>
+<!-- MOBILE DRAWER OVERLAY -->
+<div class="mobile-drawer-overlay" id="mob-overlay" onclick="closeDrawer()"></div>
+<div class="mobile-drawer" id="mob-drawer">
+  <div class="mobile-drawer-handle"></div>
+  <div class="mobile-drawer-title">Все разделы</div>
+  <div class="mobile-drawer-grid" id="mob-drawer-grid"></div>
+</div>
+
+<div class="app-shell">
+
+<!-- ══ SIDEBAR (desktop) ══════════════════════════════ -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="sidebar-logo-icon">E</div>
+    <div class="sidebar-logo-text">English<span>Up</span></div>
   </div>
-  <button class="theme-toggle-btn" onclick="toggleTheme()" title="Сменить тему">🌙</button>
-  <button class="profile-btn" onclick="showSection('progress',this)">👤 Профиль</button>
-</nav>
+  <nav class="sidebar-nav">
+    <div class="sidebar-group-label">Учёба</div>
+    <button class="nav-item active" data-section="vocab" onclick="showSection('vocab',this)">
+      <span class="nav-item-icon">📚</span><span class="nav-item-label">Словарь</span>
+    </button>
+    <button class="nav-item" data-section="grammar" onclick="showSection('grammar',this)">
+      <span class="nav-item-icon">📖</span><span class="nav-item-label">Грамматика</span>
+    </button>
+    <button class="nav-item" data-section="reading" onclick="showSection('reading',this)">
+      <span class="nav-item-icon">🔍</span><span class="nav-item-label">Чтение</span>
+    </button>
+    <button class="nav-item" data-section="stories" onclick="showSection('stories',this)">
+      <span class="nav-item-icon">📕</span><span class="nav-item-label">Истории</span>
+    </button>
+    <button class="nav-item" data-section="audio" onclick="showSection('audio',this)">
+      <span class="nav-item-icon">🎧</span><span class="nav-item-label">Аудио</span>
+    </button>
+    <button class="nav-item" data-section="phrases" onclick="showSection('phrases',this)">
+      <span class="nav-item-icon">💬</span><span class="nav-item-label">Фразы</span>
+    </button>
+
+    <div class="sidebar-group-label">Практика</div>
+    <button class="nav-item" data-section="quiz" onclick="showSection('quiz',this)">
+      <span class="nav-item-icon">🎯</span><span class="nav-item-label">Тест</span>
+    </button>
+    <button class="nav-item" data-section="sprint" onclick="showSection('sprint',this)">
+      <span class="nav-item-icon">⚡</span><span class="nav-item-label">Спринт</span>
+    </button>
+    <button class="nav-item" data-section="flashcards" onclick="showSection('flashcards',this)">
+      <span class="nav-item-icon">🃏</span><span class="nav-item-label">Карточки</span>
+    </button>
+    <button class="nav-item" data-section="dictation" onclick="showSection('dictation',this)">
+      <span class="nav-item-icon">✍️</span><span class="nav-item-label">Диктант</span>
+    </button>
+    <button class="nav-item" data-section="builder" onclick="showSection('builder',this)">
+      <span class="nav-item-icon">🔤</span><span class="nav-item-label">Составь</span>
+    </button>
+
+    <div class="sidebar-group-label">Игры</div>
+    <button class="nav-item" data-section="wordle" onclick="showSection('wordle',this)">
+      <span class="nav-item-icon">🟩</span><span class="nav-item-label">Wordle</span>
+      <span class="nav-item-badge">NEW</span>
+    </button>
+  </nav>
+
+  <div class="sidebar-footer">
+    <button class="nav-item" data-section="progress" onclick="showSection('progress',this)">
+      <span class="nav-item-icon">👤</span><span class="nav-item-label">Профиль</span>
+    </button>
+    <button class="nav-item" onclick="toggleTheme()" id="sidebar-theme-btn">
+      <span class="nav-item-icon" id="sidebar-theme-icon">🌙</span><span class="nav-item-label">Тема</span>
+    </button>
+  </div>
+</aside>
+
+<!-- ══ MAIN CONTENT ═══════════════════════════════════ -->
+<div class="main-content">
+
+  <!-- Desktop topbar -->
+  <div class="topbar">
+    <div class="topbar-title" id="topbar-title">📚 Словарь</div>
+    <div class="topbar-actions">
+      <button class="topbar-btn" onclick="toggleTheme()" id="topbar-theme-btn">🌙</button>
+      <button class="topbar-btn" onclick="showSection('progress', document.querySelector('[data-section=progress]'))">👤 Профиль</button>
+    </div>
+  </div>
+
+  <!-- Mobile topbar -->
+  <div class="mobile-topbar">
+    <div class="mobile-topbar-logo">English<span>Up</span></div>
+    <div class="mobile-topbar-actions">
+      <button class="topbar-btn" onclick="toggleTheme()" id="mob-theme-btn">🌙</button>
+      <button class="topbar-btn" onclick="showSection('progress', null)">👤</button>
+    </div>
+  </div>
 
 <!-- VOCAB -->
 <div class="section active" id="section-vocab">
@@ -613,26 +958,70 @@ body.light-theme .wordle-key.absent{background:#787c7e;color:#fff;}
 
 <!-- WORDLE -->
 <div class="section" id="section-wordle">
-  <div class="section-header">
+  <div class="section-header" style="margin-bottom:16px;">
     <div class="section-title">🟩 Wordle</div>
     <div class="section-sub">Угадай английское слово за 6 попыток</div>
   </div>
-  <div style="max-width:420px;margin:0 auto;">
-    <div id="wordle-mode-select" style="display:flex;gap:8px;justify-content:center;margin-bottom:18px;flex-wrap:wrap;">
-      <button class="filter-btn active" onclick="setWordleLen(5,this)">5 букв</button>
-      <button class="filter-btn" onclick="setWordleLen(6,this)">6 букв</button>
-      <button class="filter-btn" onclick="setWordleLen(7,this)">7 букв</button>
+
+  <div style="max-width:500px;margin:0 auto;">
+
+    <!-- TOP BAR: mode + streak + stats btn -->
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;gap:8px;">
+      <div id="wordle-mode-select" style="display:flex;gap:4px;background:var(--surface2);border-radius:9px;padding:3px;">
+        <button class="wlen-btn active" onclick="setWordleLen(5,this)" data-len="5">5</button>
+        <button class="wlen-btn" onclick="setWordleLen(6,this)" data-len="6">6</button>
+        <button class="wlen-btn" onclick="setWordleLen(7,this)" data-len="7">7</button>
+      </div>
+      <div id="wordle-streak-badge" style="display:flex;align-items:center;gap:5px;background:var(--surface);border:1px solid var(--border);border-radius:9px;padding:5px 12px;font-size:12px;">
+        <span>🔥</span><span id="wordle-streak-num">0</span><span style="color:var(--muted);">серия</span>
+      </div>
+      <button onclick="openWordleStats()" style="background:var(--surface);border:1px solid var(--border);border-radius:9px;color:var(--muted);padding:5px 12px;cursor:pointer;font-size:12px;font-family:'DM Sans',sans-serif;transition:all 0.2s;" onmouseover="this.style.borderColor='rgba(79,255,176,0.4)'" onmouseout="this.style.borderColor='var(--border)'">📊 Стат</button>
     </div>
-    <div id="wordle-grid" style="display:flex;flex-direction:column;gap:5px;align-items:center;margin-bottom:18px;"></div>
-    <div id="wordle-keyboard" style="display:flex;flex-direction:column;gap:5px;align-items:center;margin-bottom:16px;"></div>
-    <div id="wordle-msg" style="text-align:center;font-size:14px;min-height:22px;margin-bottom:10px;"></div>
-    <div id="wordle-answer-reveal" style="display:none;text-align:center;margin-bottom:12px;"></div>
-    <div style="text-align:center;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
-      <button class="btn btn-primary" id="wordle-new-btn" onclick="initWordle()">Новое слово</button>
-      <button class="btn btn-ghost" id="wordle-hint-btn" onclick="wordleHint()">💡 Подсказка (перевод)</button>
+
+    <!-- TOAST -->
+    <div id="wordle-toast" style="text-align:center;min-height:32px;margin-bottom:8px;position:relative;"></div>
+
+    <!-- GRID -->
+    <div id="wordle-grid" style="display:flex;flex-direction:column;gap:6px;align-items:center;margin-bottom:16px;"></div>
+
+    <!-- HINT -->
+    <div id="wordle-hint-strip" style="text-align:center;min-height:20px;margin-bottom:10px;font-size:13px;color:var(--accent3);transition:opacity 0.3s;"></div>
+
+    <!-- KEYBOARD -->
+    <div id="wordle-keyboard" style="display:flex;flex-direction:column;gap:6px;align-items:center;margin-bottom:14px;"></div>
+
+    <!-- BOTTOM BUTTONS -->
+    <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
+      <button class="btn btn-primary" onclick="initWordle()">▶ Новое слово</button>
+      <button class="btn btn-ghost" onclick="wordleHint()">💡 Перевод</button>
+      <button class="btn btn-ghost" onclick="wordleSpeak()">🔊</button>
     </div>
-    <div id="wordle-hint-text" style="text-align:center;color:var(--accent3);font-size:13px;margin-top:8px;min-height:18px;"></div>
-    <div id="wordle-stats-bar" style="display:flex;gap:18px;justify-content:center;margin-top:18px;"></div>
+
+  </div>
+</div>
+
+<!-- WORDLE STATS MODAL -->
+<div id="wordle-stats-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.8);backdrop-filter:blur(8px);z-index:300;align-items:center;justify-content:center;padding:20px;" onclick="if(event.target.id==='wordle-stats-modal')closeWordleStats()">
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:28px;max-width:380px;width:100%;position:relative;animation:fadeUp 0.3s ease;">
+    <button onclick="closeWordleStats()" style="position:absolute;top:12px;right:12px;background:var(--surface2);border:none;color:var(--muted);width:28px;height:28px;border-radius:7px;cursor:pointer;font-size:14px;">✕</button>
+    <div style="font-family:'Clash Display',sans-serif;font-size:20px;font-weight:700;margin-bottom:18px;text-align:center;">Статистика</div>
+    <div id="wordle-stats-content"></div>
+  </div>
+</div>
+
+<!-- WORDLE WIN OVERLAY -->
+<div id="wordle-win-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);backdrop-filter:blur(6px);z-index:300;align-items:center;justify-content:center;padding:20px;" onclick="if(event.target.id==='wordle-win-overlay')closeWordleWin()">
+  <div style="background:var(--surface);border:1px solid rgba(79,255,176,0.3);border-radius:20px;padding:32px;max-width:360px;width:100%;text-align:center;animation:fadeUp 0.4s ease;position:relative;">
+    <button onclick="closeWordleWin()" style="position:absolute;top:12px;right:12px;background:var(--surface2);border:none;color:var(--muted);width:28px;height:28px;border-radius:7px;cursor:pointer;font-size:14px;">✕</button>
+    <div id="wordle-win-emoji" style="font-size:52px;margin-bottom:8px;"></div>
+    <div id="wordle-win-title" style="font-family:'Clash Display',sans-serif;font-size:24px;font-weight:700;margin-bottom:6px;"></div>
+    <div id="wordle-win-word" style="font-family:'Clash Display',sans-serif;font-size:32px;font-weight:700;color:var(--accent);margin-bottom:6px;letter-spacing:2px;"></div>
+    <div id="wordle-win-def" style="font-size:13px;color:#c5cad9;line-height:1.7;margin-bottom:6px;"></div>
+    <div id="wordle-win-ru" style="font-size:15px;color:var(--accent3);margin-bottom:18px;"></div>
+    <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
+      <button class="btn btn-primary" onclick="closeWordleWin();initWordle()">▶ Следующее слово</button>
+      <button class="btn btn-ghost" onclick="wordleSpeakTarget()">🔊 Произнести</button>
+    </div>
   </div>
 </div>
 
@@ -705,6 +1094,38 @@ body.light-theme .wordle-key.absent{background:#787c7e;color:#fff;}
     <button class="btn btn-ghost" onclick="resetProgress()" style="font-size:12px;color:var(--muted);">🗑 Сбросить статистику</button>
   </div>
 </div>
+
+</div><!-- /main-content -->
+</div><!-- /app-shell -->
+
+<!-- ══ MOBILE BOTTOM NAV ═══════════════════════════════ -->
+<nav class="mobile-nav" id="mobile-nav">
+  <button class="mobile-nav-item active" data-section="vocab" onclick="showSection('vocab',this)">
+    <span class="mobile-nav-item-icon">📚</span>
+    <span>Слова</span>
+    <div class="mobile-nav-dot"></div>
+  </button>
+  <button class="mobile-nav-item" data-section="quiz" onclick="showSection('quiz',this)">
+    <span class="mobile-nav-item-icon">🎯</span>
+    <span>Тест</span>
+    <div class="mobile-nav-dot"></div>
+  </button>
+  <button class="mobile-nav-item" data-section="wordle" onclick="showSection('wordle',this)">
+    <span class="mobile-nav-item-icon">🟩</span>
+    <span>Wordle</span>
+    <div class="mobile-nav-dot"></div>
+  </button>
+  <button class="mobile-nav-item" data-section="sprint" onclick="showSection('sprint',this)">
+    <span class="mobile-nav-item-icon">⚡</span>
+    <span>Спринт</span>
+    <div class="mobile-nav-dot"></div>
+  </button>
+  <button class="mobile-nav-item" onclick="openDrawer()">
+    <span class="mobile-nav-item-icon">☰</span>
+    <span>Ещё</span>
+    <div class="mobile-nav-dot"></div>
+  </button>
+</nav>
 
 <script>
 // ═══════════════════════════════════════════
@@ -1334,17 +1755,47 @@ function speak(text){if(!('speechSynthesis' in window))return;speechSynthesis.ca
 // ═══════════════════════════════════════════
 // NAVIGATION
 // ═══════════════════════════════════════════
+// Section titles for topbar
+const sectionTitles = {
+  vocab:'📚 Словарь', quiz:'🎯 Тест', grammar:'📖 Грамматика',
+  audio:'🎧 Аудио', phrases:'💬 Фразы', sprint:'⚡ Спринт',
+  builder:'🔤 Составь', flashcards:'🃏 Карточки', dictation:'✍️ Диктант',
+  wordle:'🟩 Wordle', reading:'🔍 Чтение', stories:'📕 Истории', progress:'👤 Профиль'
+};
+
 function showSection(id, btn) {
+  // Hide all sections
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
   document.getElementById('section-' + id).classList.add('active');
-  if (btn && btn.classList.contains('nav-tab')) btn.classList.add('active');
+
+  // Sidebar nav items
+  document.querySelectorAll('.nav-item[data-section]').forEach(t => t.classList.remove('active'));
+  const sidebarItem = document.querySelector(`.nav-item[data-section="${id}"]`);
+  if (sidebarItem) sidebarItem.classList.add('active');
+
+  // Mobile bottom nav items
+  document.querySelectorAll('.mobile-nav-item[data-section]').forEach(t => t.classList.remove('active'));
+  const mobileItem = document.querySelector(`.mobile-nav-item[data-section="${id}"]`);
+  if (mobileItem) mobileItem.classList.add('active');
+
+  // Mobile drawer items
+  document.querySelectorAll('.mobile-drawer-item').forEach(t => t.classList.remove('active'));
+  const drawerItem = document.querySelector(`.mobile-drawer-item[data-section="${id}"]`);
+  if (drawerItem) drawerItem.classList.add('active');
+
+  // Update topbar title
+  const titleEl = document.getElementById('topbar-title');
+  if (titleEl) titleEl.textContent = sectionTitles[id] || '';
+
+  // Close drawer if open
+  closeDrawer();
+
   stopAllAudio();
   if (id === 'progress') buildProgress();
   if (id === 'sprint') resetSprintLobby();
   if (id === 'flashcards' && fcIdx >= fcDeck.length) initFC();
   if (id === 'dictation' && dictIdx >= dictDeck.length) initDict();
-  if (id === 'wordle') { if(!wordleTarget) initWordle(); }
+  if (id === 'wordle') { initWordle(); }
   if (id === 'reading') buildReadingTopics();
   if (id === 'stories') buildStoriesGrid();
 }
@@ -1764,7 +2215,7 @@ function showBuilderDone(){document.getElementById('builder-card').style.display
 // ═══════════════════════════════════════════
 function buildProgress(){
   const vo=getStat('vocabOpened',0),qr=getStat('quizResults',{}),sb=getStat('sprintBest',0),sg=getStat('sprintGames',0),bc=getStat('builderCorrect',0),bt=getStat('builderTotal',0);
-  const wg=getStat('wordleGames',0),ww=getStat('wordleWins',0),fbc=getStat('fbCorrect',0),fbt=getStat('fbTotal',0);
+  const wstats=getWStats(),wg=wstats.played||0,ww=wstats.won||0;
   const streak=getStat('activityLog',{});
   const totalDays=Object.keys(streak).length;
 
@@ -1779,7 +2230,8 @@ function buildProgress(){
 
   document.getElementById('stat-sprint').innerHTML=`<div style="font-size:26px;font-family:'Clash Display',sans-serif;font-weight:700;color:var(--accent3);">${sb}</div><div style="color:var(--muted);font-size:11px;">лучший результат · ${sg} игр сыграно</div>`;
   document.getElementById('stat-builder').innerHTML=`<div style="font-size:26px;font-family:'Clash Display',sans-serif;font-weight:700;color:var(--accent2);">${bc}<span style="font-size:14px;color:var(--muted);">/${bt}</span></div><div style="color:var(--muted);font-size:11px;">верных ответов</div>`;
-  document.getElementById('stat-wordle').innerHTML=`<div style="font-size:26px;font-family:'Clash Display',sans-serif;font-weight:700;color:#538d4e;">${ww}<span style="font-size:14px;color:var(--muted);">/${wg}</span></div><div style="color:var(--muted);font-size:11px;">побед · ${wg?Math.round(ww/wg*100):0}% win rate</div>`;
+  const fbc=getStat('fbCorrect',0),fbt=getStat('fbTotal',0);
+  document.getElementById('stat-wordle').innerHTML=`<div style="font-size:26px;font-family:'Clash Display',sans-serif;font-weight:700;color:#538d4e;">${ww}<span style="font-size:14px;color:var(--muted);">/${wg}</span></div><div style="color:var(--muted);font-size:11px;">побед · ${wg?Math.round(ww/wg*100):0}% win rate · серия ${wstats.streak||0}</div>`;
   document.getElementById('stat-fillblank').innerHTML=`<div style="font-size:26px;font-family:'Clash Display',sans-serif;font-weight:700;color:var(--accent4);">${fbc}<span style="font-size:14px;color:var(--muted);">/${fbt}</span></div><div style="color:var(--muted);font-size:11px;">верных ответов · ${fbt?Math.round(fbc/fbt*100):0}%</div>`;
 
   // Activity grid (84 days = 12 weeks)
@@ -1802,131 +2254,329 @@ function buildProgress(){
 function resetProgress(){if(confirm('Сбросить всю статистику?')){localStorage.removeItem(STATS_KEY);buildProgress();}}
 
 // ═══════════════════════════════════════════
-// WORDLE
+// WORDLE — полная переработка
 // ═══════════════════════════════════════════
 const wordleWordsByLen = {
-  5: ['begin','bring','build','catch','cause','check','claim','clear','close','cover','crash','doubt','drive','early','entry','event','every','exact','exist','extra','face','false','field','final','focus','force','found','given','grasp','great','group','grown','guard','guide','habit','happy','human','image','imply','issue','judge','known','large','learn','leave','level','light','limit','local','logic','loose','major','match','might','model','money','moral','nerve','never','night','novel','occur','often','order','other','ought','panel','pause','peace','place','plain','plant','point','power','press','price','prime','proof','prove','quick','quiet','quite','range','react','ready','realm','refer','right','rigid','risen','rough','round','ruled','scene','sense','skill','sleep','small','smart','solve','sound','speak','spend','split','stake','stand','start','state','steel','stick','still','stock','store','stuck','study','style','sunny','sworn','table','taken','taste','teach','terms','thank','there','thing','think','touch','tough','track','trade','train','treat','trend','trial','trust','truth','twice','unify','unite','until','usage','usual','valid','value','vital','voice','waste','watch','where','which','whole','world','worth','would','write','wrong','yield'],
-  6: ['absorb','accept','access','accord','accuse','across','actual','affect','afford','agency','almost','amount','appear','assess','assist','assume','attach','attend','belief','belong','beyond','branch','bridge','budget','burden','career','change','charge','choice','chosen','client','combat','commit','common','comply','concern','define','demand','design','detail','differ','direct','divide','double','effect','emerge','employ','ensure','entire','escape','exceed','expert','extend','factor','figure','filter','follow','formal','former','fulfil','future','gather','gentle','global','growth','handle','hardly','honest','impact','impart','impose','income','indeed','injury','intent','invest','launch','leader','manage','market','master','matter','mental','method','mirror','moment','narrow','nearby','notice','object','obtain','office','output','parent','partly','permit','person','prefer','profit','prompt','proper','pursue','rating','reason','record','reduce','regard','relate','remain','remove','repeat','report','result','return','review','reward','select','should','simple','single','source','stable','strict','string','strong','submit','supply','survey','system','talent','target','thread','threat','though','thrive','timing','titled','united','uphold','useful','verify','wealth','within','wonder'],
-  7: ['achieve','acquire','address','analyse','another','balance','benefit','capable','capture','careful','central','certain','clarify','climate','closely','combine','comment','compare','complex','confirm','connect','context','control','correct','council','counter','culture','current','develop','discuss','display','diverse','economy','educate','element','enhance','examine','example','explain','express','extreme','failure','feature','feeling','forward','freedom','fulfill','genuine','history','improve','include','initial','insight','intense','involve','justice','leading','maximum','measure','mission','monitor','network','observe','obvious','pattern','perform','prepare','prevent','primary','process','product','program','provide','purpose','qualify','quality','reflect','regular','release','replace','require','respond','revenue','section','serious','service','several','similar','society','someone','specify','station','student','subject','succeed','support','through','totally','towards','usually','various','whether','without']
+  5: ['about','above','abuse','adult','after','again','agent','agree','ahead','alarm','alike','alive','aloud','alone','alter','angel','anger','angle','angry','anime','apple','apply','argue','arise','armed','arose','array','arrow','aside','atlas','awful','basic','basis','beach','beard','beast','began','begin','being','below','bench','bible','black','blame','bland','blank','blast','blaze','bleed','blend','bless','blind','block','blood','bloom','blown','blues','board','boost','booth','bound','brain','brand','brave','bread','break','breed','brick','bride','brief','bring','brink','broad','broke','brook','brown','brush','build','built','burst','buyer','cabin','cache','camel','candy','carry','catch','cause','cease','chain','chair','chaos','charm','chart','chase','cheap','check','cheek','chess','chest','chief','child','choir','civil','claim','clash','class','clean','clear','clerk','click','climb','cling','clone','close','cloud','clout','coach','coast','cobra','costs','could','count','cover','crack','craft','crane','crash','cream','creek','cross','crowd','crown','cruel','crush','curve','cycle','daily','dance','datum','death','debut','decoy','delay','demon','dense','depth','devil','dirty','doubt','dough','draft','drain','drama','drank','drawn','dream','dried','drift','drill','drink','drive','drove','drown','drove','dwell','dying','eager','early','earth','eight','elite','ember','empty','enemy','enter','entry','equal','error','essay','every','exact','exist','extra','fable','faced','faith','false','fancy','fatal','fault','feast','field','fifth','fight','filed','final','fixed','flame','flesh','flock','flood','floor','fluid','flush','focus','force','forge','found','frame','frank','fraud','fresh','front','frost','frown','fruit','fully','funny','giant','given','glare','glass','glaze','gleam','gloom','glory','gloss','glove','grace','grade','grain','grand','grant','grasp','grave','great','green','greet','grief','grill','grind','groan','group','grown','guard','guess','guide','guild','guilt','guise','gusto','habit','happy','harsh','haven','heart','heavy','helps','hence','herbs','hinge','honor','horse','hotel','house','human','hyper','ideal','imply','inner','input','issue','joint','joker','joust','judge','juice','juicy','keeps','knife','knots','known','label','large','laser','later','laugh','layer','learn','lease','leave','legal','level','light','liked','limit','linen','lodge','loose','lover','lower','loyal','lucky','magic','major','maker','manor','match','meant','mercy','merit','might','model','money','moral','mount','mouth','movie','music','naive','needs','nerve','never','night','noble','noise','north','noted','novel','nurse','occur','ocean','offer','olive','onset','order','other','outer','owned','pages','paint','panic','paper','party','patch','paths','pause','peace','phase','piano','picks','pilot','pique','pixel','place','plain','plane','plank','plant','plate','plaza','plead','pluck','plume','plunge','point','poker','polar','pound','power','press','price','pride','prime','print','prior','prize','probe','prone','proof','prose','proud','prove','psalm','pulse','query','queue','quick','quiet','quill','quota','quote','raise','ranch','range','rapid','ratio','reach','ready','realm','rebel','refer','reign','relax','relay','renew','repay','reply','rider','right','rigid','risky','rival','river','robot','rocky','ruler','rural','scene','scope','score','scout','seize','sense','serve','seven','shade','shaft','shake','shall','shame','shape','share','sharp','shell','shift','shine','shock','short','shout','sight','since','sixth','sized','skill','slate','slave','sleek','sleep','slice','slide','slope','smart','smoke','sneak','solar','solve','sorry','south','space','spare','spark','speak','speed','spend','spill','spine','spoke','spoon','sport','spray','squad','stack','staff','stage','stain','stair','stake','stale','stand','start','state','stays','steam','steel','steep','steer','stern','stone','stood','store','storm','story','stove','stuck','study','style','sugar','suite','sunny','super','surge','swamp','swear','sweet','swipe','swirl','sword','sworn','table','taint','taste','teach','tears','terms','thing','think','third','thorn','three','threw','throw','tiger','total','touch','tough','tower','toxic','trace','track','trade','trail','train','trait','tramp','trash','treat','trend','trial','tribe','trick','tried','troop','trout','truth','tulip','tumor','tuner','twist','tying','ultra','under','unify','union','unite','unity','until','upset','usage','usual','utter','valid','value','valor','vault','verse','viola','viral','vista','vital','vivid','vocal','voice','voter','waste','watch','water','weary','weave','weird','whale','wheat','where','which','while','white','whole','whose','wield','woman','world','worry','worse','worth','wound','woven','wrath','write','wrote','yield','young','yours','youth'],
+  6: ['absorb','accent','accept','access','accord','across','actual','adjust','advice','affect','afford','almost','always','amount','answer','appeal','appear','around','arrest','arrive','assert','assess','assist','assume','attach','attack','attend','avenue','behalf','belong','better','beyond','blouse','border','bottle','bounce','branch','breach','breath','bridge','broken','budget','burden','button','bypass','camera','candle','carbon','career','castle','catnap','change','charge','choice','chosen','chrome','church','circle','cipher','circus','client','cobalt','combat','commit','common','comply','concur','config','convex','corner','cotton','council','county','couple','course','create','credit','crisis','critic','culture','custom','damage','danger','debate','decade','decent','decide','deeply','defeat','defend','define','degree','demand','design','detail','device','differ','direct','divide','domain','double','driven','during','effect','effort','emerge','employ','enable','encode','endure','engage','engine','ensure','entire','escape','evolve','exceed','except','expand','expect','expose','extend','fabric','factor','famine','farmer','faster','father','figure','filter','finger','finish','flames','flower','follow','formal','former','frozen','future','galaxy','garden','gather','gender','gentle','global','gossip','govern','ground','growth','happen','hardly','health','hidden','honest','hurdle','impact','impose','income','indeed','insist','intent','invest','invite','island','kernel','kitchen','launch','leader','league','lessen','lesson','lesser','likely','limits','linger','listen','lively','locate','mangle','manner','marble','market','master','matter','medium','mental','method','mirror','modern','module','moment','mostly','motion','murder','mutant','myself','native','needle','nephew','notice','notion','nylons','object','obtain','office','offset','online','option','orange','output','palace','parent','partly','pencil','period','permit','person','phrase','pillar','player','plenty','policy','poorly','postal','prefer','prison','profit','proper','proven','public','pursue','puzzle','rather','reason','rebel','recent','record','reduce','regard','relate','remain','remove','repeal','repair','repeat','report','result','return','reveal','review','reward','rocket','rustle','safely','sample','scalar','sector','select','sensor','should','signal','simple','single','skills','slowly','social','solely','source','stable','stance','starve','static','status','steady','strict','string','strong','struck','submit','sudden','sunset','supply','system','talent','target','temple','terror','though','thread','threat','throne','thrive','timing','tipoff','toilet','toward','travel','treaty','tricky','triple','trying','tunnel','unfair','unique','united','unlock','update','useful','vacuum','verify','victim','vision','volume','walnut','wander','wealth','window','within','wonder','yellow','zephyr'],
+  7: ['ability','absence','absolve','abstract','academy','account','achieve','acquire','address','adverse','advisor','against','analyse','another','anxiety','arrange','attract','average','barrier','battery','because','bedroom','between','burdens','cabinet','capable','captain','capture','careful','chapter','citizen','clarity','climate','closely','cluster','collect','command','comment','compare','complex','concern','connect','content','control','convert','correct','council','counter','culture','current','decided','develop','digital','display','disturb','diverse','enhance','evolving','examine','explain','failure','feature','forward','freedom','fulfill','genuine','gravity','harmony','history','hostile','however','imagine','improve','include','initial','insight','intense','involve','justice','largely','leading','maximum','measure','minimum','mission','monitor','observe','obvious','outcome','outside','pattern','perform','perhaps','possess','poverty','prepare','prevent','primary','process','produce','program','protect','provide','quality','quickly','quietly','reality','receive','reform','regular','replace','require','respond','restore','revenue','section','serious','service','several','similar','society','somehow','station','subject','succeed','support','surface','survive','through','totally','towards','usually','variety','virtual','whether','without','witness']
 };
 
-let wordleLen=5, wordleTarget='', wordleGuesses=[], wordleCurrent='', wordleGameOver=false;
+// Полная база словаря для валидации
+const wordleValidWords = new Set([...Object.values(wordleWordsByLen).flat()]);
 
-function setWordleLen(n,btn){
-  document.querySelectorAll('#wordle-mode-select .filter-btn').forEach(b=>b.classList.remove('active'));
+let wordleLen = 5;
+let wordleTarget = '';
+let wordleGuesses = [];
+let wordleCurrent = '';
+let wordleGameOver = false;
+let wordleAnimating = false;
+let wordleToastTimer = null;
+
+// Статистика
+function getWStats() { return getStat('wordleStats2', {played:0,won:0,streak:0,maxStreak:0,dist:{1:0,2:0,3:0,4:0,5:0,6:0}}); }
+function saveWStats(s) { setStat('wordleStats2', s); }
+
+function setWordleLen(n, btn) {
+  document.querySelectorAll('.wlen-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-  wordleLen=n;
+  wordleLen = n;
   initWordle();
 }
 
-function initWordle(){
-  const pool=wordleWordsByLen[wordleLen];
-  wordleTarget=pool[Math.floor(Math.random()*pool.length)];
-  wordleGuesses=[];
-  wordleCurrent='';
-  wordleGameOver=false;
-  document.getElementById('wordle-msg').textContent='';
-  document.getElementById('wordle-hint-text').textContent='';
-  document.getElementById('wordle-answer-reveal').style.display='none';
+function initWordle() {
+  const pool = wordleWordsByLen[wordleLen];
+  wordleTarget = pool[Math.floor(Math.random() * pool.length)];
+  wordleGuesses = [];
+  wordleCurrent = '';
+  wordleGameOver = false;
+  wordleAnimating = false;
+  clearToast();
+  document.getElementById('wordle-hint-strip').textContent = '';
   renderWordleGrid();
   renderWordleKeyboard();
-  setStat('wordleGames',(getStat('wordleGames',0)+1));
+  updateStreakBadge();
 }
 
-function renderWordleGrid(){
-  const maxRows=6,grid=document.getElementById('wordle-grid');
-  let html='';
-  for(let r=0;r<maxRows;r++){
-    html+='<div class="wordle-row">';
-    const guess=wordleGuesses[r]||'';
-    const cur=r===wordleGuesses.length?wordleCurrent:'';
-    for(let c=0;c<wordleLen;c++){
-      let letter='',cls='wordle-cell';
-      if(r<wordleGuesses.length){
-        letter=guess[c]||'';
-        const res=scoreGuess(guess);
-        if(res[c]==='correct')cls+=' correct';
-        else if(res[c]==='present')cls+=' present';
-        else if(res[c]==='absent')cls+=' absent';
-      } else if(r===wordleGuesses.length){
-        letter=cur[c]||'';
-        if(letter)cls+=' filled';
+function updateStreakBadge() {
+  const s = getWStats();
+  document.getElementById('wordle-streak-num').textContent = s.streak || 0;
+}
+
+// ── GRID RENDER ──────────────────────────────
+function renderWordleGrid() {
+  const grid = document.getElementById('wordle-grid');
+  let rows = '';
+  for (let r = 0; r < 6; r++) {
+    const guess = wordleGuesses[r] || '';
+    const isCurrent = r === wordleGuesses.length;
+    rows += `<div class="wordle-row" id="wrow-${r}">`;
+    for (let c = 0; c < wordleLen; c++) {
+      let letter = '';
+      let extra = '';
+      if (r < wordleGuesses.length) {
+        letter = guess[c] || '';
+        const res = scoreGuess(guess);
+        extra = res[c]; // correct / present / absent
+      } else if (isCurrent) {
+        letter = wordleCurrent[c] || '';
+        extra = letter ? 'filled' : '';
       }
-      html+=`<div class="${cls}">${letter}</div>`;
+      rows += `<div class="wordle-cell ${extra}" id="wcell-${r}-${c}">${letter}</div>`;
     }
-    html+='</div>';
+    rows += '</div>';
   }
-  grid.innerHTML=html;
+  grid.innerHTML = rows;
 }
 
-function scoreGuess(guess){
-  const result=Array(wordleLen).fill('absent');
-  const targetArr=[...wordleTarget];
-  const guessArr=[...guess];
-  // mark correct
-  guessArr.forEach((l,i)=>{if(l===targetArr[i]){result[i]='correct';targetArr[i]=null;guessArr[i]=null;}});
-  // mark present
-  guessArr.forEach((l,i)=>{if(l&&targetArr.includes(l)){result[i]='present';targetArr[targetArr.indexOf(l)]=null;}});
+// Re-render only the current typing row (no flicker)
+function updateCurrentRow() {
+  const r = wordleGuesses.length;
+  for (let c = 0; c < wordleLen; c++) {
+    const cell = document.getElementById(`wcell-${r}-${c}`);
+    if (!cell) continue;
+    const letter = wordleCurrent[c] || '';
+    const wasEmpty = cell.textContent === '';
+    cell.textContent = letter;
+    cell.className = 'wordle-cell' + (letter ? ' filled' : '');
+    if (letter && wasEmpty) {
+      cell.style.animation = 'none';
+      cell.offsetHeight; // reflow
+      cell.style.animation = '';
+    }
+  }
+}
+
+// Animated reveal of a submitted row
+function revealRow(r, onDone) {
+  const guess = wordleGuesses[r];
+  const result = scoreGuess(guess);
+  let delay = 0;
+  for (let c = 0; c < wordleLen; c++) {
+    const cell = document.getElementById(`wcell-${r}-${c}`);
+    if (!cell) continue;
+    ((cell, res, d) => {
+      setTimeout(() => {
+        cell.style.transition = 'transform 0.28s ease, background 0s 0.14s, border-color 0s 0.14s, color 0s 0.14s';
+        cell.style.transform = 'rotateX(-90deg)';
+        setTimeout(() => {
+          cell.classList.remove('filled');
+          cell.classList.add(res);
+          cell.style.transform = 'rotateX(0deg)';
+        }, 140);
+      }, d);
+    })(cell, result[c], delay);
+    delay += 80;
+  }
+  setTimeout(onDone, delay + 120);
+}
+
+// Shake row on invalid
+function shakeCurrentRow() {
+  const r = wordleGuesses.length;
+  const row = document.getElementById(`wrow-${r}`);
+  if (!row) return;
+  row.classList.remove('shake');
+  row.offsetHeight;
+  row.classList.add('shake');
+  setTimeout(() => row.classList.remove('shake'), 500);
+}
+
+// Bounce all cells on win
+function bounceWinRow(r) {
+  for (let c = 0; c < wordleLen; c++) {
+    const cell = document.getElementById(`wcell-${r}-${c}`);
+    if (!cell) continue;
+    setTimeout(() => {
+      cell.style.animation = 'none';
+      cell.offsetHeight;
+      cell.style.animation = `wBounce 0.6s ease ${c * 80}ms forwards`;
+    }, 50);
+  }
+}
+
+// ── KEYBOARD ─────────────────────────────────
+function renderWordleKeyboard() {
+  const rows = [
+    ['q','w','e','r','t','y','u','i','o','p'],
+    ['a','s','d','f','g','h','j','k','l'],
+    ['↵','z','x','c','v','b','n','m','⌫']
+  ];
+  const state = {};
+  wordleGuesses.forEach(g => {
+    const r = scoreGuess(g);
+    [...g].forEach((l, i) => {
+      const s = r[i];
+      if (!state[l] || s === 'correct' || (s === 'present' && state[l] === 'absent')) state[l] = s;
+    });
+  });
+  document.getElementById('wordle-keyboard').innerHTML = rows.map(row =>
+    `<div class="wordle-row">${row.map(k => {
+      const cls = (k === '↵' || k === '⌫') ? ' wide' : '';
+      const st = state[k] ? ' ' + state[k] : '';
+      return `<button class="wordle-key${cls}${st}" onclick="wordleKey('${k}')">${k === '⌫' ? '⌫' : k}</button>`;
+    }).join('')}</div>`
+  ).join('');
+}
+
+// ── INPUT ─────────────────────────────────────
+function wordleKey(k) {
+  if (wordleGameOver || wordleAnimating) return;
+  if (k === '⌫') {
+    wordleCurrent = wordleCurrent.slice(0, -1);
+    updateCurrentRow();
+  } else if (k === '↵') {
+    submitWordle();
+  } else if (/^[a-z]$/.test(k) && wordleCurrent.length < wordleLen) {
+    wordleCurrent += k;
+    updateCurrentRow();
+  }
+}
+
+document.addEventListener('keydown', e => {
+  const ws = document.getElementById('section-wordle');
+  if (!ws || !ws.classList.contains('active')) return;
+  if (wordleGameOver || wordleAnimating) return;
+  if (e.key === 'Enter') wordleKey('↵');
+  else if (e.key === 'Backspace') wordleKey('⌫');
+  else if (/^[a-zA-Z]$/.test(e.key) && !e.ctrlKey && !e.metaKey) wordleKey(e.key.toLowerCase());
+});
+
+// ── SUBMIT ────────────────────────────────────
+function submitWordle() {
+  if (wordleCurrent.length !== wordleLen) {
+    shakeCurrentRow();
+    showWordleToast('Нужно ' + wordleLen + ' букв', 'error');
+    return;
+  }
+  // Accept any word that looks like valid English (all letters) or is in our list
+  const allKnown = new Set([...Object.values(wordleWordsByLen).flat()]);
+  if (!allKnown.has(wordleCurrent) && wordleCurrent.length <= 6) {
+    shakeCurrentRow();
+    showWordleToast('Слово не в списке', 'error');
+    return;
+  }
+  wordleAnimating = true;
+  wordleGuesses.push(wordleCurrent);
+  wordleCurrent = '';
+  // Update current row to show the typed word before animation
+  const r = wordleGuesses.length - 1;
+  const guess = wordleGuesses[r];
+  for (let c = 0; c < wordleLen; c++) {
+    const cell = document.getElementById(`wcell-${r}-${c}`);
+    if (cell) { cell.textContent = guess[c]; cell.className = 'wordle-cell filled'; }
+  }
+
+  revealRow(r, () => {
+    renderWordleKeyboard();
+    const won = wordleGuesses[r] === wordleTarget;
+    if (won) {
+      bounceWinRow(r);
+      wordleGameOver = true;
+      wordleAnimating = false;
+      // Update stats
+      const st = getWStats();
+      st.played++; st.won++;
+      st.streak = (st.streak || 0) + 1;
+      st.maxStreak = Math.max(st.maxStreak || 0, st.streak);
+      st.dist[wordleGuesses.length] = (st.dist[wordleGuesses.length] || 0) + 1;
+      saveWStats(st);
+      updateStreakBadge();
+      trackActivity();
+      setTimeout(() => showWordleWin(r + 1), 450);
+    } else if (wordleGuesses.length >= 6) {
+      wordleGameOver = true;
+      wordleAnimating = false;
+      const st = getWStats();
+      st.played++;
+      st.streak = 0;
+      saveWStats(st);
+      updateStreakBadge();
+      setTimeout(() => {
+        showWordleToast(wordleTarget.toUpperCase(), 'error', 4000);
+        document.getElementById('wordle-hint-strip').innerHTML =
+          `<span style="color:var(--accent2)">Загаданное слово: <strong style="font-family:'Clash Display',sans-serif;font-size:16px;letter-spacing:2px;">${wordleTarget.toUpperCase()}</strong></span>`;
+      }, 300);
+    } else {
+      wordleAnimating = false;
+    }
+  });
+}
+
+// ── TOAST ─────────────────────────────────────
+function showWordleToast(msg, type = '', duration = 1600) {
+  clearToast();
+  const el = document.getElementById('wordle-toast');
+  el.innerHTML = `<span class="wordle-toast-pill ${type}">${msg}</span>`;
+  wordleToastTimer = setTimeout(clearToast, duration);
+}
+function clearToast() {
+  clearTimeout(wordleToastTimer);
+  const el = document.getElementById('wordle-toast');
+  if (el) el.innerHTML = '';
+}
+
+// ── WIN OVERLAY ───────────────────────────────
+function showWordleWin(attempts) {
+  const wordData = words.find(x => x.en.toLowerCase() === wordleTarget);
+  const msgs = ['🤯 Гений!','🔥 Невероятно!','⚡ Великолепно!','✨ Отлично!','👏 Хорошо!','😅 Успел!'];
+  const emojis = ['🤯','🔥','⚡','✨','👏','😅'];
+  document.getElementById('wordle-win-emoji').textContent = emojis[attempts - 1] || '🎉';
+  document.getElementById('wordle-win-title').textContent = (msgs[attempts - 1] || '🎉 Угадал!') + ' · ' + attempts + '/6';
+  document.getElementById('wordle-win-word').textContent = wordleTarget.toUpperCase();
+  document.getElementById('wordle-win-def').textContent = wordData ? wordData.def : '';
+  document.getElementById('wordle-win-ru').textContent = wordData ? '🇷🇺 ' + wordData.ru : '';
+  const ov = document.getElementById('wordle-win-overlay');
+  ov.style.display = 'flex';
+}
+function closeWordleWin() { document.getElementById('wordle-win-overlay').style.display = 'none'; }
+function wordleSpeakTarget() { speak(wordleTarget); }
+
+// ── STATS PANEL ───────────────────────────────
+function openWordleStats() {
+  const s = getWStats();
+  const pct = s.played ? Math.round(s.won / s.played * 100) : 0;
+  const maxDist = Math.max(...Object.values(s.dist || {}), 1);
+  const distHTML = [1,2,3,4,5,6].map(n => {
+    const v = (s.dist || {})[n] || 0;
+    const w = Math.round(v / maxDist * 100);
+    const isBest = v === Math.max(...Object.values(s.dist||{})) && v > 0;
+    return `<div class="wdist-row">
+      <div class="wdist-label">${n}</div>
+      <div class="wdist-bar ${isBest?'current':''}" style="width:${Math.max(28, w*2)}px;">${v}</div>
+    </div>`;
+  }).join('');
+  document.getElementById('wordle-stats-content').innerHTML = `
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;text-align:center;margin-bottom:20px;">
+      ${[['Сыграно',s.played||0],['Побед %',pct+'%'],['Серия',s.streak||0],['Рекорд',s.maxStreak||0]].map(([l,v])=>`
+        <div><div style="font-family:'Clash Display',sans-serif;font-size:26px;font-weight:700;color:var(--accent)">${v}</div><div style="color:var(--muted);font-size:10px;margin-top:2px;">${l}</div></div>`).join('')}
+    </div>
+    <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">Распределение попыток</div>
+    ${distHTML}
+    <div style="margin-top:16px;text-align:center;">
+      <button class="btn btn-ghost" style="font-size:12px;" onclick="if(confirm('Сбросить статистику Wordle?')){saveWStats({played:0,won:0,streak:0,maxStreak:0,dist:{}});openWordleStats();updateStreakBadge();}">🗑 Сбросить</button>
+    </div>`;
+  document.getElementById('wordle-stats-modal').style.display = 'flex';
+}
+function closeWordleStats() { document.getElementById('wordle-stats-modal').style.display = 'none'; }
+
+// ── SCORE GUESS ───────────────────────────────
+function scoreGuess(guess) {
+  const result = Array(wordleLen).fill('absent');
+  const targetArr = [...wordleTarget];
+  const guessArr = [...guess];
+  guessArr.forEach((l, i) => { if (l === targetArr[i]) { result[i] = 'correct'; targetArr[i] = null; guessArr[i] = null; } });
+  guessArr.forEach((l, i) => { if (l && targetArr.includes(l)) { result[i] = 'present'; targetArr[targetArr.indexOf(l)] = null; } });
   return result;
 }
 
-function renderWordleKeyboard(){
-  const rows=[['q','w','e','r','t','y','u','i','o','p'],['a','s','d','f','g','h','j','k','l'],['↵','z','x','c','v','b','n','m','⌫']];
-  const letterState={};
-  wordleGuesses.forEach(g=>{const r=scoreGuess(g);[...g].forEach((l,i)=>{const s=r[i];if(!letterState[l]||s==='correct'||(s==='present'&&letterState[l]==='absent'))letterState[l]=s;});});
-  document.getElementById('wordle-keyboard').innerHTML=rows.map(row=>`<div class="wordle-row">${row.map(k=>`<button class="wordle-key${k==='↵'||k==='⌫'?' wide':''} ${letterState[k]||''}" onclick="wordleKey('${k}')">${k}</button>`).join('')}</div>`).join('');
+// ── HINT & SPEAK ─────────────────────────────
+function wordleHint() {
+  const w = words.find(x => x.en.toLowerCase() === wordleTarget);
+  const strip = document.getElementById('wordle-hint-strip');
+  strip.textContent = w ? '🇷🇺 ' + w.ru : 'Перевод: —';
 }
-
-function wordleKey(k){
-  if(wordleGameOver)return;
-  if(k==='⌫'){wordleCurrent=wordleCurrent.slice(0,-1);}
-  else if(k==='↵'){submitWordle();}
-  else if(wordleCurrent.length<wordleLen&&/^[a-z]$/.test(k)){wordleCurrent+=k;}
-  renderWordleGrid();
-}
-
-function submitWordle(){
-  if(wordleCurrent.length!==wordleLen){showWordleMsg('⚠️ Слово должно быть '+wordleLen+' букв',true);return;}
-  const allWords=Object.values(wordleWordsByLen).flat();
-  if(!allWords.includes(wordleCurrent)){showWordleMsg('❓ Слово не найдено',true);return;}
-  wordleGuesses.push(wordleCurrent);
-  wordleCurrent='';
-  renderWordleGrid();
-  renderWordleKeyboard();
-  const last=wordleGuesses[wordleGuesses.length-1];
-  if(last===wordleTarget){
-    showWordleMsg('🎉 Правильно! '+wordleTarget.toUpperCase(),false);
-    wordleGameOver=true;
-    setStat('wordleWins',(getStat('wordleWins',0)+1));
-    trackActivity();
-  } else if(wordleGuesses.length>=6){
-    wordleGameOver=true;
-    document.getElementById('wordle-answer-reveal').style.display='block';
-    document.getElementById('wordle-answer-reveal').innerHTML=`<div style="color:var(--accent2);font-size:13px;">Загаданное слово: <strong style="color:var(--text);font-size:18px;font-family:'Clash Display',sans-serif;">${wordleTarget.toUpperCase()}</strong></div>`;
-    showWordleMsg('😔 Попытки закончились',false);
-  }
-}
-
-function showWordleMsg(msg,temp){
-  const el=document.getElementById('wordle-msg');
-  el.textContent=msg;
-  if(temp)setTimeout(()=>{if(el.textContent===msg)el.textContent='';},1200);
-}
-
-function wordleHint(){
-  const w=words.find(x=>x.en.toLowerCase()===wordleTarget)||null;
-  document.getElementById('wordle-hint-text').textContent=w?'🇷🇺 '+w.ru:'Перевод: (нет в словаре)';
-}
-
-// keyboard input for Wordle
-document.addEventListener('keydown',e=>{
-  const ws=document.getElementById('section-wordle');
-  if(!ws||!ws.classList.contains('active'))return;
-  if(wordleGameOver)return;
-  if(e.key==='Enter')wordleKey('↵');
-  else if(e.key==='Backspace')wordleKey('⌫');
-  else if(/^[a-zA-Z]$/.test(e.key))wordleKey(e.key.toLowerCase());
-});
+function wordleSpeak() { speak(wordleTarget); }
 
 // ═══════════════════════════════════════════
 // FILL IN THE BLANK
@@ -2016,14 +2666,61 @@ function trackActivity(){
 }
 
 // ═══════════════════════════════════════════
+// MOBILE DRAWER
+// ═══════════════════════════════════════════
+const allSections = [
+  {id:'vocab',icon:'📚',label:'Словарь'},
+  {id:'grammar',icon:'📖',label:'Грамматика'},
+  {id:'reading',icon:'🔍',label:'Чтение'},
+  {id:'stories',icon:'📕',label:'Истории'},
+  {id:'audio',icon:'🎧',label:'Аудио'},
+  {id:'phrases',icon:'💬',label:'Фразы'},
+  {id:'quiz',icon:'🎯',label:'Тест'},
+  {id:'sprint',icon:'⚡',label:'Спринт'},
+  {id:'flashcards',icon:'🃏',label:'Карточки'},
+  {id:'dictation',icon:'✍️',label:'Диктант'},
+  {id:'builder',icon:'🔤',label:'Составь'},
+  {id:'wordle',icon:'🟩',label:'Wordle'},
+  {id:'progress',icon:'👤',label:'Профиль'},
+];
+
+function buildMobileDrawer(){
+  document.getElementById('mob-drawer-grid').innerHTML = allSections.map(s =>
+    `<button class="mobile-drawer-item" data-section="${s.id}" onclick="showSection('${s.id}',this)">
+      <span class="mobile-drawer-item-icon">${s.icon}</span>${s.label}
+    </button>`
+  ).join('');
+}
+
+function openDrawer(){
+  document.getElementById('mob-overlay').classList.add('open');
+  document.getElementById('mob-drawer').classList.add('open');
+}
+function closeDrawer(){
+  document.getElementById('mob-overlay').classList.remove('open');
+  document.getElementById('mob-drawer').classList.remove('open');
+}
+
+// ═══════════════════════════════════════════
 // THEME TOGGLE
 // ═══════════════════════════════════════════
 function toggleTheme(){
   const light = document.body.classList.toggle('light-theme');
-  document.querySelector('.theme-toggle-btn').textContent = light ? '☀️' : '🌙';
+  const icon = light ? '☀️' : '🌙';
+  ['topbar-theme-btn','sidebar-theme-icon','mob-theme-btn'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = icon;
+  });
   setStat('theme', light ? 'light' : 'dark');
 }
-(function(){if(getStat('theme','dark')==='light'){document.body.classList.add('light-theme');const b=document.querySelector('.theme-toggle-btn');if(b)b.textContent='☀️';}})();
+(function(){
+  if(getStat('theme','dark')==='light'){
+    document.body.classList.add('light-theme');
+    ['topbar-theme-btn','sidebar-theme-icon','mob-theme-btn'].forEach(id=>{
+      const el=document.getElementById(id);if(el)el.textContent='☀️';
+    });
+  }
+})();
 
 // ═══════════════════════════════════════════
 // FLASHCARDS
@@ -2466,6 +3163,7 @@ initDict();
 initWordle();
 buildReadingTopics();
 buildStoriesGrid();
+buildMobileDrawer();
 </script>
 </body>
 </html>
