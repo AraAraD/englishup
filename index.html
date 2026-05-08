@@ -187,6 +187,44 @@ body.light-theme .topbar{background:rgba(240,242,247,0.9);}
   .section{padding:24px 16px;}
 }
 
+/* ── DESKTOP LARGE TYPOGRAPHY ─────────── */
+@media(min-width:901px){
+  body{font-size:16px;}
+  .section{padding:36px 36px;}
+  .section-title{font-size:34px;letter-spacing:-0.8px;}
+  .section-sub{font-size:15px;}
+  .btn{font-size:15px;padding:11px 24px;}
+  .btn-sm{font-size:13px;padding:8px 16px;}
+  .word-card .english{font-size:18px;}
+  .word-card .transcription{font-size:12px;}
+  .cards-grid{grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;}
+  .quiz-question{font-size:20px;}
+  .quiz-opt{font-size:15px;padding:15px 18px;}
+  .sprint-opt{font-size:15px;}
+  .modal-word{font-size:36px;}
+  .modal-ru{font-size:20px;}
+  .modal-def{font-size:14px;}
+  .modal-example .en{font-size:14px;}
+  .phrase-en{font-size:14px;}
+  .phrase-ru{font-size:13px;}
+  .reading-passage{font-size:15px;line-height:2;}
+  .reading-q-text{font-size:15px;}
+  .reading-opt{font-size:14px;padding:12px 16px;}
+  .grammar-content h2{font-size:22px;}
+  .grammar-content p{font-size:14px;}
+  .ex-item{font-size:13px;}
+  .fc-word{font-size:44px;}
+  .fc-ru{font-size:24px;}
+  .dict-sentence{font-size:15px;}
+  .dict-input{font-size:16px;}
+  .audio-title{font-size:15px;}
+  .stat-num{font-size:40px;}
+  .topbar-title{font-size:20px;}
+  .wordle-cell{width:62px;height:62px;font-size:24px;}
+  .wordle-key{min-width:42px;height:58px;font-size:14px;}
+  .wordle-key.wide{min-width:62px;}
+}
+
 @media(max-width:640px){
   .sidebar{display:none;}
   .main-content{margin-left:0;padding-bottom:80px;}
@@ -246,123 +284,214 @@ body.light-theme .nav-item:hover{background:#f0f2f7;}
 body.light-theme .nav-item.active{background:rgba(79,255,176,0.12);}
 body.light-theme .topbar-btn{background:#e8eaf0;border-color:rgba(0,0,0,0.08);}
 body.light-theme .mobile-drawer{background:#ffffff;}
-.section-header{text-align:center;margin-bottom:32px;}
-.section-title{font-family:'Clash Display',sans-serif;font-size:32px;font-weight:700;margin-bottom:8px;letter-spacing:-1px;}
-.section-sub{color:var(--muted);font-size:14px;}
-.level-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(79,255,176,0.08);border:1px solid rgba(79,255,176,0.2);color:var(--accent);padding:4px 12px;border-radius:8px;font-size:12px;margin-bottom:12px;}
-.btn{padding:10px 22px;border-radius:10px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;transition:all 0.2s;}
-.btn-primary{background:var(--accent);color:#0d0f14;}
-.btn-primary:hover{box-shadow:0 0 20px rgba(79,255,176,0.35);transform:translateY(-1px);}
-.btn-ghost{background:var(--surface2);color:var(--text);}
-.btn-ghost:hover{background:var(--surface);}
 
-/* WORD MODAL */
-.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);backdrop-filter:blur(8px);z-index:200;align-items:center;justify-content:center;padding:20px;}
+/* ── SCROLLBAR ───────────────────────── */
+::-webkit-scrollbar{width:5px;height:5px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
+
+/* ── SECTION HEADERS ─────────────────── */
+.section-header{text-align:center;margin-bottom:26px;}
+.section-title{font-family:'Clash Display',sans-serif;font-size:28px;font-weight:700;margin-bottom:6px;letter-spacing:-0.5px;}
+.section-sub{color:var(--muted);font-size:13px;line-height:1.6;}
+.level-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(79,255,176,0.08);border:1px solid rgba(79,255,176,0.2);color:var(--accent);padding:3px 10px;border-radius:7px;font-size:11px;margin-bottom:10px;}
+
+/* ── BUTTONS ─────────────────────────── */
+.btn{padding:10px 20px;border-radius:11px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;transition:all 0.18s;display:inline-flex;align-items:center;gap:7px;-webkit-tap-highlight-color:transparent;user-select:none;}
+.btn:active{transform:scale(0.96);}
+.btn-primary{background:var(--accent);color:#0d0f14;font-weight:600;}
+.btn-primary:hover{box-shadow:0 0 22px rgba(79,255,176,0.3);filter:brightness(1.05);}
+.btn-ghost{background:var(--surface2);color:var(--text);border:1px solid var(--border);}
+.btn-ghost:hover{border-color:rgba(255,255,255,0.2);}
+.btn-sm{padding:7px 14px;font-size:12px;}
+button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+
+/* ── WORD MODAL ──────────────────────── */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.78);backdrop-filter:blur(10px);z-index:200;align-items:center;justify-content:center;padding:20px;}
 .modal-overlay.open{display:flex;}
-.modal{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:30px;max-width:480px;width:100%;position:relative;animation:fadeUp 0.3s ease;max-height:90vh;overflow-y:auto;}
-.modal-close{position:absolute;top:12px;right:12px;background:var(--surface2);border:none;color:var(--muted);width:28px;height:28px;border-radius:7px;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;}
+.modal{background:var(--surface);border:1px solid var(--border);border-radius:22px;padding:28px;max-width:500px;width:100%;position:relative;animation:fadeUp 0.28s cubic-bezier(0.2,0.8,0.4,1);max-height:90vh;overflow-y:auto;}
+.modal-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.modal-nav-btn{background:var(--surface2);border:1px solid var(--border);color:var(--muted);width:34px;height:34px;border-radius:9px;cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;transition:all 0.18s;}
+.modal-nav-btn:hover{border-color:rgba(79,255,176,0.4);color:var(--accent);}
+.modal-nav-btn:active{transform:scale(0.93);}
+.modal-nav-count{font-size:11px;color:var(--muted);}
+.modal-close{position:absolute;top:12px;right:12px;background:var(--surface2);border:none;color:var(--muted);width:30px;height:30px;border-radius:8px;cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;transition:all 0.18s;}
 .modal-close:hover{color:var(--text);}
-.modal-word{font-family:'Clash Display',sans-serif;font-size:30px;font-weight:700;margin-bottom:3px;}
+.modal-word{font-family:'Clash Display',sans-serif;font-size:32px;font-weight:700;margin-bottom:2px;}
 .modal-ipa{color:var(--muted);font-size:13px;margin-bottom:7px;}
 .modal-pos{display:inline-block;background:var(--surface2);color:var(--muted);font-size:10px;padding:2px 8px;border-radius:5px;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:12px;}
-.modal-ru{font-size:18px;color:var(--accent);font-weight:500;margin-bottom:7px;}
-.modal-def{color:#c5cad9;font-size:13px;line-height:1.7;margin-bottom:16px;}
+.modal-ru{font-size:18px;color:var(--accent);font-weight:600;margin-bottom:7px;}
+.modal-def{color:#c5cad9;font-size:13px;line-height:1.7;margin-bottom:14px;}
 .modal-ex-title{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:8px;}
 .modal-example{background:var(--surface2);border-radius:9px;padding:10px 12px;margin-bottom:7px;}
-.modal-example .en{font-size:13px;margin-bottom:2px;line-height:1.6;}
+.modal-example .en{font-size:13px;margin-bottom:3px;line-height:1.6;}
 .modal-example .en strong{color:var(--accent3);}
 .modal-example .ru{font-size:11px;color:var(--muted);}
-.modal-speak{background:none;border:1px solid var(--border);color:var(--muted);padding:7px 14px;border-radius:8px;cursor:pointer;font-size:12px;font-family:'DM Sans',sans-serif;transition:all 0.2s;margin-top:6px;}
+.modal-actions{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;}
+.modal-speak{background:var(--surface2);border:1px solid var(--border);color:var(--muted);padding:7px 14px;border-radius:9px;cursor:pointer;font-size:12px;font-family:'DM Sans',sans-serif;transition:all 0.2s;}
 .modal-speak:hover{border-color:var(--accent3);color:var(--accent3);}
+.modal-learned-btn{background:var(--surface2);border:1px solid var(--border);color:var(--muted);padding:7px 14px;border-radius:9px;cursor:pointer;font-size:12px;font-family:'DM Sans',sans-serif;transition:all 0.2s;}
+.modal-learned-btn.learned{background:rgba(79,255,176,0.1);border-color:rgba(79,255,176,0.3);color:var(--accent);}
 
-/* VOCAB */
-.vocab-controls{display:flex;flex-direction:column;align-items:center;gap:10px;margin-bottom:18px;}
-.search-bar{width:100%;max-width:400px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:9px 14px;color:var(--text);font-size:14px;font-family:'DM Sans',sans-serif;outline:none;transition:border-color 0.2s;text-align:center;}
-.search-bar:focus{border-color:rgba(79,255,176,0.4);}
-.filter-bar{display:flex;gap:7px;flex-wrap:wrap;justify-content:center;}
-.filter-btn{padding:6px 13px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--muted);font-size:12px;cursor:pointer;transition:all 0.2s;font-family:'DM Sans',sans-serif;}
-.filter-btn:hover,.filter-btn.active{border-color:var(--accent);color:var(--accent);background:rgba(79,255,176,0.05);}
-.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:11px;}
-.word-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px 14px;cursor:pointer;transition:all 0.22s;position:relative;min-height:120px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;}
-.word-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent4));opacity:0;transition:opacity 0.2s;border-radius:var(--radius) var(--radius) 0 0;}
-.word-card:hover{border-color:rgba(79,255,176,0.3);transform:translateY(-2px);box-shadow:0 4px 20px rgba(0,0,0,0.3);}
+/* ── VOCAB ───────────────────────────── */
+.vocab-controls{display:flex;flex-direction:column;align-items:center;gap:10px;margin-bottom:20px;}
+.search-bar{width:100%;max-width:420px;background:var(--surface);border:1px solid var(--border);border-radius:11px;padding:10px 14px 10px 38px;color:var(--text);font-size:14px;font-family:'DM Sans',sans-serif;outline:none;transition:border-color 0.2s;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%237a8499' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.35-4.35'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:11px center;}
+.search-bar:focus{border-color:rgba(79,255,176,0.4);box-shadow:0 0 0 3px rgba(79,255,176,0.06);}
+.filter-bar{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;}
+.filter-btn{padding:6px 13px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--muted);font-size:12px;cursor:pointer;transition:all 0.18s;font-family:'DM Sans',sans-serif;-webkit-tap-highlight-color:transparent;}
+.filter-btn:hover,.filter-btn.active{border-color:var(--accent);color:var(--accent);background:rgba(79,255,176,0.06);}
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(162px,1fr));gap:10px;}
+.word-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px 14px;cursor:pointer;transition:transform 0.2s,border-color 0.2s,box-shadow 0.2s;position:relative;min-height:110px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;-webkit-tap-highlight-color:transparent;overflow:hidden;}
+.word-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent4));opacity:0;transition:opacity 0.2s;}
+.word-card:hover{border-color:rgba(79,255,176,0.25);transform:translateY(-2px);box-shadow:0 6px 24px rgba(0,0,0,0.22);}
 .word-card:hover::before{opacity:1;}
-.word-card .english{font-family:'Clash Display',sans-serif;font-size:17px;font-weight:600;margin-bottom:3px;}
-.word-card .transcription{color:var(--muted);font-size:11px;margin-bottom:4px;}
+.word-card:active{transform:scale(0.97);}
+.word-card.learned{border-color:rgba(79,255,176,0.2);}
+.word-card.learned .english::after{content:' ✓';color:var(--accent);font-size:12px;}
+.word-card .english{font-family:'Clash Display',sans-serif;font-size:16px;font-weight:600;margin-bottom:3px;}
+.word-card .transcription{color:var(--muted);font-size:11px;}
 .word-card .pos-badge{position:absolute;top:8px;right:8px;background:var(--surface2);color:var(--muted);font-size:9px;padding:2px 6px;border-radius:4px;text-transform:uppercase;}
-.word-tooltip{position:absolute;bottom:calc(100% + 7px);left:50%;transform:translateX(-50%);background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:5px 11px;white-space:nowrap;font-size:12px;color:var(--accent);pointer-events:none;opacity:0;transition:opacity 0.22s;z-index:50;box-shadow:0 4px 20px rgba(0,0,0,0.4);}
-.word-tooltip::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:var(--surface2);}
+.word-tooltip{position:absolute;bottom:calc(100%+8px);left:50%;transform:translateX(-50%);background:rgba(20,23,31,0.97);border:1px solid var(--border);border-radius:9px;padding:6px 12px;white-space:nowrap;font-size:12px;color:var(--accent);pointer-events:none;opacity:0;transition:opacity 0.18s;z-index:50;box-shadow:0 6px 24px rgba(0,0,0,0.5);}
+.word-tooltip::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:rgba(20,23,31,0.97);}
 .word-card:hover .word-tooltip{opacity:1;}
+.vocab-empty{text-align:center;padding:60px 20px;color:var(--muted);}
+.vocab-empty-icon{font-size:40px;margin-bottom:12px;opacity:0.5;}
 
-/* QUIZ */
-.quiz-topic-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px;margin-bottom:24px;}
-.quiz-topic-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:22px;cursor:pointer;transition:all 0.2s;position:relative;overflow:hidden;}
-.quiz-topic-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;opacity:0;transition:opacity 0.2s;}
-.quiz-topic-card:hover{transform:translateY(-2px);}
+/* ── QUIZ ────────────────────────────── */
+.quiz-topic-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;}
+.quiz-topic-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px;cursor:pointer;transition:all 0.2s;text-align:left;position:relative;overflow:hidden;-webkit-tap-highlight-color:transparent;}
+.quiz-topic-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent4));opacity:0;transition:opacity 0.2s;}
+.quiz-topic-card:hover{border-color:rgba(79,255,176,0.3);transform:translateY(-2px);}
 .quiz-topic-card:hover::before{opacity:1;}
-.qtc0::before{background:linear-gradient(90deg,var(--accent),var(--accent4));} .qtc0:hover{border-color:rgba(79,255,176,0.3);}
-.qtc1::before{background:linear-gradient(90deg,var(--accent3),var(--accent2));} .qtc1:hover{border-color:rgba(255,209,102,0.3);}
-.qtc2::before{background:linear-gradient(90deg,var(--accent4),var(--accent));} .qtc2:hover{border-color:rgba(116,185,255,0.3);}
-.qtc3::before{background:linear-gradient(90deg,var(--accent2),var(--accent3));} .qtc3:hover{border-color:rgba(255,107,107,0.3);}
-.qtc-icon{font-size:24px;margin-bottom:9px;} .qtc-title{font-family:'Clash Display',sans-serif;font-size:16px;font-weight:600;margin-bottom:4px;}
-.qtc-desc{color:var(--muted);font-size:12px;margin-bottom:8px;} .qtc-count{font-size:10px;color:var(--muted);background:var(--surface2);display:inline-block;padding:2px 7px;border-radius:4px;}
-.quiz-container{max-width:640px;margin:0 auto;}
-.quiz-header{display:flex;align-items:center;gap:10px;margin-bottom:18px;}
-.quiz-back{background:var(--surface2);border:none;color:var(--muted);padding:6px 12px;border-radius:7px;cursor:pointer;font-size:12px;font-family:'DM Sans',sans-serif;transition:all 0.2s;}
-.quiz-back:hover{color:var(--text);}
-.quiz-topic-label{font-family:'Syne',sans-serif;font-size:14px;font-weight:600;}
-.quiz-progress{display:flex;gap:4px;margin-bottom:22px;}
-.quiz-dot{height:4px;flex:1;border-radius:2px;background:var(--surface2);transition:background 0.3s;}
-.quiz-dot.done{background:var(--accent);} .quiz-dot.current{background:var(--accent4);}
-.quiz-question{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:26px;margin-bottom:12px;}
-.quiz-q-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;}
-.quiz-q-text{font-family:'Syne',sans-serif;font-size:16px;font-weight:600;line-height:1.6;}
-.quiz-q-text em{font-style:normal;color:var(--accent3);border-bottom:2px dashed var(--accent3);}
-.quiz-options{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
-.quiz-opt{padding:12px 14px;border-radius:10px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-size:13px;font-weight:500;cursor:pointer;transition:all 0.18s;text-align:left;font-family:'DM Sans',sans-serif;}
-.quiz-opt:hover{border-color:var(--accent4);background:rgba(116,185,255,0.05);}
-.quiz-opt.correct{border-color:var(--accent);background:rgba(79,255,176,0.08);color:var(--accent);}
-.quiz-opt.wrong{border-color:var(--accent2);background:rgba(255,107,107,0.08);color:var(--accent2);}
+.quiz-topic-card:active{transform:scale(0.97);}
+.quiz-topic-card.done::after{content:'✓';position:absolute;top:10px;right:12px;color:var(--accent);font-weight:700;font-size:14px;}
+.quiz-header{display:flex;align-items:center;gap:10px;margin-bottom:18px;flex-wrap:wrap;}
+.quiz-back{background:var(--surface2);border:1px solid var(--border);color:var(--muted);padding:7px 13px;border-radius:9px;cursor:pointer;font-size:13px;font-family:'DM Sans',sans-serif;transition:all 0.18s;display:flex;align-items:center;gap:5px;}
+.quiz-back:hover{color:var(--text);border-color:rgba(255,255,255,0.15);}
+.quiz-topic-label{font-family:'Clash Display',sans-serif;font-size:16px;font-weight:600;}
+.quiz-container{max-width:620px;margin:0 auto;}
+.quiz-progress{display:flex;gap:4px;margin-bottom:20px;}
+.quiz-progress-dot{flex:1;height:4px;border-radius:2px;background:var(--surface2);transition:background 0.3s;}
+.quiz-progress-dot.done{background:var(--accent);}
+.quiz-progress-dot.current{background:var(--accent4);}
+.quiz-q-num{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;}
+.quiz-question{font-size:18px;font-weight:500;line-height:1.55;margin-bottom:20px;font-family:'Syne',sans-serif;}
+.quiz-options{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;}
+.quiz-opt{padding:14px 15px;border-radius:12px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-size:14px;cursor:pointer;transition:all 0.18s;text-align:left;font-family:'DM Sans',sans-serif;line-height:1.4;-webkit-tap-highlight-color:transparent;min-height:52px;}
+.quiz-opt:hover:not(:disabled){border-color:var(--accent4);background:rgba(116,185,255,0.05);}
+.quiz-opt:active:not(:disabled){transform:scale(0.97);}
+.quiz-opt.correct{border-color:var(--accent);background:rgba(79,255,176,0.1);color:var(--accent);}
+.quiz-opt.wrong{border-color:var(--accent2);background:rgba(255,107,107,0.1);color:var(--accent2);}
+.quiz-opt.reveal{border-color:rgba(79,255,176,0.3);background:rgba(79,255,176,0.04);}
+.quiz-feedback{font-size:13px;padding:10px 14px;border-radius:9px;margin-bottom:12px;display:none;animation:fadeUp 0.2s ease;}
+.quiz-feedback.correct{background:rgba(79,255,176,0.08);border:1px solid rgba(79,255,176,0.2);color:var(--accent);}
+.quiz-feedback.wrong{background:rgba(255,107,107,0.08);border:1px solid rgba(255,107,107,0.2);color:var(--accent2);}
 .quiz-score{display:none;text-align:center;padding:40px 20px;}
-.quiz-score.show{display:block;}
-.quiz-score-num{font-family:'Clash Display',sans-serif;font-size:64px;font-weight:700;color:var(--accent);}
-.quiz-score-label{font-size:15px;margin-bottom:14px;color:var(--muted);}
+.quiz-score-num{font-family:'Clash Display',sans-serif;font-size:72px;font-weight:700;color:var(--accent);}
+.quiz-score-label{color:var(--muted);font-size:14px;margin-bottom:6px;}
 
-/* GRAMMAR */
-.grammar-layout{display:grid;grid-template-columns:210px 1fr;gap:16px;}
-.grammar-menu{display:flex;flex-direction:column;gap:2px;}
-.grammar-menu-item{padding:9px 12px;border-radius:8px;background:transparent;border:none;color:var(--muted);font-size:12px;cursor:pointer;text-align:left;transition:all 0.2s;font-family:'DM Sans',sans-serif;display:flex;align-items:center;gap:8px;}
-.grammar-menu-item .dot{width:5px;height:5px;border-radius:50%;background:var(--surface2);flex-shrink:0;}
-.grammar-menu-item:hover{color:var(--text);background:var(--surface);}
-.grammar-menu-item.active{color:var(--accent);background:rgba(79,255,176,0.06);}
-.grammar-menu-item.active .dot{background:var(--accent);}
-.grammar-content{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:26px;display:none;}
-.grammar-content.active{display:block;animation:fadeUp 0.3s ease;}
-.grammar-content h2{font-family:'Clash Display',sans-serif;font-size:21px;font-weight:700;margin-bottom:6px;}
+/* ── SPRINT ──────────────────────────── */
+.sprint-opt{padding:14px 16px;border-radius:12px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-size:14px;font-weight:500;cursor:pointer;transition:all 0.18s;text-align:left;font-family:'DM Sans',sans-serif;width:100%;-webkit-tap-highlight-color:transparent;min-height:54px;}
+.sprint-opt:hover:not(:disabled){border-color:var(--accent4);background:rgba(116,185,255,0.06);}
+.sprint-opt:active:not(:disabled){transform:scale(0.97);}
+.sprint-opt.correct{border-color:var(--accent);background:rgba(79,255,176,0.1);color:var(--accent);pointer-events:none;}
+.sprint-opt.wrong{border-color:var(--accent2);background:rgba(255,107,107,0.1);color:var(--accent2);pointer-events:none;}
+
+/* ── BUILDER ─────────────────────────── */
+.builder-word{background:var(--surface2);border:1px solid var(--border);border-radius:9px;padding:9px 14px;font-size:13px;cursor:pointer;transition:all 0.18s;user-select:none;display:inline-flex;align-items:center;-webkit-tap-highlight-color:transparent;min-height:38px;}
+.builder-word:hover{border-color:var(--accent4);color:var(--accent4);}
+.builder-word:active{transform:scale(0.95);}
+.builder-word.placed{opacity:0.2;pointer-events:none;}
+.builder-word.in-zone{background:rgba(79,255,176,0.08);border-color:rgba(79,255,176,0.3);color:var(--accent);}
+.drop-zone{min-height:54px;border:2px dashed rgba(79,255,176,0.2);border-radius:12px;padding:10px 12px;display:flex;flex-wrap:wrap;gap:7px;margin-bottom:14px;transition:all 0.2s;background:rgba(79,255,176,0.01);}
+.drop-zone.has-words{border-color:rgba(79,255,176,0.35);}
+
+/* ── FLASHCARDS ──────────────────────── */
+.fc-wrap{max-width:520px;margin:0 auto;}
+.fc-progress-row{display:flex;gap:4px;margin-bottom:20px;}
+.fc-card-container{perspective:1200px;height:260px;margin-bottom:18px;cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:pan-y;}
+.fc-card{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform 0.5s cubic-bezier(0.4,0,0.2,1);border-radius:18px;}
+.fc-card.flipped{transform:rotateY(180deg);}
+.fc-front,.fc-back{position:absolute;inset:0;backface-visibility:hidden;border-radius:18px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px;border:1px solid var(--border);}
+.fc-front{background:var(--surface);}
+.fc-back{background:var(--surface2);transform:rotateY(180deg);}
+@keyframes swipeLeft{to{transform:translateX(-120%) rotate(-12deg);opacity:0;}}
+@keyframes swipeRight{to{transform:translateX(120%) rotate(12deg);opacity:0;}}
+.fc-card.swipe-left{animation:swipeLeft 0.35s ease forwards;}
+.fc-card.swipe-right{animation:swipeRight 0.35s ease forwards;}
+.fc-word{font-family:'Clash Display',sans-serif;font-size:38px;font-weight:700;margin-bottom:6px;}
+.fc-ipa{color:var(--muted);font-size:13px;margin-bottom:10px;}
+.fc-hint{font-size:11px;color:var(--muted);position:absolute;bottom:14px;display:flex;align-items:center;gap:5px;}
+.fc-ru{font-size:22px;color:var(--accent);font-weight:600;margin-bottom:6px;}
+.fc-def{color:#c5cad9;font-size:12px;text-align:center;line-height:1.8;max-width:340px;}
+.fc-counter{font-size:12px;color:var(--muted);text-align:center;margin-bottom:10px;}
+.fc-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+.fc-btn-know{background:rgba(79,255,176,0.1);border:1px solid rgba(79,255,176,0.3);color:var(--accent);padding:12px 32px;border-radius:12px;cursor:pointer;font-size:14px;font-family:'DM Sans',sans-serif;transition:all 0.2s;font-weight:500;-webkit-tap-highlight-color:transparent;}
+.fc-btn-know:hover{background:rgba(79,255,176,0.18);}
+.fc-btn-know:active,.fc-btn-again:active{transform:scale(0.96);}
+.fc-btn-again{background:rgba(255,107,107,0.08);border:1px solid rgba(255,107,107,0.25);color:var(--accent2);padding:12px 32px;border-radius:12px;cursor:pointer;font-size:14px;font-family:'DM Sans',sans-serif;transition:all 0.2s;font-weight:500;-webkit-tap-highlight-color:transparent;}
+.fc-btn-again:hover{background:rgba(255,107,107,0.15);}
+.fc-swipe-hint{font-size:11px;color:var(--muted);text-align:center;margin-top:10px;display:flex;align-items:center;justify-content:center;gap:16px;}
+.fc-done{text-align:center;padding:48px 20px;}
+.fc-stats{display:flex;gap:24px;justify-content:center;margin-top:12px;}
+.fc-stat{text-align:center;}
+.fc-stat-n{font-family:'Clash Display',sans-serif;font-size:28px;font-weight:700;}
+.fc-stat-l{color:var(--muted);font-size:10px;margin-top:2px;}
+
+/* ── DICTATION ───────────────────────── */
+.dict-wrap{max-width:580px;margin:0 auto;}
+.dict-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:26px;margin-bottom:14px;}
+.dict-sentence{font-size:14px;color:#c5cad9;line-height:2;margin-bottom:16px;}
+.dict-input-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
+.dict-input{flex:1;min-width:160px;background:var(--surface2);border:1.5px solid var(--border);border-radius:10px;padding:10px 14px;color:var(--text);font-size:15px;font-family:'DM Sans',sans-serif;outline:none;transition:all 0.2s;}
+.dict-input:focus{border-color:rgba(79,255,176,0.4);box-shadow:0 0 0 3px rgba(79,255,176,0.06);}
+.dict-input.correct{border-color:var(--accent);background:rgba(79,255,176,0.05);}
+.dict-input.wrong{border-color:var(--accent2);background:rgba(255,107,107,0.05);animation:wShake 0.4s ease;}
+.dict-fb{font-size:12px;margin-top:10px;display:none;padding:9px 13px;border-radius:9px;}
+.dict-speak-btn{background:var(--surface2);border:1px solid var(--border);color:var(--muted);padding:9px 14px;border-radius:10px;cursor:pointer;font-size:13px;transition:all 0.2s;white-space:nowrap;-webkit-tap-highlight-color:transparent;}
+.dict-speak-btn:hover{border-color:var(--accent3);color:var(--accent3);}
+.dict-prog{display:flex;gap:4px;margin-bottom:18px;}
+.dict-prog-dot{height:4px;flex:1;border-radius:2px;background:var(--surface2);transition:background 0.3s;}
+.dict-prog-dot.done{background:var(--accent);}
+.dict-prog-dot.cur{background:var(--accent4);}
+.dict-score-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:36px;text-align:center;display:none;}
+
+/* ── GRAMMAR ─────────────────────────── */
+.grammar-layout{display:grid;grid-template-columns:200px 1fr;gap:18px;}
+.grammar-menu{display:flex;flex-direction:column;gap:3px;position:sticky;top:76px;max-height:calc(100vh - 120px);overflow-y:auto;}
+.grammar-menu::-webkit-scrollbar{width:0;}
+.grammar-btn{background:transparent;border:none;color:var(--muted);padding:8px 11px;border-radius:9px;cursor:pointer;font-size:12px;font-family:'DM Sans',sans-serif;text-align:left;transition:all 0.18s;}
+.grammar-btn:hover{background:var(--surface2);color:var(--text);}
+.grammar-btn.active{background:rgba(79,255,176,0.1);color:var(--accent);}
+.grammar-content{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:22px;display:none;}
+.grammar-content.active{display:block;animation:fadeUp 0.28s ease;}
+.grammar-content h2{font-family:'Clash Display',sans-serif;font-size:20px;font-weight:700;margin-bottom:5px;}
 .grammar-content p{color:#c5cad9;line-height:1.8;margin-bottom:10px;font-size:13px;}
-.grammar-rule{background:var(--surface2);border-left:3px solid var(--accent4);border-radius:0 8px 8px 0;padding:11px 14px;margin:11px 0;font-size:13px;}
-.grammar-rule .lbl{font-size:9px;color:var(--accent4);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px;}
-.grammar-when{background:rgba(79,255,176,0.05);border:1px solid rgba(79,255,176,0.15);border-radius:8px;padding:11px 14px;margin:10px 0;}
+.grammar-tag{display:inline-block;background:rgba(79,255,176,0.1);color:var(--accent);font-size:9px;padding:2px 8px;border-radius:5px;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;}
+.grammar-form{background:var(--surface2);border-radius:9px;padding:11px 14px;margin:10px 0;font-size:13px;line-height:1.7;color:var(--text);}
+.grammar-form strong{color:var(--accent3);}
+.grammar-when{background:rgba(79,255,176,0.04);border:1px solid rgba(79,255,176,0.12);border-radius:9px;padding:11px 14px;margin:10px 0;}
 .grammar-when .lbl{font-size:9px;color:var(--accent);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px;}
 .grammar-when p{color:#c5cad9;font-size:13px;margin:0;}
-.grammar-why{background:rgba(255,209,102,0.05);border:1px solid rgba(255,209,102,0.15);border-radius:8px;padding:11px 14px;margin:10px 0;}
+.grammar-why{background:rgba(255,209,102,0.05);border:1px solid rgba(255,209,102,0.15);border-radius:9px;padding:11px 14px;margin:10px 0;}
 .grammar-why .lbl{font-size:9px;color:var(--accent3);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px;}
 .grammar-why p{color:#c5cad9;font-size:13px;margin:0;}
 .ex-list{list-style:none;display:flex;flex-direction:column;gap:6px;margin:10px 0;}
 .ex-item{background:var(--surface2);border-radius:8px;padding:9px 11px;font-size:12px;line-height:1.6;}
-.ex-item .en{color:var(--text);margin-bottom:2px;} .ex-item .en strong{color:var(--accent3);}
+.ex-item .en{color:var(--text);margin-bottom:2px;}
+.ex-item .en strong{color:var(--accent3);}
 .ex-item .ru{color:var(--muted);font-size:11px;}
 
-/* AUDIO */
+/* ── AUDIO ───────────────────────────── */
 .audio-cards{display:flex;flex-direction:column;gap:14px;max-width:800px;margin:0 auto;}
-.audio-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;transition:border-color 0.2s;}
+.audio-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:20px;transition:border-color 0.2s;}
 .audio-card.playing{border-color:rgba(79,255,176,0.35);}
 .audio-top{display:flex;align-items:center;gap:14px;}
-.audio-play-btn{width:44px;height:44px;border-radius:50%;flex-shrink:0;background:linear-gradient(135deg,var(--accent),var(--accent4));border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px;transition:transform 0.2s,box-shadow 0.2s;}
-.audio-play-btn:hover{transform:scale(1.07);box-shadow:0 0 16px rgba(79,255,176,0.3);}
+.audio-play-btn{width:46px;height:46px;border-radius:50%;flex-shrink:0;background:linear-gradient(135deg,var(--accent),var(--accent4));border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;transition:transform 0.2s,box-shadow 0.2s;-webkit-tap-highlight-color:transparent;}
+.audio-play-btn:hover{transform:scale(1.07);box-shadow:0 0 18px rgba(79,255,176,0.3);}
+.audio-play-btn:active{transform:scale(0.94);}
 .audio-title{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin-bottom:2px;}
 .audio-meta{color:var(--muted);font-size:11px;margin-bottom:10px;}
-/* real player controls */
 .audio-player{display:flex;align-items:center;gap:10px;}
 .audio-progress-wrap{flex:1;height:5px;background:var(--surface2);border-radius:3px;cursor:pointer;position:relative;}
 .audio-progress-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--accent),var(--accent4));width:0%;transition:width 0.1s;}
@@ -377,12 +506,11 @@ body.light-theme .mobile-drawer{background:#ffffff;}
 .acc-toggle.open .acc-arr{transform:rotate(180deg);}
 .acc-body{display:none;padding-top:10px;}
 .acc-body.open{display:block;animation:fadeUp 0.2s ease;}
-/* word chips with definition popup */
 .vocab-chips{display:flex;flex-wrap:wrap;gap:7px;}
 .vocab-chip{background:var(--surface2);border-radius:7px;padding:6px 12px;font-size:12px;cursor:pointer;transition:all 0.2s;border:1px solid transparent;position:relative;}
 .vocab-chip:hover{border-color:var(--accent4);color:var(--accent4);}
 .vocab-chip .chip-tr{color:var(--muted);font-size:10px;margin-left:4px;}
-.chip-def-popup{display:none;position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 14px;width:220px;font-size:12px;line-height:1.6;z-index:100;box-shadow:0 4px 20px rgba(0,0,0,0.4);pointer-events:none;}
+.chip-def-popup{display:none;position:absolute;bottom:calc(100%+8px);left:50%;transform:translateX(-50%);background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 14px;width:220px;font-size:12px;line-height:1.6;z-index:100;box-shadow:0 4px 20px rgba(0,0,0,0.4);pointer-events:none;}
 .chip-def-popup::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:var(--surface);}
 .vocab-chip:hover .chip-def-popup{display:block;}
 .chip-def-popup .def-word{font-family:'Clash Display',sans-serif;font-size:14px;font-weight:700;color:var(--accent);margin-bottom:3px;}
@@ -397,225 +525,137 @@ body.light-theme .mobile-drawer{background:#ffffff;}
 .pronun-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(145px,1fr));gap:9px;}
 .pronun-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:13px;text-align:center;transition:border-color 0.2s;}
 .pronun-card:hover{border-color:var(--accent3);}
-.pronun-word{font-size:15px;font-weight:600;margin-bottom:3px;} .pronun-ipa{color:var(--muted);font-size:10px;margin-bottom:6px;}
+.pronun-word{font-size:15px;font-weight:600;margin-bottom:3px;}
+.pronun-ipa{color:var(--muted);font-size:10px;margin-bottom:6px;}
 .pronun-speak{background:var(--surface2);border:none;color:var(--accent3);padding:4px 10px;border-radius:5px;font-size:11px;cursor:pointer;font-family:'DM Sans',sans-serif;}
 
-/* PHRASES */
+/* ── PHRASES ─────────────────────────── */
 .phrase-cats{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-bottom:18px;}
-.phrase-cat{padding:6px 13px;border-radius:9px;border:1px solid var(--border);background:var(--surface);color:var(--muted);font-size:12px;cursor:pointer;transition:all 0.2s;font-family:'DM Sans',sans-serif;}
+.phrase-cat{padding:7px 14px;border-radius:9px;border:1px solid var(--border);background:var(--surface);color:var(--muted);font-size:12px;cursor:pointer;transition:all 0.18s;font-family:'DM Sans',sans-serif;-webkit-tap-highlight-color:transparent;}
 .phrase-cat:hover,.phrase-cat.active{background:rgba(255,107,107,0.08);border-color:var(--accent2);color:var(--accent2);}
 .phrases-list{display:flex;flex-direction:column;gap:7px;max-width:780px;margin:0 auto;}
-.phrase-item{background:var(--surface);border:1px solid var(--border);border-radius:11px;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;transition:border-color 0.2s;}
-.phrase-item:hover{border-color:rgba(255,107,107,0.25);}
-.phrase-en{font-size:13px;font-weight:500;margin-bottom:3px;} .phrase-ru{font-size:12px;color:var(--muted);}
-.phrase-context{font-size:10px;color:var(--accent2);background:rgba(255,107,107,0.08);padding:2px 8px;border-radius:5px;white-space:nowrap;align-self:flex-start;flex-shrink:0;}
-.phrase-speak-btn{background:none;border:none;color:var(--muted);font-size:15px;cursor:pointer;padding:5px;transition:color 0.2s;margin-left:7px;flex-shrink:0;}
+.phrase-item{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px 16px;display:flex;justify-content:space-between;align-items:flex-start;gap:10px;transition:border-color 0.2s;}
+.phrase-item:hover{border-color:rgba(255,107,107,0.22);}
+.phrase-en{font-size:13px;font-weight:500;margin-bottom:4px;line-height:1.5;}
+.phrase-ru{font-size:12px;color:var(--muted);}
+.phrase-context{font-size:10px;color:var(--accent2);background:rgba(255,107,107,0.08);padding:2px 8px;border-radius:5px;white-space:nowrap;flex-shrink:0;}
+.phrase-speak-btn{background:none;border:none;color:var(--muted);font-size:16px;cursor:pointer;padding:4px;transition:color 0.2s;flex-shrink:0;-webkit-tap-highlight-color:transparent;}
 .phrase-speak-btn:hover{color:var(--accent3);}
 
-/* SPRINT */
-.sprint-opt{padding:12px 14px;border-radius:10px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-size:13px;font-weight:500;cursor:pointer;transition:all 0.18s;text-align:left;font-family:'DM Sans',sans-serif;width:100%;}
-.sprint-opt:hover{border-color:var(--accent4);background:rgba(116,185,255,0.06);}
-.sprint-opt.correct{border-color:var(--accent);background:rgba(79,255,176,0.1);color:var(--accent);pointer-events:none;}
-.sprint-opt.wrong{border-color:var(--accent2);background:rgba(255,107,107,0.1);color:var(--accent2);pointer-events:none;}
+/* ── READING & STORIES ───────────────── */
+.reading-topic-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px;cursor:pointer;transition:all 0.2s;position:relative;overflow:hidden;-webkit-tap-highlight-color:transparent;}
+.reading-topic-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent4));opacity:0;transition:opacity 0.2s;}
+.reading-topic-card:hover{transform:translateY(-2px);border-color:rgba(79,255,176,0.3);}
+.reading-topic-card:hover::before{opacity:1;}
+.reading-topic-card:active{transform:scale(0.97);}
+.reading-topic-icon{font-size:26px;margin-bottom:9px;}
+.reading-topic-title{font-family:'Clash Display',sans-serif;font-size:15px;font-weight:600;margin-bottom:4px;}
+.reading-topic-meta{font-size:11px;color:var(--muted);}
+.reading-passage{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:28px;margin-bottom:18px;line-height:1.95;font-size:14px;color:#c5cad9;}
+.reading-passage h3{font-family:'Clash Display',sans-serif;font-size:20px;font-weight:700;color:var(--text);margin-bottom:14px;}
+.reading-passage p{margin-bottom:13px;}
+.reading-questions{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px;}
+.reading-q{margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);}
+.reading-q:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+.reading-q-text{font-size:14px;font-weight:500;margin-bottom:10px;line-height:1.6;}
+.reading-q-num{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px;}
+.reading-opt{display:block;width:100%;text-align:left;padding:10px 14px;margin-bottom:6px;border-radius:9px;border:1px solid var(--border);background:transparent;color:var(--text);font-size:13px;cursor:pointer;transition:all 0.18s;font-family:'DM Sans',sans-serif;-webkit-tap-highlight-color:transparent;}
+.reading-opt:hover:not(:disabled){border-color:var(--accent4);background:rgba(116,185,255,0.05);}
+.reading-opt:active:not(:disabled){transform:scale(0.98);}
+.reading-opt.correct{border-color:var(--accent);background:rgba(79,255,176,0.08);color:var(--accent);}
+.reading-opt.wrong{border-color:var(--accent2);background:rgba(255,107,107,0.08);color:var(--accent2);}
+.reading-result-bar{background:var(--surface2);border-radius:12px;padding:18px;margin-top:18px;text-align:center;display:none;}
+.story-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px;cursor:pointer;transition:all 0.2s;-webkit-tap-highlight-color:transparent;}
+.story-card:hover{border-color:rgba(79,255,176,0.3);transform:translateY(-2px);}
+.story-card:active{transform:scale(0.97);}
 
-/* BUILDER */
-.builder-word{background:var(--surface2);border:1px solid var(--border);border-radius:7px;padding:6px 12px;font-size:12px;cursor:pointer;transition:all 0.18s;user-select:none;display:inline-block;}
-.builder-word:hover{border-color:var(--accent4);color:var(--accent4);}
-.builder-word.placed{opacity:0.3;pointer-events:none;}
-.builder-word.in-zone{background:rgba(79,255,176,0.07);border-color:rgba(79,255,176,0.3);color:var(--accent);}
-.drop-zone{min-height:46px;border:2px dashed var(--border);border-radius:10px;padding:8px 12px;display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;transition:border-color 0.2s;}
-
-/* PROGRESS / PROFILE */
-.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px;}
+/* ── PROGRESS ────────────────────────── */
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;}
 .stat-num{font-family:'Clash Display',sans-serif;font-size:36px;font-weight:700;}
 .stat-lbl{color:var(--muted);font-size:11px;margin-top:3px;}
-.stat-bar-wrap{height:5px;background:var(--surface2);border-radius:3px;margin-top:8px;}
-.stat-bar{height:100%;border-radius:3px;transition:width 0.7s ease;}
-.profile-avatar{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent4));display:flex;align-items:center;justify-content:center;font-size:36px;margin:0 auto 16px;}
+.stat-bar-wrap{height:4px;background:var(--surface2);border-radius:3px;margin-top:10px;}
+.stat-bar{height:100%;border-radius:3px;transition:width 0.8s cubic-bezier(0.4,0,0.2,1);}
+.profile-avatar{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent4));display:flex;align-items:center;justify-content:center;font-size:30px;margin:0 auto 14px;}
 
-/* THEME TOGGLE */
-.theme-toggle-btn{display:none;} /* replaced by topbar-btn */
+/* ── ACTIVITY CHART ──────────────────── */
+.activity-grid{display:flex;gap:3px;flex-wrap:wrap;margin-top:10px;}
+.act-day{width:13px;height:13px;border-radius:3px;background:var(--surface2);transition:background 0.3s;}
+.act-day.l1{background:rgba(79,255,176,0.22);}
+.act-day.l2{background:rgba(79,255,176,0.48);}
+.act-day.l3{background:rgba(79,255,176,0.74);}
+.act-day.l4{background:var(--accent);}
+
+/* ── WORDLE ──────────────────────────── */
+.wlen-btn{padding:5px 14px;border-radius:7px;border:none;background:transparent;color:var(--muted);font-family:'Clash Display',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all 0.18s;}
+.wlen-btn.active{background:var(--surface);color:var(--text);box-shadow:0 1px 6px rgba(0,0,0,0.3);}
+.wordle-row{display:flex;gap:5px;}
+.wordle-cell{width:56px;height:56px;border:2px solid var(--border);border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Clash Display',sans-serif;font-size:22px;font-weight:700;text-transform:uppercase;background:var(--surface);color:var(--text);transition:border-color 0.1s;position:relative;}
+.wordle-cell.filled{border-color:rgba(255,255,255,0.35);animation:wPop 0.1s ease;}
+@keyframes wPop{0%{transform:scale(1);}50%{transform:scale(1.12);}100%{transform:scale(1);}}
+.wordle-cell.correct{background:#538d4e;border-color:#538d4e;color:#fff;}
+.wordle-cell.present{background:#b59f3b;border-color:#b59f3b;color:#fff;}
+.wordle-cell.absent{background:#3a3a3c;border-color:#3a3a3c;color:#888;}
+.wordle-row.shake{animation:wShake 0.5s ease;}
+.wordle-cell.bounce{animation:wBounce 0.6s ease forwards;}
+@keyframes wBounce{0%{transform:translateY(0);}30%{transform:translateY(-18px);}60%{transform:translateY(-8px);}80%{transform:translateY(-14px);}100%{transform:translateY(0);}}
+.wordle-key{
+  min-width:36px;height:52px;border-radius:8px;border:none;
+  background:var(--surface2);color:var(--text);
+  font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;
+  cursor:pointer;transition:all 0.15s;padding:0 4px;
+  display:flex;align-items:center;justify-content:center;
+  -webkit-tap-highlight-color:transparent;
+}
+.wordle-key:hover{filter:brightness(1.12);}
+.wordle-key:active{transform:scale(0.9);}
+.wordle-key.wide{
+  min-width:60px;font-size:11px;font-weight:700;
+  background:var(--surface2);color:var(--muted);
+  border:1px solid var(--border);letter-spacing:0.3px;
+}
+.wordle-key.wide:first-child{
+  background:rgba(79,255,176,0.12);
+  color:var(--accent);
+  border-color:rgba(79,255,176,0.35);
+}
+.wordle-key.wide:first-child:hover{background:rgba(79,255,176,0.2);}
+.wordle-key.correct{background:#538d4e;color:#fff;border-color:#538d4e;}
+.wordle-key.present{background:#b59f3b;color:#fff;border-color:#b59f3b;}
+.wordle-key.absent{background:#3a3a3c;color:#555;border-color:#3a3a3c;}
+.wordle-toast-pill{display:inline-block;background:var(--text);color:var(--bg);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;padding:8px 20px;border-radius:30px;animation:toastIn 0.25s ease;pointer-events:none;}
+@keyframes toastIn{from{opacity:0;transform:translateY(-8px);}to{opacity:1;transform:translateY(0);}}
+.wordle-toast-pill.error{background:var(--accent2);color:#fff;}
+.wordle-toast-pill.success{background:var(--accent);color:#0d0f14;}
+.wdist-row{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
+.wdist-label{font-size:12px;width:14px;text-align:center;color:var(--muted);}
+.wdist-bar{height:24px;border-radius:6px;background:var(--surface2);min-width:28px;display:flex;align-items:center;padding:0 8px;font-size:12px;font-weight:600;transition:width 0.5s ease;}
+.wdist-bar.current{background:var(--accent);color:#0d0f14;}
+
+/* ── ANIMATIONS ──────────────────────── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+@keyframes wShake{0%,100%{transform:translateX(0);}15%{transform:translateX(-6px);}30%{transform:translateX(6px);}45%{transform:translateX(-5px);}60%{transform:translateX(5px);}75%{transform:translateX(-3px);}90%{transform:translateX(3px);}}
+
+/* ── LIGHT THEME ─────────────────────── */
+.theme-toggle-btn{display:none;}
 body.light-theme{--bg:#f0f2f7;--surface:#ffffff;--surface2:#e8eaf0;--border:rgba(0,0,0,0.1);--text:#1a1d26;--muted:#6b7280;}
 body.light-theme::before{opacity:0.1;}
-body.light-theme .word-card{box-shadow:0 1px 4px rgba(0,0,0,0.07);}
+body.light-theme .word-card{box-shadow:0 1px 4px rgba(0,0,0,0.06);}
 body.light-theme .modal{background:#fff;}
-body.light-theme .quiz-opt{background:#fff;}
+body.light-theme .quiz-opt,body.light-theme .sprint-opt{background:#fff;}
 body.light-theme .grammar-content{background:#fff;}
 body.light-theme .audio-card{background:#fff;}
 body.light-theme .phrase-item{background:#fff;}
 body.light-theme .stat-card{background:#fff;}
-body.light-theme .fc-card{background:#fff;}
+body.light-theme .fc-front{background:#fff;}
 body.light-theme .dict-input{background:#fff;color:#1a1d26;}
-
-/* FLASHCARDS */
-.fc-wrap{max-width:540px;margin:0 auto;}
-.fc-progress-row{display:flex;gap:4px;margin-bottom:20px;}
-.fc-card-container{perspective:1000px;height:240px;margin-bottom:18px;cursor:pointer;}
-.fc-card{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform 0.5s ease;border-radius:var(--radius);}
-.fc-card.flipped{transform:rotateY(180deg);}
-.fc-front,.fc-back{position:absolute;inset:0;backface-visibility:hidden;border-radius:var(--radius);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px;border:1px solid var(--border);}
-.fc-front{background:var(--surface);}
-.fc-back{background:var(--surface2);transform:rotateY(180deg);}
-.fc-word{font-family:'Clash Display',sans-serif;font-size:36px;font-weight:700;margin-bottom:8px;}
-.fc-ipa{color:var(--muted);font-size:13px;margin-bottom:10px;}
-.fc-hint{font-size:11px;color:var(--muted);position:absolute;bottom:14px;}
-.fc-ru{font-size:20px;color:var(--accent);font-weight:600;margin-bottom:6px;}
-.fc-def{color:#c5cad9;font-size:12px;text-align:center;line-height:1.7;max-width:340px;}
-.fc-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
-.fc-btn-know{background:rgba(79,255,176,0.12);border:1px solid rgba(79,255,176,0.35);color:var(--accent);padding:10px 28px;border-radius:10px;cursor:pointer;font-size:14px;font-family:'DM Sans',sans-serif;transition:all 0.2s;}
-.fc-btn-know:hover{background:rgba(79,255,176,0.2);}
-.fc-btn-again{background:rgba(255,107,107,0.1);border:1px solid rgba(255,107,107,0.3);color:var(--accent2);padding:10px 28px;border-radius:10px;cursor:pointer;font-size:14px;font-family:'DM Sans',sans-serif;transition:all 0.2s;}
-.fc-btn-again:hover{background:rgba(255,107,107,0.18);}
-.fc-counter{font-size:12px;color:var(--muted);text-align:center;margin-bottom:10px;}
-.fc-stats{display:flex;gap:18px;justify-content:center;margin-top:8px;}
-.fc-stat{text-align:center;}
-.fc-stat-n{font-family:'Clash Display',sans-serif;font-size:22px;font-weight:700;}
-.fc-stat-l{color:var(--muted);font-size:10px;}
-.fc-done{text-align:center;padding:48px 20px;}
-
-/* DICTATION */
-.dict-wrap{max-width:600px;margin:0 auto;}
-.dict-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:26px;margin-bottom:14px;}
-.dict-sentence{font-size:14px;color:#c5cad9;line-height:1.9;margin-bottom:16px;}
-.dict-sentence .dict-blank{display:inline-block;min-width:90px;border-bottom:2px solid var(--accent4);margin:0 4px;vertical-align:bottom;}
-.dict-input-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
-.dict-input{flex:1;min-width:160px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:9px 13px;color:var(--text);font-size:14px;font-family:'DM Sans',sans-serif;outline:none;transition:border-color 0.2s;}
-.dict-input:focus{border-color:rgba(79,255,176,0.4);}
-.dict-input.correct{border-color:var(--accent);background:rgba(79,255,176,0.06);}
-.dict-input.wrong{border-color:var(--accent2);background:rgba(255,107,107,0.06);}
-.dict-fb{font-size:12px;margin-top:8px;display:none;}
-.dict-speak-btn{background:var(--surface2);border:1px solid var(--border);color:var(--muted);padding:8px 14px;border-radius:8px;cursor:pointer;font-size:13px;transition:all 0.2s;white-space:nowrap;}
-.dict-speak-btn:hover{border-color:var(--accent3);color:var(--accent3);}
-.dict-prog{display:flex;gap:4px;margin-bottom:18px;}
-.dict-prog-dot{height:4px;flex:1;border-radius:2px;background:var(--surface2);transition:background 0.3s;}
-.dict-prog-dot.done{background:var(--accent);}
-.dict-prog-dot.cur{background:var(--accent4);}
-.dict-score-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:36px;text-align:center;display:none;}
-
-/* WORDLE */
-.wlen-btn{padding:5px 13px;border-radius:6px;border:none;background:transparent;color:var(--muted);font-family:'Clash Display',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all 0.18s;}
-.wlen-btn.active{background:var(--surface);color:var(--text);box-shadow:0 1px 6px rgba(0,0,0,0.3);}
-.wordle-row{display:flex;gap:6px;}
-.wordle-cell{
-  width:56px;height:56px;border:2px solid var(--border);border-radius:10px;
-  display:flex;align-items:center;justify-content:center;
-  font-family:'Clash Display',sans-serif;font-size:22px;font-weight:700;text-transform:uppercase;
-  background:var(--surface);color:var(--text);
-  transition:border-color 0.1s, transform 0.1s;
-  position:relative;
-}
-.wordle-cell.filled{border-color:rgba(255,255,255,0.35);animation:wPop 0.1s ease;}
-@keyframes wPop{0%{transform:scale(1);}50%{transform:scale(1.12);}100%{transform:scale(1);}}
-/* flip animation */
-.wordle-cell.flip{animation:wFlip 0.5s ease forwards;}
-@keyframes wFlip{
-  0%{transform:rotateX(0deg);}
-  45%{transform:rotateX(-90deg);}
-  55%{transform:rotateX(-90deg);}
-  100%{transform:rotateX(0deg);}
-}
-/* results applied after flip */
-.wordle-cell.correct{background:#538d4e;border-color:#538d4e;color:#fff;}
-.wordle-cell.present{background:#b59f3b;border-color:#b59f3b;color:#fff;}
-.wordle-cell.absent{background:#3a3a3c;border-color:#3a3a3c;color:#888;}
-/* shake on bad word */
-.wordle-row.shake{animation:wShake 0.5s ease;}
-@keyframes wShake{
-  0%,100%{transform:translateX(0);}
-  15%{transform:translateX(-6px);}
-  30%{transform:translateX(6px);}
-  45%{transform:translateX(-5px);}
-  60%{transform:translateX(5px);}
-  75%{transform:translateX(-3px);}
-  90%{transform:translateX(3px);}
-}
-/* bounce on win */
-.wordle-cell.bounce{animation:wBounce 0.6s ease forwards;}
-@keyframes wBounce{
-  0%{transform:translateY(0);}
-  30%{transform:translateY(-18px);}
-  60%{transform:translateY(-8px);}
-  80%{transform:translateY(-14px);}
-  100%{transform:translateY(0);}
-}
-/* keyboard */
-.wordle-key{
-  min-width:38px;height:56px;border-radius:8px;border:none;
-  background:var(--surface2);color:var(--text);
-  font-family:'Clash Display',sans-serif;font-size:13px;font-weight:700;
-  cursor:pointer;transition:all 0.18s;padding:0 6px;text-transform:uppercase;
-  display:flex;align-items:center;justify-content:center;
-}
-.wordle-key:active{transform:scale(0.93);}
-.wordle-key.wide{min-width:54px;font-size:11px;}
-.wordle-key.correct{background:#538d4e;color:#fff;}
-.wordle-key.present{background:#b59f3b;color:#fff;}
-.wordle-key.absent{background:#3a3a3c;color:#555;}
-/* toast */
-.wordle-toast-pill{
-  display:inline-block;background:var(--text);color:var(--bg);
-  font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;
-  padding:7px 18px;border-radius:30px;
-  animation:toastIn 0.25s ease;pointer-events:none;
-}
-@keyframes toastIn{from{opacity:0;transform:translateY(-8px);}to{opacity:1;transform:translateY(0);}}
-.wordle-toast-pill.error{background:var(--accent2);color:#fff;}
-.wordle-toast-pill.success{background:var(--accent);color:#0d0f14;}
-/* dist bars */
-.wdist-row{display:flex;align-items:center;gap:8px;margin-bottom:5px;}
-.wdist-label{font-size:12px;width:14px;text-align:center;color:var(--muted);}
-.wdist-bar{height:22px;border-radius:5px;background:var(--surface2);min-width:28px;display:flex;align-items:center;padding:0 8px;font-size:12px;font-weight:600;transition:width 0.5s ease;position:relative;overflow:hidden;}
-.wdist-bar.current{background:var(--accent);color:#0d0f14;}
-/* light theme overrides */
 body.light-theme .wordle-cell{background:#fff;}
 body.light-theme .wordle-cell.absent{background:#787c7e;color:#fff;}
 body.light-theme .wordle-key{background:#d3d6da;color:#000;}
 body.light-theme .wordle-key.absent{background:#787c7e;color:#fff;}
 body.light-theme .wordle-toast-pill{background:#1a1d26;color:#fff;}
-/* ACTIVITY CHART */
-.activity-grid{display:flex;gap:3px;flex-wrap:wrap;margin-top:10px;}
-.act-day{width:13px;height:13px;border-radius:3px;background:var(--surface2);}
-.act-day.l1{background:rgba(79,255,176,0.25);}
-.act-day.l2{background:rgba(79,255,176,0.5);}
-.act-day.l3{background:rgba(79,255,176,0.75);}
-.act-day.l4{background:var(--accent);}
-
-/* READING & STORIES */
-.reading-topic-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;cursor:pointer;transition:all 0.2s;position:relative;overflow:hidden;}
-.reading-topic-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent4));opacity:0;transition:opacity 0.2s;}
-.reading-topic-card:hover{transform:translateY(-2px);border-color:rgba(79,255,176,0.3);}
-.reading-topic-card:hover::before{opacity:1;}
-.reading-topic-icon{font-size:26px;margin-bottom:9px;}
-.reading-topic-title{font-family:'Clash Display',sans-serif;font-size:15px;font-weight:600;margin-bottom:4px;}
-.reading-topic-meta{font-size:11px;color:var(--muted);}
-.reading-passage{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:28px;margin-bottom:20px;line-height:1.9;font-size:14px;color:#c5cad9;}
-.reading-passage h3{font-family:'Clash Display',sans-serif;font-size:20px;font-weight:700;color:var(--text);margin-bottom:14px;}
-.reading-passage p{margin-bottom:12px;}
-.reading-questions{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;}
-.reading-q{margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);}
-.reading-q:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
-.reading-q-text{font-size:14px;font-weight:500;margin-bottom:10px;line-height:1.6;}
-.reading-q-num{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px;}
-.reading-opt{display:block;width:100%;text-align:left;padding:9px 13px;margin-bottom:5px;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--text);font-size:13px;cursor:pointer;transition:all 0.18s;font-family:'DM Sans',sans-serif;}
-.reading-opt:hover{border-color:var(--accent4);background:rgba(116,185,255,0.05);}
-.reading-opt.correct{border-color:var(--accent);background:rgba(79,255,176,0.08);color:var(--accent);}
-.reading-opt.wrong{border-color:var(--accent2);background:rgba(255,107,107,0.08);color:var(--accent2);}
-.reading-result-bar{background:var(--surface2);border-radius:8px;padding:14px 18px;margin-top:18px;text-align:center;display:none;}
-.story-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px;cursor:pointer;transition:all 0.2s;}
-.story-card:hover{border-color:rgba(79,255,176,0.3);transform:translateY(-2px);}
-
-@media(max-width:768px){
-  nav{padding:8px 10px;gap:7px;}
-  .nav-tabs{gap:1px;}
-  .nav-tab{padding:5px 7px;font-size:10px;}
-  .profile-btn{padding:6px 10px;font-size:11px;}
-  .section{padding:18px 12px;}
-  .section-title{font-size:24px;}
-  .grammar-layout{grid-template-columns:1fr;}
-  .quiz-options{grid-template-columns:1fr;}
-  .audio-top{flex-direction:column;align-items:flex-start;}
-}
 </style>
+</head>
+<body>
 </head>
 <body>
 
@@ -960,41 +1000,64 @@ body.light-theme .wordle-toast-pill{background:#1a1d26;color:#fff;}
 <div class="section" id="section-wordle">
   <div class="section-header" style="margin-bottom:16px;">
     <div class="section-title">🟩 Wordle</div>
-    <div class="section-sub">Угадай английское слово за 6 попыток</div>
+    <div class="section-sub">Угадай слово за 6 попыток — вводи буквы на клавиатуре или нажимай кнопки</div>
   </div>
 
-  <div style="max-width:500px;margin:0 auto;">
+  <div style="max-width:520px;margin:0 auto;">
 
-    <!-- TOP BAR: mode + streak + stats btn -->
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;gap:8px;">
-      <div id="wordle-mode-select" style="display:flex;gap:4px;background:var(--surface2);border-radius:9px;padding:3px;">
-        <button class="wlen-btn active" onclick="setWordleLen(5,this)" data-len="5">5</button>
-        <button class="wlen-btn" onclick="setWordleLen(6,this)" data-len="6">6</button>
-        <button class="wlen-btn" onclick="setWordleLen(7,this)" data-len="7">7</button>
+    <!-- TOP BAR -->
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;gap:8px;">
+      <!-- Длина слова -->
+      <div style="display:flex;flex-direction:column;gap:3px;">
+        <div style="font-size:9px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:2px;">Букв</div>
+        <div id="wordle-mode-select" style="display:flex;gap:3px;background:var(--surface2);border-radius:9px;padding:3px;">
+          <button class="wlen-btn active" onclick="setWordleLen(5,this)" data-len="5">5</button>
+          <button class="wlen-btn" onclick="setWordleLen(6,this)" data-len="6">6</button>
+          <button class="wlen-btn" onclick="setWordleLen(7,this)" data-len="7">7</button>
+        </div>
       </div>
-      <div id="wordle-streak-badge" style="display:flex;align-items:center;gap:5px;background:var(--surface);border:1px solid var(--border);border-radius:9px;padding:5px 12px;font-size:12px;">
-        <span>🔥</span><span id="wordle-streak-num">0</span><span style="color:var(--muted);">серия</span>
+      <!-- Серия -->
+      <div id="wordle-streak-badge" style="display:flex;align-items:center;gap:5px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:7px 14px;">
+        <span style="font-size:16px;">🔥</span>
+        <div>
+          <div style="font-family:'Clash Display',sans-serif;font-size:18px;font-weight:700;line-height:1;" id="wordle-streak-num">0</div>
+          <div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;">серия</div>
+        </div>
       </div>
-      <button onclick="openWordleStats()" style="background:var(--surface);border:1px solid var(--border);border-radius:9px;color:var(--muted);padding:5px 12px;cursor:pointer;font-size:12px;font-family:'DM Sans',sans-serif;transition:all 0.2s;" onmouseover="this.style.borderColor='rgba(79,255,176,0.4)'" onmouseout="this.style.borderColor='var(--border)'">📊 Стат</button>
+      <!-- Статистика -->
+      <button onclick="openWordleStats()" class="btn btn-ghost btn-sm" style="gap:5px;">📊 <span>Стат</span></button>
     </div>
 
-    <!-- TOAST -->
-    <div id="wordle-toast" style="text-align:center;min-height:32px;margin-bottom:8px;position:relative;"></div>
+    <!-- TOAST (сообщения) -->
+    <div id="wordle-toast" style="text-align:center;min-height:36px;margin-bottom:10px;"></div>
 
     <!-- GRID -->
-    <div id="wordle-grid" style="display:flex;flex-direction:column;gap:6px;align-items:center;margin-bottom:16px;"></div>
+    <div id="wordle-grid" style="display:flex;flex-direction:column;gap:6px;align-items:center;margin-bottom:14px;"></div>
 
-    <!-- HINT -->
-    <div id="wordle-hint-strip" style="text-align:center;min-height:20px;margin-bottom:10px;font-size:13px;color:var(--accent3);transition:opacity 0.3s;"></div>
+    <!-- HINT STRIP -->
+    <div id="wordle-hint-strip" style="text-align:center;min-height:22px;margin-bottom:12px;font-size:14px;color:var(--accent3);font-weight:500;transition:opacity 0.3s;"></div>
 
     <!-- KEYBOARD -->
-    <div id="wordle-keyboard" style="display:flex;flex-direction:column;gap:6px;align-items:center;margin-bottom:14px;"></div>
+    <div id="wordle-keyboard" style="display:flex;flex-direction:column;gap:5px;align-items:center;margin-bottom:16px;"></div>
 
-    <!-- BOTTOM BUTTONS -->
-    <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
-      <button class="btn btn-primary" onclick="initWordle()">▶ Новое слово</button>
-      <button class="btn btn-ghost" onclick="wordleHint()">💡 Перевод</button>
-      <button class="btn btn-ghost" onclick="wordleSpeak()">🔊</button>
+    <!-- ACTION PANEL — чётко разделены по функции -->
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px 16px;">
+      <div style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:10px;">Действия</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:space-between;align-items:center;">
+        <!-- Помощь -->
+        <div style="display:flex;gap:7px;">
+          <button class="btn btn-ghost btn-sm" onclick="wordleHint()" title="Показать перевод слова" style="gap:5px;">
+            💡 Перевод
+          </button>
+          <button class="btn btn-ghost btn-sm" onclick="wordleSpeak()" title="Произнести слово вслух" style="gap:5px;">
+            🔊 Слушать
+          </button>
+        </div>
+        <!-- Главное действие -->
+        <button class="btn btn-primary" onclick="initWordle()" style="gap:6px;">
+          🔄 Новое слово
+        </button>
+      </div>
     </div>
 
   </div>
@@ -1279,6 +1342,24 @@ const words = [
   {en:'paramount',tr:'ˈpærəmaʊnt',ru:'первостепенный, самый важный',pos:'adj',def:'More important than anything else.',ex:[{en:'Safety is of <strong>paramount</strong> importance.',ru:'Безопасность имеет первостепенное значение.'},{en:'The patient\'s welfare is <strong>paramount</strong>.',ru:'Благополучие пациента является главным приоритетом.'}]},
   {en:'reconcile',tr:'ˈrekənsaɪl',ru:'примирять, согласовывать',pos:'verb',def:'To restore friendly relations; to make compatible.',ex:[{en:'They managed to <strong>reconcile</strong> their differences.',ru:'Им удалось урегулировать разногласия.'},{en:'It is hard to <strong>reconcile</strong> these two views.',ru:'Трудно совместить эти две точки зрения.'}]},
   {en:'convoluted',tr:'ˈkɒnvəluːtɪd',ru:'запутанный, сложный',pos:'adj',def:'Extremely complex and difficult to follow.',ex:[{en:'The explanation was far too <strong>convoluted</strong>.',ru:'Объяснение было слишком запутанным.'},{en:'The plot of the film was <strong>convoluted</strong>.',ru:'Сюжет фильма был запутанным.'}]},
+  // WORDS FROM READING, STORIES & WORDLE CONTEXTS
+  {en:'disrupt',tr:'dɪsˈrʌpt',ru:'нарушать, разрушать',pos:'verb',def:'To interrupt or disturb the normal process of something.',ex:[{en:'New technology can <strong>disrupt</strong> entire industries.',ru:'Новые технологии могут разрушить целые отрасли.'},{en:'The storm <strong>disrupted</strong> the train service.',ru:'Шторм нарушил работу поездов.'}]},
+  {en:'cognitive',tr:'ˈkɒɡnɪtɪv',ru:'когнитивный, умственный',pos:'adj',def:'Related to mental processes such as thinking and understanding.',ex:[{en:'Sleep deprivation affects <strong>cognitive</strong> performance.',ru:'Недосыпание влияет на умственную деятельность.'},{en:'Playing chess improves <strong>cognitive</strong> skills.',ru:'Игра в шахматы улучшает когнитивные способности.'}]},
+  {en:'consolidate',tr:'kənˈsɒlɪdeɪt',ru:'закреплять, объединять',pos:'verb',def:'To make something stronger or more secure; to combine.',ex:[{en:'Sleep helps <strong>consolidate</strong> memories.',ru:'Сон помогает закреплять воспоминания.'},{en:'The company decided to <strong>consolidate</strong> its divisions.',ru:'Компания решила объединить свои подразделения.'}]},
+  {en:'chronic',tr:'ˈkrɒnɪk',ru:'хронический, постоянный',pos:'adj',def:'Lasting for a long time or recurring frequently.',ex:[{en:'She suffers from <strong>chronic</strong> back pain.',ru:'Она страдает от хронической боли в спине.'},{en:'<strong>Chronic</strong> stress is harmful to health.',ru:'Хронический стресс вреден для здоровья.'}]},
+  {en:'emit',tr:'ɪˈmɪt',ru:'излучать, выделять',pos:'verb',def:'To produce and send out something such as light, sound or gas.',ex:[{en:'Cars <strong>emit</strong> large amounts of carbon dioxide.',ru:'Автомобили выделяют большое количество углекислого газа.'},{en:'The device <strong>emits</strong> a warning signal.',ru:'Устройство издаёт предупредительный сигнал.'}]},
+  {en:'integrate',tr:'ˈɪntɪɡreɪt',ru:'объединять, интегрировать',pos:'verb',def:'To combine or bring together as part of a whole.',ex:[{en:'The school aims to <strong>integrate</strong> students of all backgrounds.',ru:'Школа стремится объединить учеников из всех слоёв общества.'},{en:'The app <strong>integrates</strong> seamlessly with other tools.',ru:'Приложение беспрепятственно интегрируется с другими инструментами.'}]},
+  {en:'infrastructure',tr:'ˈɪnfrəstrʌktʃər',ru:'инфраструктура',pos:'noun',def:'The basic systems and structures needed for a society to function.',ex:[{en:'The city needs to improve its transport <strong>infrastructure</strong>.',ru:'Городу необходимо улучшить транспортную инфраструктуру.'},{en:'Digital <strong>infrastructure</strong> is essential for modern economies.',ru:'Цифровая инфраструктура необходима для современной экономики.'}]},
+  {en:'incentive',tr:'ɪnˈsentɪv',ru:'стимул, мотивация',pos:'noun',def:'Something that motivates or encourages someone to do something.',ex:[{en:'Financial <strong>incentives</strong> attract skilled workers.',ru:'Финансовые стимулы привлекают квалифицированных специалистов.'},{en:'There is little <strong>incentive</strong> to change the system.',ru:'Стимулов менять систему мало.'}]},
+  {en:'innovation',tr:'ˌɪnəˈveɪʃən',ru:'инновация, нововведение',pos:'noun',def:'A new idea, method, or invention.',ex:[{en:'Technological <strong>innovation</strong> is changing our lives.',ru:'Технологические инновации меняют нашу жизнь.'},{en:'The company invests heavily in <strong>innovation</strong>.',ru:'Компания активно инвестирует в инновации.'}]},
+  {en:'urban',tr:'ˈɜːbən',ru:'городской',pos:'adj',def:'Relating to or characteristic of a town or city.',ex:[{en:'<strong>Urban</strong> areas face unique challenges.',ru:'Городские районы сталкиваются с уникальными проблемами.'},{en:'The <strong>urban</strong> population is growing rapidly.',ru:'Городское население быстро растёт.'}]},
+  {en:'thrive',tr:'θraɪv',ru:'процветать, преуспевать',pos:'verb',def:'To grow and develop well; to be successful.',ex:[{en:'Plants <strong>thrive</strong> in warm conditions.',ru:'Растения процветают в тёплых условиях.'},{en:'She <strong>thrives</strong> under pressure.',ru:'Она преуспевает под давлением.'}]},
+  {en:'deprive',tr:'dɪˈpraɪv',ru:'лишать',pos:'verb',def:'To take something away from someone.',ex:[{en:'Lack of sleep can <strong>deprive</strong> you of focus.',ru:'Недостаток сна может лишить вас сосредоточенности.'},{en:'They were <strong>deprived</strong> of basic rights.',ru:'Их лишили основных прав.'}]},
+  {en:'spontaneous',tr:'spɒnˈteɪniəs',ru:'спонтанный, непроизвольный',pos:'adj',def:'Happening naturally without planning.',ex:[{en:'The applause was completely <strong>spontaneous</strong>.',ru:'Аплодисменты были абсолютно спонтанными.'},{en:'She is known for her <strong>spontaneous</strong> personality.',ru:'Она известна своим спонтанным характером.'}]},
+  {en:'dwell',tr:'dwel',ru:'жить, обитать; задерживаться',pos:'verb',def:'To live somewhere; or to think about something for a long time.',ex:[{en:'He <strong>dwells</strong> on his mistakes too much.',ru:'Он слишком долго задерживается на своих ошибках.'},{en:'Ancient tribes used to <strong>dwell</strong> in caves.',ru:'Древние племена жили в пещерах.'}]},
+  {en:'grasp',tr:'ɡrɑːsp',ru:'схватывать, понимать',pos:'verb',def:'To seize or hold firmly; to understand fully.',ex:[{en:'She quickly <strong>grasped</strong> the concept.',ru:'Она быстро схватила концепцию.'},{en:'He <strong>grasped</strong> the rope and climbed up.',ru:'Он схватил верёвку и полез вверх.'}]},
+  {en:'vivid',tr:'ˈvɪvɪd',ru:'яркий, живой',pos:'adj',def:'Very bright and strong; clear and detailed.',ex:[{en:'She has a <strong>vivid</strong> imagination.',ru:'У неё яркое воображение.'},{en:'The painting uses <strong>vivid</strong> colours.',ru:'Картина использует яркие цвета.'}]},
+  {en:'swift',tr:'swɪft',ru:'быстрый, стремительный',pos:'adj',def:'Happening quickly or moving fast.',ex:[{en:'The team made a <strong>swift</strong> decision.',ru:'Команда быстро приняла решение.'},{en:'He gave a <strong>swift</strong> reply.',ru:'Он дал стремительный ответ.'}]},
 ];
 
 // ═══════════════════════════════════════════
@@ -1938,13 +2019,13 @@ function showScore() {
 // ═══════════════════════════════════════════
 function buildGrammar() {
   document.getElementById('grammar-menu').innerHTML = grammarTopics.map((t, i) =>
-    `<button class="grammar-menu-item ${i === 0 ? 'active' : ''}" onclick="showGrammar(${i},this)"><span class="dot"></span>${t.icon} ${t.title}</button>`).join('');
+    `<button class="grammar-btn ${i === 0 ? 'active' : ''}" onclick="showGrammar(${i},this)">${t.title}</button>`).join('');
   document.getElementById('grammar-area').innerHTML = grammarTopics.map((t, i) =>
     `<div class="grammar-content ${i === 0 ? 'active' : ''}" id="gtopic-${i}">${t.content}</div>`).join('');
 }
 
 function showGrammar(i, btn) {
-  document.querySelectorAll('.grammar-menu-item').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.grammar-btn').forEach(b => b.classList.remove('active'));
   document.querySelectorAll('.grammar-content').forEach(c => c.classList.remove('active'));
   btn.classList.add('active');
   document.getElementById('gtopic-' + i).classList.add('active');
@@ -2285,8 +2366,13 @@ function setWordleLen(n, btn) {
 }
 
 function initWordle() {
-  const pool = wordleWordsByLen[wordleLen];
-  wordleTarget = pool[Math.floor(Math.random() * pool.length)];
+  // Смешиваем базовые слова + слова из словаря подходящей длины
+  const basePool = wordleWordsByLen[wordleLen] || [];
+  const dictPool = words
+    .filter(w => /^[a-z]+$/i.test(w.en) && w.en.length === wordleLen)
+    .map(w => w.en.toLowerCase());
+  const combinedPool = [...new Set([...basePool, ...dictPool])];
+  wordleTarget = combinedPool[Math.floor(Math.random() * combinedPool.length)];
   wordleGuesses = [];
   wordleCurrent = '';
   wordleGameOver = false;
@@ -2400,7 +2486,7 @@ function renderWordleKeyboard() {
   const rows = [
     ['q','w','e','r','t','y','u','i','o','p'],
     ['a','s','d','f','g','h','j','k','l'],
-    ['↵','z','x','c','v','b','n','m','⌫']
+    ['ВВОД','z','x','c','v','b','n','m','←']
   ];
   const state = {};
   wordleGuesses.forEach(g => {
@@ -2412,9 +2498,12 @@ function renderWordleKeyboard() {
   });
   document.getElementById('wordle-keyboard').innerHTML = rows.map(row =>
     `<div class="wordle-row">${row.map(k => {
-      const cls = (k === '↵' || k === '⌫') ? ' wide' : '';
+      const isWide = (k === 'ВВОД' || k === '←');
+      const cls = isWide ? ' wide' : '';
       const st = state[k] ? ' ' + state[k] : '';
-      return `<button class="wordle-key${cls}${st}" onclick="wordleKey('${k}')">${k === '⌫' ? '⌫' : k}</button>`;
+      const action = k === 'ВВОД' ? '↵' : k === '←' ? '⌫' : k;
+      const display = k; // show readable label
+      return `<button class="wordle-key${cls}${st}" onclick="wordleKey('${action}')">${display}</button>`;
     }).join('')}</div>`
   ).join('');
 }
@@ -2449,13 +2538,7 @@ function submitWordle() {
     showWordleToast('Нужно ' + wordleLen + ' букв', 'error');
     return;
   }
-  // Accept any word that looks like valid English (all letters) or is in our list
-  const allKnown = new Set([...Object.values(wordleWordsByLen).flat()]);
-  if (!allKnown.has(wordleCurrent) && wordleCurrent.length <= 6) {
-    shakeCurrentRow();
-    showWordleToast('Слово не в списке', 'error');
-    return;
-  }
+  // Принимаем любое слово из N латинских букв — без ограничений по словарю
   wordleAnimating = true;
   wordleGuesses.push(wordleCurrent);
   wordleCurrent = '';
@@ -2518,13 +2601,13 @@ function clearToast() {
 
 // ── WIN OVERLAY ───────────────────────────────
 function showWordleWin(attempts) {
-  const wordData = words.find(x => x.en.toLowerCase() === wordleTarget);
+  const wordData = words.find(x => x.en.toLowerCase() === wordleTarget.toLowerCase());
   const msgs = ['🤯 Гений!','🔥 Невероятно!','⚡ Великолепно!','✨ Отлично!','👏 Хорошо!','😅 Успел!'];
   const emojis = ['🤯','🔥','⚡','✨','👏','😅'];
   document.getElementById('wordle-win-emoji').textContent = emojis[attempts - 1] || '🎉';
   document.getElementById('wordle-win-title').textContent = (msgs[attempts - 1] || '🎉 Угадал!') + ' · ' + attempts + '/6';
   document.getElementById('wordle-win-word').textContent = wordleTarget.toUpperCase();
-  document.getElementById('wordle-win-def').textContent = wordData ? wordData.def : '';
+  document.getElementById('wordle-win-def').textContent = wordData ? wordData.def : '📖 Это слово не в словаре приложения';
   document.getElementById('wordle-win-ru').textContent = wordData ? '🇷🇺 ' + wordData.ru : '';
   const ov = document.getElementById('wordle-win-overlay');
   ov.style.display = 'flex';
@@ -2571,10 +2654,17 @@ function scoreGuess(guess) {
 }
 
 // ── HINT & SPEAK ─────────────────────────────
+// ── HINT & SPEAK ─────────────────────────────
 function wordleHint() {
-  const w = words.find(x => x.en.toLowerCase() === wordleTarget);
   const strip = document.getElementById('wordle-hint-strip');
-  strip.textContent = w ? '🇷🇺 ' + w.ru : 'Перевод: —';
+  // Ищем слово в основном словаре
+  const w = words.find(x => x.en.toLowerCase() === wordleTarget.toLowerCase());
+  if (w) {
+    strip.innerHTML = `<span style="color:var(--accent);">💡</span> <strong style="color:var(--accent3);">${w.ru}</strong> <span style="color:var(--muted);font-size:11px;">— ${w.def}</span>`;
+  } else {
+    // Слово не в словаре — показываем первую букву как подсказку
+    strip.innerHTML = `<span style="color:var(--accent);">💡</span> Первая буква: <strong style="font-family:'Clash Display',sans-serif;font-size:18px;color:var(--accent);">${wordleTarget[0].toUpperCase()}</strong>`;
+  }
 }
 function wordleSpeak() { speak(wordleTarget); }
 
