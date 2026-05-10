@@ -332,6 +332,27 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline
 .modal-speak:hover{border-color:var(--accent3);color:var(--accent3);}
 .modal-learned-btn{background:var(--surface2);border:1px solid var(--border);color:var(--muted);padding:7px 14px;border-radius:9px;cursor:pointer;font-size:12px;font-family:'DM Sans',sans-serif;transition:all 0.2s;}
 .modal-learned-btn.learned{background:rgba(79,255,176,0.1);border-color:rgba(79,255,176,0.3);color:var(--accent);}
+.modal-api-block{margin-top:16px;border-top:1px solid var(--border);padding-top:14px;}
+.modal-api-loading{color:var(--muted);font-size:12px;text-align:center;padding:8px 0;}
+.modal-api-section{margin-bottom:14px;}
+.modal-api-label{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:7px;}
+.modal-tags{display:flex;flex-wrap:wrap;gap:6px;}
+.modal-tag{
+  padding:4px 11px;border-radius:7px;font-size:12px;
+  cursor:pointer;transition:all 0.18s;font-family:'DM Sans',sans-serif;
+  border:1px solid var(--border);
+}
+.modal-tag:hover{transform:translateY(-1px);}
+.modal-tag-syn{
+  background:rgba(79,255,176,0.07);color:var(--accent);
+  border-color:rgba(79,255,176,0.25);
+}
+.modal-tag-syn:hover{background:rgba(79,255,176,0.15);}
+.modal-tag-ant{
+  background:rgba(255,107,107,0.07);color:var(--accent2);
+  border-color:rgba(255,107,107,0.25);
+}
+.modal-tag-ant:hover{background:rgba(255,107,107,0.15);}
 
 /* ── VOCAB ───────────────────────────── */
 .vocab-controls{display:flex;flex-direction:column;align-items:center;gap:10px;margin-bottom:20px;}
@@ -1896,22 +1917,165 @@ function buildVocab() {
     </div>`).join('');
 }
 
+// Кеш для API-ответов
+const dictCache = {};
+
 function openWordModal(i) {
   const w = words[i];
-  document.getElementById('modal-inner').innerHTML = `
+  const modal = document.getElementById('modal-inner');
+
+  // Базовый контент — показываем сразу
+  modal.innerHTML = `
     <button class="modal-close" onclick="document.getElementById('word-modal').classList.remove('open')">✕</button>
     <div class="modal-word">${w.en}</div>
-    <div class="modal-ipa">[${w.tr}]</div>
+    <div class="modal-ipa" id="m-ipa">[${w.tr}]</div>
     <span class="modal-pos">${w.pos}</span>
     <div class="modal-ru">${w.ru}</div>
     <div class="modal-def">${w.def}</div>
     <div class="modal-ex-title">Примеры использования</div>
     ${w.ex.map(e=>`<div class="modal-example"><div class="en">${e.en}</div><div class="ru">${e.ru}</div></div>`).join('')}
-    <button class="modal-speak" onclick="speak('${w.en}')">🔊 Послушать произношение</button>`;
+    <div class="modal-api-block" id="m-api">
+      <div class="modal-api-loading">⏳ Загружаем данные...</div>
+    </div>
+    <div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;">
+      <button class="modal-speak" id="m-speak-btn" onclick="speak('${w.en}')">🔊 Произнести</button>
+    </div>`;
+
   document.getElementById('word-modal').classList.add('open');
   setStat('vocabOpened', getStat('vocabOpened', 0) + 1);
   document.getElementById('vocab-opened-count').textContent = getStat('vocabOpened', 0);
   trackActivity();
+
+  // Загружаем данные из Dictionary API
+  fetchDictData(w.en);
+}
+
+async function fetchDictData(word) {
+  const apiBlock = document.getElementById('m-api');
+  const speakBtn = document.getElementById('m-speak-btn');
+  if (!apiBlock) return;
+
+  // Используем кеш
+  if (dictCache[word]) {
+    renderDictData(dictCache[word], word, apiBlock, speakBtn);
+    return;
+  }
+
+  try {
+    const res = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`);
+    if (!res.ok) throw new Error('not found');
+    const data = await res.json();
+    dictCache[word] = data;
+    renderDictData(data, word, apiBlock, speakBtn);
+  } catch {
+    apiBlock.innerHTML = '';
+  }
+}
+
+function renderDictData(data, word, apiBlock, speakBtn) {
+  if (!apiBlock) return;
+  const entry = data[0];
+
+  // Аудио произношение
+  const audioUrl = entry.phonetics?.find(p => p.audio)?.audio;
+  if (audioUrl && speakBtn) {
+    speakBtn.innerHTML = '🔊 Произнести';
+    speakBtn.onclick = () => {
+      const a = new Audio(audioUrl);
+      a.play().catch(() => speak(word));
+    };
+  }
+
+  // Синонимы и антонимы
+  const syns = [...new Set(entry.meanings?.flatMap(m => m.synonyms || []).slice(0, 6))];
+  const ants = [...new Set(entry.meanings?.flatMap(m => m.antonyms || []).slice(0, 4))];
+
+  // Дополнительные примеры из API
+  const apiExamples = entry.meanings
+    ?.flatMap(m => m.definitions || [])
+    .filter(d => d.example)
+    .slice(0, 2);
+
+  let html = '';
+
+  if (syns.length) {
+    html += `
+      <div class="modal-api-section">
+        <div class="modal-api-label">Синонимы</div>
+        <div class="modal-tags">
+          ${syns.map(s => `<span class="modal-tag modal-tag-syn" onclick="lookupWord('${s}')">${s}</span>`).join('')}
+        </div>
+      </div>`;
+  }
+
+  if (ants.length) {
+    html += `
+      <div class="modal-api-section">
+        <div class="modal-api-label">Антонимы</div>
+        <div class="modal-tags">
+          ${ants.map(a => `<span class="modal-tag modal-tag-ant" onclick="lookupWord('${a}')">${a}</span>`).join('')}
+        </div>
+      </div>`;
+  }
+
+  if (apiExamples?.length) {
+    html += `
+      <div class="modal-api-section">
+        <div class="modal-api-label">Живые примеры</div>
+        ${apiExamples.map(d => `<div class="modal-example"><div class="en" style="font-style:italic;color:var(--muted);">"${d.example}"</div></div>`).join('')}
+      </div>`;
+  }
+
+  apiBlock.innerHTML = html;
+}
+
+// Поиск синонима/антонима в нашем словаре или показ в новом модале
+function lookupWord(word) {
+  const idx = words.findIndex(w => w.en.toLowerCase() === word.toLowerCase());
+  if (idx !== -1) {
+    openWordModal(idx);
+  } else {
+    // Слова нет в словаре — показываем быстрый поиск через API
+    openExternalWord(word);
+  }
+}
+
+async function openExternalWord(word) {
+  const modal = document.getElementById('modal-inner');
+  modal.innerHTML = `
+    <button class="modal-close" onclick="document.getElementById('word-modal').classList.remove('open')">✕</button>
+    <div class="modal-word">${word}</div>
+    <div class="modal-api-block" id="m-api">
+      <div class="modal-api-loading">⏳ Загружаем...</div>
+    </div>
+    <div style="display:flex;gap:8px;margin-top:14px;">
+      <button class="modal-speak" onclick="speak('${word}')">🔊 Произнести</button>
+    </div>`;
+
+  try {
+    const res = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`);
+    if (!res.ok) throw new Error();
+    const data = await res.json();
+    const entry = data[0];
+    const phonetic = entry.phonetic || entry.phonetics?.find(p=>p.text)?.text || '';
+    const meaning = entry.meanings?.[0];
+    const def = meaning?.definitions?.[0]?.definition || '';
+    const example = meaning?.definitions?.[0]?.example || '';
+    const audioUrl = entry.phonetics?.find(p=>p.audio)?.audio;
+
+    document.getElementById('modal-inner').innerHTML = `
+      <button class="modal-close" onclick="document.getElementById('word-modal').classList.remove('open')">✕</button>
+      <div class="modal-word">${word}</div>
+      ${phonetic ? `<div class="modal-ipa">${phonetic}</div>` : ''}
+      ${meaning ? `<span class="modal-pos">${meaning.partOfSpeech}</span>` : ''}
+      <div class="modal-def" style="margin-top:10px;">${def}</div>
+      ${example ? `<div class="modal-example" style="margin-top:8px;"><div class="en" style="font-style:italic;color:var(--muted);">"${example}"</div></div>` : ''}
+      <div style="display:flex;gap:8px;margin-top:14px;">
+        <button class="modal-speak" onclick="${audioUrl ? `new Audio('${audioUrl}').play()` : `speak('${word}')`}">🔊 Произнести</button>
+      </div>`;
+  } catch {
+    document.getElementById('m-api').innerHTML = '<div style="color:var(--muted);font-size:13px;">Слово не найдено в словаре</div>';
+  }
 }
 
 function filterCards(pos, btn) {
