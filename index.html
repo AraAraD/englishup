@@ -3578,7 +3578,7 @@ import { initializeApp }
   from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
 import {
   getAuth, onAuthStateChanged, signOut,
-  signInWithPopup, GoogleAuthProvider,
+  signInWithRedirect, getRedirectResult, GoogleAuthProvider,
   createUserWithEmailAndPassword, signInWithEmailAndPassword,
   updateProfile
 } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
@@ -3603,6 +3603,19 @@ const db   = getFirestore(app);
 
 let currentUser = null;
 let isSyncing   = false;
+
+// ── Handle Google redirect result on page load ────────────────
+// When user returns after Google sign-in redirect, capture the result
+getRedirectResult(auth).then((result) => {
+  if (result?.user) {
+    // Successfully signed in via redirect — onAuthStateChanged handles the rest
+    window.closeAuthModal?.();
+  }
+}).catch((e) => {
+  if (e.code !== 'auth/popup-closed-by-user') {
+    console.warn('Redirect result error:', e.code);
+  }
+});
 
 // ── Firestore helpers ─────────────────────────────────────────
 async function cloudLoad(uid) {
@@ -3761,11 +3774,11 @@ window.authSubmit = async () => {
 window.authGoogle = async () => {
   try {
     const provider = new GoogleAuthProvider();
-    await signInWithPopup(auth, provider);
-    window.closeAuthModal();
+    // redirect — работает везде: file://, GitHub Pages, любой браузер
+    await signInWithRedirect(auth, provider);
+    // страница перезагрузится и вернётся — результат обрабатывается в getRedirectResult выше
   } catch (e) {
-    if (e.code !== 'auth/popup-closed-by-user')
-      showAuthError(firebaseErrMsg(e.code));
+    showAuthError(firebaseErrMsg(e.code));
   }
 };
 
